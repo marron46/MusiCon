@@ -23,8 +23,15 @@ public class Music {//Music情報格納
 		this.music_time = music_time;
 		this.like = like;
 	}
+
 	public Music(String searchText) {
 		this.searchText = searchText;
+	}
+
+	public Music(String title, String artist, int likes) {
+		this.title = title;
+		this.artist = artist;
+		this.like = likes;
 	}
 	
 	public String getTitle() { return title; }

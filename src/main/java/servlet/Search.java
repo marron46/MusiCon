@@ -5,7 +5,7 @@ import java.io.IOException;
 import model.Music;
 import model.logic.SearchResultLogic;
 
-@WebServlet("Search")
+@WebServlet("/Search")
 public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import model.User;
 import model.logic.CreateUserLogic;
 
-@WebServlet("CreateUser")
+@WebServlet("/CreateUser")
 public class CreateUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import model.Music;
 import model.logic.ImportMusicLogic;
 
-@WebServlet("ImportMusic")
+@WebServlet("/ImportMusic")
 public class ImportMusic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
