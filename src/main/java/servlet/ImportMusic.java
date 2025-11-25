@@ -26,12 +26,11 @@ public class ImportMusic extends HttpServlet {
 			throws ServletException, IOException {
 
 		// リクエストパラメータを取得
+		// releaseYearをint型に変換 + 残りの宣言
 		request.setCharacterEncoding("UTF-8");
 		String title = request.getParameter("title");
 		String artist = request.getParameter("artist");
 		String SreleaseYear = request.getParameter("releaseYear");
-		
-		// releaseYearをint型に変換 + 残りの宣言
 		int releaseYear = Integer.parseInt(SreleaseYear);
 		String genre;
 		String lyricist;
