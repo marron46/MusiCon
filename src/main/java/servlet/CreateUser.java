@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import model.User;
+import model.logic.CreateUserLogic;
 
 @WebServlet("CreateUser")
 public class CreateUser extends HttpServlet {
