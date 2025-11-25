@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Time;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -27,10 +28,18 @@ public class ImportMusic extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String title = request.getParameter("title");
 		String artist = request.getParameter("artist");
-		String releaseYear = request.getParameter("releaseYear");
+		String SreleaseYear = request.getParameter("releaseYear");
+		
+		// releaseYearをint型に変換 + 残りの宣言
+		int releaseYear = Integer.parseInt(SreleaseYear);
+		String genre;
+		String lyricist;
+		String composer;
+		int like;
+		Time music_time;
 
 		// 曲インポート処理の実行
-		Music music = new Music(title, artist, releaseYear);
+		Music music = new Music(title, genre, artist, lyricist, composer, releaseYear, like, music_time);
 		ImportMusicLogic logic = new ImportMusicLogic();
 		boolean result = logic.execute(music);
 
