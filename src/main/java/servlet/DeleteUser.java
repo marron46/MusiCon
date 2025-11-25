@@ -13,23 +13,23 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/DeleteUser")
 public class DeleteUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// フォワード
-				RequestDispatcher dispatcher = request.getRequestDispatcher("deleteUser.jsp");
-				dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("deleteUser.jsp");
+		dispatcher.forward(request, response);
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
-		String pass = request.getParameter("pass");
+		String user_name = request.getParameter("user_name");
+		String user_pass = request.getParameter("user_pass");
 
 		// ログイン処理の実行
-		User user = new User(name, pass);
+		User user = new User(user_name, user_pass);
 		DeleteUserLogic logic = new DeleteUserLogic();
 		boolean result = logic.execute(user);
 
@@ -37,7 +37,7 @@ public class DeleteUser extends HttpServlet {
 		if (result) { // ログイン成功時
 			// セッションスコープにユーザーIDを保存
 			HttpSession session = request.getSession();
-			session.setAttribute("name", name);
+			session.setAttribute("user_name", user_name);
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("deleteResult.jsp");
 			dispatcher.forward(request, response);
