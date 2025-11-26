@@ -4,7 +4,7 @@ public class User {//ユーザー情報格納
 	private String user_name;//ユーザー名
 	private String user_pass;//パスワード
 	
-	/*デフォルトコンストラクタ（JavaBeansで必要）
+	/*コンストラクタ（JavaBeansで必要）
     public User() {}*/
 
     // コンストラクタ : フィールド設定
