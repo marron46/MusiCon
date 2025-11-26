@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import model.User;
 import model.logic.LoginUserLogic;
 
@@ -30,7 +29,9 @@ public class LoginUser extends HttpServlet {
 		// リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
 		String user_name = request.getParameter("user_name");
-		String user_pass = request.getParameter("user_pass");
+		String Hr_user_pass = request.getParameter("user_pass");
+		
+		
 
 		// ログイン処理の実行
 		User user = new User(user_name, user_pass);
