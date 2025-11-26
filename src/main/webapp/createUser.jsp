@@ -18,11 +18,7 @@
 		<%-- ページの見出し部分 --%>
 		<h1 class="cUser-title">新規登録</h1>
 
-<<<<<<< HEAD
-		<form action="createResult.jsp" method="post">
-=======
 		<form action="CreateUser" method="post">
->>>>>>> branch 'master' of https://github.com/marron46/MusiCon.git
 			<%-- ユーザー名の入力欄 --%>
 			<label>ユーザー名</label> <input type="text" name="user_name" required>
 
