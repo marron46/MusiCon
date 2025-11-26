@@ -30,15 +30,6 @@ public class ImportMusic extends HttpServlet {
 		String title = request.getParameter("title");
 		String genre = request.getParameter("genre");
 		String artist = request.getParameter("artist");
-
-		String SreleaseYear = request.getParameter("releaseYear");
-		int releaseYear = Integer.parseInt(SreleaseYear);
-		String genre;
-		String lyricist;
-		String composer;
-		int like;
-		int music_time;
-
 		String lyricist = request.getParameter("lyricist");
 		String composer = request.getParameter("composer");
 		String Str_releaseYear = request.getParameter("releaseYear");
