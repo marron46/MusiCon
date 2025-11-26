@@ -7,7 +7,7 @@
 <title>曲の追加</title>
 <%-- cssの連携 --%>
 <link rel="stylesheet"
-	href="${pageContext.request.ContextPath}/css/style.css">
+	href="webapp/css/style.css">
 </head>
 <body>
 	<div class="container">

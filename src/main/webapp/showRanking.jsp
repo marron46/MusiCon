@@ -8,7 +8,7 @@
 
 <%-- cssの連携 --%>
 <link rel="stylesheet"
-	href="${pageContext.request.ContextPath}/css/style.css">
+	href="webapp/css/style.css">
 </head>
 <body>
 	<%-- ページタイトル --%>
@@ -31,7 +31,7 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<li class="rank-item">無記入</li>
+					<li class="rank-item"></li>
 					<li class="rank-item">無記入</li>
 					<li class="rank-item">無記入</li>
 					<li class="rank-item">無記入</li>

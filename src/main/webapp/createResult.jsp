@@ -7,7 +7,7 @@
 <title>ユーザー登録結果</title>
 <%-- cssの連携 --%>
 <link rel="stylesheet"
-	href="${pageContext.request.ContextPath}/css/style.css">
+	href="webapp/css/style.css">
 </head>
 <body>
 	<h1>ユーザー登録結果</h1>

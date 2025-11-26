@@ -7,7 +7,7 @@
 <title>ユーザー削除</title>
 <%-- cssの連携 --%>
 <link rel="stylesheet"
-	href="${pageContext.request.ContextPath}/css/style.css">
+	href="webapp/css/style.css">
 </head>
 <body>
 	<a href="top.jsp" class="top">TOP</a>

@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>ログイン</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet"
-	href="${pageContext.request.ContextPath}/css/style.css">
+ <link rel="stylesheet"
+	href="webapp/css/style.css"> 
 </head>
 <body>
 	<div class="container">

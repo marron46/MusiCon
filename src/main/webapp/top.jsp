@@ -7,7 +7,7 @@
 <title>トップ</title>
 <%-- cssの連携 --%>
 <link rel="stylesheet"
-	href="${pageContext.request.ContextPath}/css/style.css">
+	href="webapp/css/style.css">
 </head>
 <body>
 
@@ -58,8 +58,8 @@
   <input type="submit" value="ログイン"><br>
 
 <script>
-<%--ハンバーガークリックでサイドバー開閉 --%>
-document.getElementById("hamburger").oneclick = function () {
+//ハンバーガークリックでサイドバー開閉
+document.getElementById("hamburger").onclick = function () {
 	document.getElementById("sidebar").classList.toggle("open");
 };
 </script>
