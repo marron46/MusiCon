@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import model.Music;
 import model.logic.ImportMusicLogic;
 
@@ -26,6 +25,7 @@ public class ImportMusic extends HttpServlet {
 			throws ServletException, IOException {
 
 		// リクエストパラメータを取得
+		// releaseYearをint型に変換 + 残りの宣言
 		request.setCharacterEncoding("UTF-8");
 		String title = request.getParameter("title");
 		String genre = request.getParameter("genre");
@@ -40,6 +40,7 @@ public class ImportMusic extends HttpServlet {
 		int releaseYear = Integer.parseInt(Str_releaseYear);
 		int music_time = Integer.parseInt(Str_music_time);
 		int like = Integer.parseInt(Str_like);
+
 
 		// 曲インポート処理の実行
 		Music music = new Music(title,genre,artist,lyricist,composer,releaseYear,music_time,like);
