@@ -28,6 +28,7 @@ public class CreateUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		System.out.println("CreateUser作動");
 		// リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
 		String user_name = request.getParameter("user_name");

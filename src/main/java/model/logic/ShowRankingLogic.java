@@ -2,6 +2,7 @@ package model.logic;
 
 import java.util.List;
 
+import dao.MusicDAO;
 import model.Music;
 
 public class ShowRankingLogic {//ランキングの情報を取得
@@ -13,7 +14,7 @@ public class ShowRankingLogic {//ランキングの情報を取得
 
 		// --- ここで TOP10 に制限 ---
 		if (allList.size() > 10) {
-			return allList.list(0, 10); // リストの10件目までを返す
+			return allList.subList(0, 10); // リストの10件目までを返す
 		}
 		return allList;
 	}
