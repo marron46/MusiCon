@@ -14,7 +14,7 @@
 		<%-- ページの見出し部分 --%>
 		<h1 class="cUser-title">曲の追加</h1>
 
-		<form action="Login" method="post">
+		<form action="top.jsp" method="post">
 			<%-- 曲名の入力欄 --%>
 			<label>曲名</label> <input type="text" name="musicName" required>
 

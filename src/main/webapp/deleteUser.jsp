@@ -14,7 +14,7 @@
 		<%-- ページの見出し部分 --%>
 	<h1 class="dUser-title">アカウント削除</h1>
 
-		<form action="Login" method="post">
+		<form action="deleteResult.jsp" method="post">
 			<%-- ユーザー名の入力欄 --%>
 			<label>ユーザー名</label> <input type="text" name="name" required>
 
