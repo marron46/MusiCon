@@ -1,6 +1,7 @@
 package model.logic;
 
 import dao.UserDAO;
+import model.User;
 
 public class DeleteUserLogic {	
 	

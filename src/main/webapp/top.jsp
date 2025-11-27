@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="main">
-		<form action="Seach.java" method="post">
+		<form action="Seach" method="post">
 			<%-- 検索バー --%>
 			<divclass"search-area"> <img src="無記入" class="無記入">
 			<input type="text" class="searchbox">

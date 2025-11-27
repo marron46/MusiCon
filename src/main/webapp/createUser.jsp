@@ -19,7 +19,7 @@
 		<%-- ページの見出し部分 --%>
 		<h1 class="cUser-title">新規登録</h1>
 
-		<form action="createUser.java" method="post">
+		<form action="CreateUser" method="post">
 			<%-- ユーザー名の入力欄 --%>
 			<label>ユーザー名</label> <input type="text" name="user_name" required>
 

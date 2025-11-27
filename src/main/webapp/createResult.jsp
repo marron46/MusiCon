@@ -6,33 +6,39 @@
 <meta charset="UTF-8">
 <title>ユーザー登録結果</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet"
-	href="webapp/css/style.css">
+<link rel="stylesheet" href="webapp/css/createResult.css">
 </head>
 <body>
-	<h1>ユーザー登録結果</h1>
-	<!-- ページのメインタイトル -->
+	<div class="container">
+		<h1>ユーザー登録結果</h1>
+		<!-- ページのメインタイトル -->
 
-	<% if (user_name != null){ %>
-	<!-- 
+		<%
+		if (user_name != null) {
+		%>
+		<!-- 
       loginUserがnullでない場合（＝ログイン成功時）
       ユーザー名を表示して、メインページへのリンクを出す
     -->
-	<p>ログインに成功しました</p>
-	<p>
-		"<%= user_name %>
-		"さんはじめまして
-	</p>
-	<a href="login.jsp">ログイン画面へ</a>
+		<p>登録に成功しました</p>
+		
+		<p>
+			"<%=user_name%>"さんはじめまして
+		</p>
+		<a href="login.jsp" class="cr-btn">ログイン画面へ</a>
 
-	<% } else { %>
-	<!-- 
+		<%
+		} else {
+		%>
+		<!-- 
       loginUserがnullの場合（＝ログイン失敗時）
       エラーメッセージとトップページへのリンクを表示
     -->
-	<p>ログインに失敗しました</p>
-	<a href="createUser.jsp">ユーザー登録画面へ</a>
-	<% } %>
-
+		<p>登録に失敗しました</p>
+		<a href="createUser.jsp" class="cr-btn">ユーザー登録画面へ</a>
+		<%
+		}
+		%>
+	</div>
 </body>
 </html>

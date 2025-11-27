@@ -65,7 +65,7 @@ public class UserDAO {
 			String pw = user.getUserPass();
 
 			// INSERT文の準備（新規ユーザーをデータベースに登録）
-			String sql = "INSERT INTO USERS(NAME, PASS) VALUES (?, ?)";
+			String sql = "INSERT INTO USERS(USER_NAME, USER_PASS) VALUES (?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setString(1, nm);
