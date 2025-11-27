@@ -26,7 +26,7 @@ public class UserDAO {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// SELECT文の準備（ユーザー名とパスワードでユーザーを確認）
-			String sql = "SELECT * FROM USERS USER_NAME=? AND USER_PASS=?";
+			String sql = "SELECT * FROM USERS WHERE USER_NAME=? AND USER_PASS=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setString(1, nm);
@@ -37,7 +37,7 @@ public class UserDAO {
 
 			// 結果が存在すればユーザーを確認
 			if (rs.next()) {
-				if (rs.getString("PASS").equals(pw) && rs.getString("NAME").equals(nm)) {
+				if (rs.getString("USER_PASS").equals(pw) && rs.getString("USER_NAME").equals(nm)) {
 					System.out.println("Success : UserDAO.executeLogin");
 					return true;
 				}
@@ -99,7 +99,7 @@ public class UserDAO {
 			String pw = user.getUserPass();
 			
 			// UPDATE文の準備（指定したユーザー名またはパスワードでユーザーを削除）
-			String sql = "UPDATE SET IS_DELETED = 1 WHERE USER_NAME=? AND USER_PASS=?";
+			String sql = "UPDATE USERS SET IS_DELETED = 1 WHERE USER_NAME=? AND USER_PASS=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			pStmt.setString(1, nm);
