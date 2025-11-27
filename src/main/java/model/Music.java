@@ -10,10 +10,11 @@ public class Music {//Music情報格納
 	private int music_time;//再生時間
 	private int like;//いいね数
 	private String searchText;//検索情報
+	private String url;//音楽ファイルURL
 	
 	// コンストラクタ : フィールド設定
 	public Music() {}
-	public Music(String title,String genre,String artist,String lyricist,String composer,int releaseYear,int music_time,int like) {
+	public Music(String title,String genre,String artist,String lyricist,String composer,int releaseYear,int music_time,int like,String url) {
 		this.title = title;
 		this.genre = genre;
 		this.artist = artist;
@@ -22,6 +23,8 @@ public class Music {//Music情報格納
 		this.releaseYear = releaseYear;
 		this.music_time = music_time;
 		this.like = like;
+		this.url = url;
+				
 	}
 
 	public Music(String searchText) {
@@ -42,7 +45,8 @@ public class Music {//Music情報格納
 	public int getReleaseYear() { return releaseYear; }
 	public int getMusicTime() { return music_time;}
 	public int getLike() { return like; }
-	public String getsearchText() { return searchText; }
+	public String getSearchText() { return searchText; }
+	public String getUrl() { return url; }
 	
 
 }
