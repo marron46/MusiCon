@@ -26,7 +26,11 @@ public class UserDAO {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// SELECT文の準備（ユーザー名とパスワードでユーザーを確認）
+<<<<<<< HEAD
 			String sql = "SELECT * FROM USERS WHERE USER_NAME=? AND USER_PASS=?";
+=======
+			String sql = "SELECT * FROM USERS USER_NAME=? AND USER_PASS=? AND IS_DELETED=0";
+>>>>>>> branch 'master' of https://github.com/marron46/MusiCon.git
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setString(1, nm);
