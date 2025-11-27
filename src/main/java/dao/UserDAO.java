@@ -26,7 +26,7 @@ public class UserDAO {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// SELECT文の準備（ユーザー名とパスワードでユーザーを確認）
-			String sql = "SELECT * FROM USERS USER_NAME=? AND USER_PASS=?";
+			String sql = "SELECT * FROM USERS USER_NAME=? AND USER_PASS=? AND IS_DELETED=0";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setString(1, nm);
