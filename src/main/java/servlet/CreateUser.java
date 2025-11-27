@@ -51,6 +51,7 @@ public class CreateUser extends HttpServlet {
 			// セッションスコープにユーザーIDを保存
 			HttpSession session = request.getSession();
 			session.setAttribute("user_name", user_name);
+			System.out.println(user_name);
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("createResult.jsp");
 			dispatcher.forward(request, response);

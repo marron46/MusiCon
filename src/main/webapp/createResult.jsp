@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="model.User" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +15,8 @@
 		<h1>ユーザー登録結果</h1>
 		<!-- ページのメインタイトル -->
 		<p>登録に成功しました</p>
-		
-		<p>
-			"<%=user_name%>"さんはじめまして
+
+		<p><%=(String)session.getAttribute("user_name")%>さんはじめまして
 		</p>
 		<a href="login.jsp" class="log-btn">ログイン画面へ</a>
 
