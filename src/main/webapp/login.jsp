@@ -15,10 +15,10 @@
 
 		<form action="LoginUser" method="post">
 			<%-- ユーザー名の入力欄 --%>
-			<label>ユーザー名</label> <input type="text" name="name" required>
+			<label>ユーザー名</label> <input type="text" name="user_name" required>
 
 			<%-- パスワードの入力欄 --%>
-			<label>パスワード</label><input type="password" name="pass" required>
+			<label>パスワード</label><input type="password" name="user_pass" required>
 
 			<%-- ログインボタン --%>
 			<button type="submit">ログイン</button>
