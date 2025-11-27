@@ -13,20 +13,7 @@ public class SearchResultLogic {
 		
 		// Musicから検索を取得
 		String str_searchWord = music.getSearchText();
-		
-		dao.searchMusic(str_searchWord);
-		
-		return allList;
+
+		return dao.searchMusic(str_searchWord);
 		}
 }
-
-/*public List<Music> getRanking() {
-	// DAO でランキング全件取得
-	List<Music> allList = dao.getRanking();
-
-	// --- ここで TOP10 に制限 ---
-	if (allList.size() > 10) {
-		return allList.subList(0, 10); // リストの10件目までを返す
-	}
-	return allList;
-}*/

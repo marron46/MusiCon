@@ -1,6 +1,7 @@
 package model.logic;
 
 import dao.MusicDAO;
+import model.Music;
 
 public class ImportMusicLogic {
 	
@@ -11,7 +12,7 @@ public class ImportMusicLogic {
 			MusicDAO dao = new MusicDAO();
 			
 			//DAOメソッド呼び出し・追加実行
-			if(dao./*メソッド名*/(music)) { 
+			if(dao.importMusic(music)) { 
 				// 追加成功
 				return true;
 			}		

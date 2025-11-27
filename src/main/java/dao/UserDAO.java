@@ -94,11 +94,17 @@ public class UserDAO {
 
 		// データベース接続
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			// DELETE文の準備（指定したユーザー名またはパスワードでユーザーを削除）
-			String sql = "DELETE FROM USERS WHERE NAME=? AND PASS=?";
+			
+			String nm = user.getUserName();
+			String pw = user.getUserPass();
+			
+			// UPDATE文の準備（指定したユーザー名またはパスワードでユーザーを削除）
+			String sql = "UPDATE SET IS_DELETED = 1 WHERE USER_NAME=? AND USER_PASS=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-			// DELETE文を実行
+			
+			pStmt.setString(1, nm);
+			pStmt.setString(2, pw);
+			// UPDATE文を実行
 			int delete = pStmt.executeUpdate();
 
 			// 削除成功か確認
