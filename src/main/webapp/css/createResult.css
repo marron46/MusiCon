@@ -1,0 +1,20 @@
+@charset "UTF-8";
+body{
+	margin: 0;
+	padding: 0;
+	background-color: #bfbfbf;  /*背景カラーをグレーに*/
+	font-family: sans-serif;
+}
+container{
+	width: 400px;
+	margin: 120px auto;
+	text-align: center;
+}
+cr-btn{
+	width: 120px;
+	height: 40px;
+	font-size: 18px;
+	cursor: pointer;
+	background-color: #ffffff;
+	border: 2px solid #000;
+}
