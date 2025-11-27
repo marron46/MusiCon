@@ -154,7 +154,7 @@ public class MusicDAO {
 		} catch (SQLException e) {
 			e.printStackTrace(); // SQLエラーを表示
 			System.out.println("Error : UserDAO.registerUser");
-			return false; // 失敗
+			return false; // 失敗lll
 		}
 	}
 }
