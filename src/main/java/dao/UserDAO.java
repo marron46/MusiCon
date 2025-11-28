@@ -27,7 +27,7 @@ public class UserDAO {
 
 			// SELECT文の準備（ユーザー名とパスワードでユーザーを確認）
 
-			String sql = "SELECT * FROM USERS USER_NAME=? AND USER_PASS=? AND IS_DELETED=0";
+			String sql = "SELECT * FROM USERS WHERE USER_NAME=? AND USER_PASS=? AND IS_DELETED=0";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -38,7 +38,7 @@ public class UserDAO {
 			ResultSet rs = pStmt.executeQuery();
 
 			// 結果が存在すればユーザーを確認
-			if (rs.next()) {
+			while (rs.next()) {
 				if (rs.getString("USER_PASS").equals(pw) && rs.getString("USER_NAME").equals(nm)) {
 					System.out.println("Success : UserDAO.executeLogin");
 					return true;

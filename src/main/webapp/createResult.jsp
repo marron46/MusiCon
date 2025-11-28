@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>ユーザー登録結果</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="webapp/css/createResult.css">
+<link rel="stylesheet" href="/css/createResult.css">
 </head>
 <body>
 	<div class="container">
