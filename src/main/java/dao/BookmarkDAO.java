@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Music;
+import model.Bookmark;
 import model.User;
 
 public class BookmarkDAO {
@@ -18,8 +18,8 @@ public class BookmarkDAO {
 		private final String DB_USER = "root"; // データベースユーザー名
 		private final String DB_PASS = ""; // データベースパスワード
 		
-	public List<Music> getBookmark(User user){
-		List<Music> bookmarkList = new ArrayList<>();
+	public List<Bookmark> getBookmark(User user){
+		List<Bookmark> bookmarkList = new ArrayList<>();
 		// JDBCドライバを読み込む
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
