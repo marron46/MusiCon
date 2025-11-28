@@ -103,7 +103,7 @@ public class MusicDAO {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// INSERT文の準備（新規ユーザーをデータベースに登録）
-			String sql = "INSERT INTO USERS(TITLE, GENRE, ARTIST, LYRICIST,"
+			String sql = "INSERT INTO MUSICS(TITLE, GENRE, ARTIST, LYRICIST,"
 					+ "COMPOSER, RELEASE_YMD, MUSIC_TIME, URL) VALUES ("
 					+ "?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);

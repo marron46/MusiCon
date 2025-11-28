@@ -32,20 +32,20 @@ public class ImportMusic extends HttpServlet {
 		String artist = request.getParameter("artist");
 		String lyricist = request.getParameter("lyricist");
 		String composer = request.getParameter("composer");
-		String Str_releaseYear = request.getParameter("releaseYear");
+		String Str_releaseYMD = request.getParameter("releaseYMD");
 		String Str_music_time = request.getParameter("music_time");
 		String Str_like = request.getParameter("like");
+		String url = request.getParameter("url");
 		
 		// releaseYearをint型に変換 + 残りの宣言
-		int releaseYear = Integer.parseInt(Str_releaseYear);
+		int releaseYMD = Integer.parseInt(Str_releaseYMD);
 		int music_time = Integer.parseInt(Str_music_time);
-		int like = Integer.parseInt(Str_like);
-
 
 		// 曲インポート処理の実行
-		Music music = new Music(title,genre,artist,lyricist,composer,releaseYear,music_time,like);
+		Music music = new Music(title,genre,artist,composer,lyricist,releaseYMD,music_time,url);
 		ImportMusicLogic logic = new ImportMusicLogic();
 		boolean result = logic.execute(music);
+		System.out.println(music);
 
 		// 曲インポート処理の成否によって処理を分岐
 		if (result) { // 曲インポート成功時
@@ -59,7 +59,7 @@ public class ImportMusic extends HttpServlet {
 		} else { // 曲インポート失敗時
 			// リダイレクト
 			response.sendRedirect("ImportMusic");
-			System.out.print("ろぐいんできない");
+			System.out.print("曲入らない");
 		}
 	}
 }
