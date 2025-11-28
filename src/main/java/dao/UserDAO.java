@@ -14,6 +14,7 @@ public class UserDAO {
 	private final String DB_USER = "root";
 	private final String DB_PASS = "";
 
+	// ログインを実行するメソッド
 	public boolean executeLogin(String nm, String pw) {
 		// JDBCドライバを読み込む
 		try {
@@ -52,6 +53,7 @@ public class UserDAO {
 		return false; // ユーザー確認失敗
 	}
 
+	// ユーザーをデータベースに登録するメソッド
 	public boolean registerUser(User user) {
 		// JDBCドライバを読み込む
 		try {
@@ -86,6 +88,7 @@ public class UserDAO {
 		}
 	}
 
+	// データベースからユーザーを見た目上削除するメソッド
 	public boolean deleteUser(User user) {
 		// JDBCドライバを読み込む
 		try {
