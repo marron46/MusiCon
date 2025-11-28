@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="model.User" %>
+<%@ page import="model.User"%>
 
 <!DOCTYPE html>
 <html>
@@ -12,14 +12,16 @@
 </head>
 <body>
 	<div class="container">
-		<h1>ユーザー登録結果</h1>
 		<!-- ページのメインタイトル -->
-		<p>登録に成功しました</p>
+		<div class="message">
+			<div class="greeting">
+				<h1>登録に成功しました</h1>
 
-		<p><%=(String)session.getAttribute("user_name")%>さんはじめまして
-		</p>
-		<a href="login.jsp" class="log-btn">ログイン画面へ</a>
-
+				<h2><%=(String) session.getAttribute("user_name")%>さんはじめまして
+				</h2>
+			</div>
+			<a href="login.jsp" class="log-btn">ログイン画面へ</a>
+		</div>
 	</div>
 </body>
 </html>

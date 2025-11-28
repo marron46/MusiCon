@@ -1,20 +1,45 @@
 @charset "UTF-8";
 body{
+	background-color: #A997C6;  /*背景カラーを薄紫に*/
+	min-height: 100vh;
 	margin: 0;
-	padding: 0;
-	background-color: #A997C6;  /*背景カラーをグレーに*/
-	font-family: sans-serif;
+	font-family: Arial, sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .container{
-	width: 400px;
-	margin: 120px auto;
+	background-color: #ffffff;
+	padding: 40px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0,1);
+	width: 700px;
 	text-align: center;
 }
+.message{
+	margin-bottom: 30px;
+}
+.greeting{
+	font-size: 1.5em;
+	color: #555555;
+	line-height: 1.5;
+	font-weight: normal;
+}
 .log-btn{
-	width: 120px;
-	height: 40px;
-	font-size: 18px;
+	display: block;
+	margin: 0 auto;
+	width: 80%;
+	padding: 15px 0;
+	margin-top: 20px;
+	background-color: #A997C6;
+	color: white;
+	text-decoration: none;
+	border: none;
+	border-radius: 5px;
+	font-size: 1.1em;
 	cursor: pointer;
-	background-color: #ffffff;
-	border: 2px solid #000;
+	transition: background-color 0.3s;
+	text-align: center;
+}
+.log-btn:hover{
+	background-color: #8848A8
 }
