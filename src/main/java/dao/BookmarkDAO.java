@@ -93,15 +93,21 @@ public class BookmarkDAO {
 			pStmt1.setString(1, user.getUserName());
 			ResultSet rs1 = pStmt1.executeQuery();
 			int int_userid = rs1.getInt("USER_ID");
-			
-			
+
+			// Musicテーブルで音楽名から音楽IDを取得
+			String sql_get_musicid = "SELECT MUSIC_ID FROM USERS WHERE TITLE=?";
+			PreparedStatement pStmt2 = conn.prepareStatement(sql_get_musicid);
+			pStmt2.setString(1, music.getTitle());
+			ResultSet rs2 = pStmt2.executeQuery();
+			int int_musicid = rs2.getInt("MUSIC_ID");
+
 			// INSERT文の準備（新規ユーザーをデータベースに登録）
 			String sql = "INSERT INTO BOOKMARKS(B_USER, B_MUSIC) VALUES (?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setInt(1, int_userid);
+			pStmt.setInt(2, int_musicid);
 			
-
 			// INSERT文を実行
 			int result = pStmt.executeUpdate();
 
