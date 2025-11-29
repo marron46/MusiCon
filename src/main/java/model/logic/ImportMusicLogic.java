@@ -1,7 +1,6 @@
 package model.logic;
 
 import dao.MusicDAO;
-import model.Music;
 
 public class ImportMusicLogic {
 
@@ -9,7 +8,7 @@ public class ImportMusicLogic {
 	MusicDAO dao = new MusicDAO();
 
 	//曲を追加
-	public boolean execute(Music music) {
+	/*public boolean execute(Music music) {
 
 		//DAOメソッド呼び出し・追加実行
 		if (dao.importMusic(music)) {
@@ -18,7 +17,7 @@ public class ImportMusicLogic {
 		}
 		// 追加失敗
 		return false;
-	}
+	}*/
 
 	//
 	public void addMusic(String title,String genre,String artist,String lyricist,String composer,int releaseYMD,int music_time,int like,String dbFilePath) {

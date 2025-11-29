@@ -9,10 +9,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
-import model.Music;
 import model.logic.ImportMusicLogic;
 
 @WebServlet("/ImportMusic")
@@ -52,10 +50,12 @@ public class ImportMusic extends HttpServlet {
 
 
 		// 曲インポート処理の実行
-		Music music = new Music(title,genre,artist,composer,lyricist,releaseYMD,music_time);
+		/*Music music = new Music(title,genre,artist,composer,lyricist,releaseYMD,music_time);
 		ImportMusicLogic logic = new ImportMusicLogic();
 		boolean result = logic.execute(music);
-		System.out.println(music);
+		System.out.println(music);*/
+        
+        ImportMusicLogic logic = new ImportMusicLogic();
 		
 		// ファイル名取得
 		String fileName = url.getSubmittedFileName();
@@ -69,9 +69,13 @@ public class ImportMusic extends HttpServlet {
 		
 		// DAO → DB登録
         logic.addMusic(title, genre, artist, lyricist, composer, releaseYMD, music_time, like, dbFilePath);
+        
+     // フォワード
+     			RequestDispatcher dispatcher = request.getRequestDispatcher("PlayMusic");
+     			dispatcher.forward(request, response);
 		
 		// 曲インポート処理の成否によって処理を分岐
-		if (result) { // 曲インポート成功時
+		/*if (result) { // 曲インポート成功時
 			// セッションスコープに曲タイトルを保存
 			HttpSession session = request.getSession();
 			session.setAttribute("title", title);
@@ -83,6 +87,6 @@ public class ImportMusic extends HttpServlet {
 			// リダイレクト
 			response.sendRedirect("ImportMusic");
 			System.out.print("曲入らない");
-		}
+		}*/
 	}
 }
