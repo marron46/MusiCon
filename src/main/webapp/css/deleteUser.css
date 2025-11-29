@@ -9,22 +9,26 @@ body {
     display: flex; /* 中央配置のためflex使用 */
     justify-content: center; /* 水平方向中央寄せ */
     align-items: center; /* 垂直方向中央寄せ */
-}
+	}
 
 /* 中央の白いフォーム枠 */
 .container {
     background-color: #ffffff; /* 白背景 */
     width: 400px; /* 横幅 */
-    padding: 40px; /* 内側余白 上・左右・下 */
-    box-shadow: 0 4 12px rgba(0,0,0,0.15); /* ふわっとした影 */
+    padding: 30px 40px 60px; /* 内側余白 上・左右・下 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* ふわっとした影 */
     text-align: center; /* 文字中央寄せ */
-}
-
-/* 見出し（新規登録） */
-.cUser-title {
-    font-size: 48px; /* 大きめのタイトル文字 */
-    margin-bottom: 30px; /* 下の余白 */
-}
+	min-height: 550px;
+	}
+.form-area{
+	margin-top: 60px;
+	}
+/* 見出し（新規登録）*/
+.dUser-title {
+    font-size: 42px; /* 大きめのタイトル文字 */
+	margin-top: 0;
+    margin-bottom: 50px; /* 下の余白 */
+	}
 /* テキスト入力欄（ユーザ名・パスワード） */
 input[type="text"],
 input[type="password"] {
@@ -35,15 +39,15 @@ input[type="password"] {
     padding: 5px 10px; /* 内側余白 */
     border: 2px solid #333; /* 黒い枠線 */
     border-radius: 4px; /* 角丸 */
-}
+	}
 
 /* ラベル（ユーザー名 / パスワード） */
 label {
     font-size: 20px; /* 文字サイズ */
     font-weight: bold; /* 太字 */
-}
+	}
 
-/* 登録ボタン */
+/* 削除ボタン */
 .submit-btn {
     display: block;
     margin: 0 auto; /* 中央寄せ */
@@ -56,10 +60,10 @@ label {
     border-radius: 5px; /* 角丸 */
     font-size: 20px; /* 文字サイズ */
     cursor: pointer; /* カーソルを指マークに */
-}
+	}
 .submit-btn:hover {
     background-color: #8848A8; /* ホバー時の濃い紫 */
-}
+	}
 
 /* TOP へ戻るボタン */
 .reverse {
@@ -71,11 +75,11 @@ label {
     border-radius: 4px; /* 角丸 */
     box-shadow: 0 0 5px rgba(0,0,0,0.1); /* ほんのり影 */
     font-weight: bold; /* 太字 */
-}
+	}
 
 /* 「TOPへ戻る」リンク */
 .reverse a {
     color: black; /* 文字色 */
     text-decoration: none; /* 下線なし */
     font-size: 24px; /* 文字サイズ */
-}
+	}

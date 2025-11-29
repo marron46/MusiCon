@@ -1,45 +1,58 @@
 @charset "UTF-8";
+
+/* ページ全体のスタイル */
 body{
-	background-color: #A997C6;  /*背景カラーを薄紫に*/
-	min-height: 100vh;
-	margin: 0;
-	font-family: Arial, sans-serif;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+	background-color: #A997C6;  /* 背景カラーを薄紫に */
+	min-height: 100vh;  /* 画面全体の高さを最低確保 */
+	margin: 0;  /* 余白をリセット */
+	font-family: Arial, sans-serif;  /* フォント指定 */
+	display: flex;  /* 中央寄せのためにflexbox使用 */
+	justify-content: center;  /* 水平方向の中央寄せ */
+	align-items: center;  /* 垂直方向の中央寄せ */
+	}
+
+/* メインコンテナ */
 .container{
-	background-color: #ffffff;
-	padding: 40px;
-	box-shadow: 0 4px 12px rgba(0,0,0,0,1);
-	width: 700px;
-	text-align: center;
-}
+	background-color: #ffffff;  /* 中央ボックスの背景色（白） */
+	padding: 60px 50px 80px;  /* 内側余白 */
+	box-shadow: 0 4px 12px rgba(0,0,0,0.1);  /* ボックスの影 */
+	width: 450px;  /* 横幅固定 */
+	margin: 60px auto;
+	text-align: center;  /* テキスト中央寄せ */
+	}
+
+/* メッセージ部分の余白 */
 .message{
 	margin-bottom: 30px;
-}
+	}
+
+/* あいさつ文のスタイル */
 .greeting{
-	font-size: 1.5em;
-	color: #555555;
-	line-height: 1.5;
-	font-weight: normal;
-}
+	font-size: 1.5em;  /* 文字サイズ */
+	color: #555555;  /* 文字色 */
+	line-height: 1.5;  /* 行間 */
+	font-weight: normal;  /* 標準の太さ */
+	}
+
+/* ボタンの基本スタイル */
 .log-btn{
-	display: block;
-	margin: 0 auto;
-	width: 80%;
-	padding: 15px 0;
-	margin-top: 20px;
-	background-color: #A997C6;
-	color: white;
-	text-decoration: none;
-	border: none;
-	border-radius: 5px;
-	font-size: 1.1em;
-	cursor: pointer;
-	transition: background-color 0.3s;
-	text-align: center;
-}
+	display: block;  /* ブロック要素にして幅指定を有効化 */
+	margin: 0 auto;  /* 中央寄せ */
+	width: 80%;  /* ボタン幅 */
+	padding: 15px 0;  /* 上下の内側余白 */
+	margin-top: 20px;  /* 上の余白 */
+	background-color: #A997C6;  /* ボタン色 */
+	color: white;  /* 文字色 */
+	text-decoration: none;  /* 下線なし */
+	border: none;  /* 枠線なし */
+	border-radius: 5px;  /* 角丸 */
+	font-size: 1.1em;  /* 文字サイズ */
+	cursor: pointer;  /* カーソルを指マークに */
+	transition: background-color 0.3s;  /* ホバー時のアニメーション */
+	text-align: center;  /* 文字中央寄せ */
+	}
+
+/* マウスホバー時の色変化 */
 .log-btn:hover{
-	background-color: #8848A8
-}
+	background-color: #8848A8;
+	}
