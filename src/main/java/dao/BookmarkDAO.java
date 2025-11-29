@@ -76,6 +76,7 @@ public class BookmarkDAO {
 		return bookmarkList; // 全てのbookmarkListを返す
 	}
 
+	// ユーザ名からユーザID、音楽名から音楽IDを検索しブックマークとして保存（仮）
 	public boolean registerBookmark(User user, Music music) {
 		// JDBCドライバを読み込む
 		try {
@@ -107,7 +108,7 @@ public class BookmarkDAO {
 
 			pStmt.setInt(1, int_userid);
 			pStmt.setInt(2, int_musicid);
-			
+
 			// INSERT文を実行
 			int result = pStmt.executeUpdate();
 
