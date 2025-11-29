@@ -6,28 +6,34 @@
 <meta charset="UTF-8">
 <title>トップ</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="webapp/css/style.css">
+<link rel="stylesheet" href="css/top.css">
 </head>
 <body>
+	<%-- チェックボックス(非表示) --%>
+	<input type="checkbox" id="menu-check" class="menu-check">
 
-
-	<%-- ハンバーガーリスト --%>
-	<div id="hamburger" class="hamburger">☰</div>
-
-	<%-- サイドバー --%>
-	<div id="sidebar" class="sidebar"></div>
-	<a href="myBookmark.jsp" class="menu">マイページ</a>
-	<a href="showRanking.jsp" class="menu">ランキング</a>
-	<a href="importMusic.jsp" class="menu">曲追加</a>
-	<a>ログアウト</a>
-	<a href="deleteUser.jsp" class="menu">アカウント削除</a>
-	</div>
+	<%-- ハンバーガーアイコン --%>
+	<label for="menu-check" class="hamburger">
+		<div class="line"></div>
+		<div class="line"></div>
+		<div class="line"></div>
+	</label>
+	<%-- メニュー --%>
+	<nav class="menu">
+		<ul>
+			<li><a href="myBookmark.jsp" class="menu">マイページ</a></li>
+			<li><a href="showRanking.jsp" class="menu">ランキング</a></li>
+			<li><a href="importMusic.jsp" class="menu">曲追加</a></li>
+			<li><a>ログアウト</a></li>
+			<li><a href="deleteUser.jsp" class="menu">アカウント削除</a></li>
+		</ul>
+	</nav>
 
 	<div class="main">
 		<form action="Seach" method="post">
 			<%-- 検索バー --%>
-			<divclass"search-area"> <img src="無記入" class="無記入">
-			<input type="text" class="searchbox">
+			<div class="search-area"> <img src="無記入" class="無記入">
+			<input type="text" class="searchbox" placeholder="検索">
 	</div>
 	</form>
 
@@ -51,12 +57,5 @@
 			</c:otherwise>
 		</c:choose>
 	</ul>
-
-	<script>
-		//ハンバーガークリックでサイドバー開閉
-		document.getElementById("hamburger").onclick = function() {
-			document.getElementById("sidebar").classList.toggle("open");
-		};
-	</script>
 </body>
 </html>

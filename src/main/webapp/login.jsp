@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>ログイン</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="webapp/css/style.css">
+<link rel="stylesheet" href="css/login.css">
 </head>
 <body>
 	<div class="container">
@@ -15,13 +15,16 @@
 
 		<form action="LoginUser" method="post">
 			<%-- ユーザー名の入力欄 --%>
-			<label>ユーザー名</label> <input type="text" name="user_name" required>
+			<%-- <label>ユーザー名</label><br>--%> <input type="text" name="user_name" placeholder="ユーザー名"
+				required><br>
 
 			<%-- パスワードの入力欄 --%>
-			<label>パスワード</label><input type="password" name="user_pass" required>
+			<%-- <label>パスワード</label><br>--%> <input type="password" name="user_pass" placeholder="パスワード"
+				required><br>
 
 			<%-- ログインボタン --%>
-			<button type="submit">ログイン</button>
+			<button type="submit" class="login-btn">ログイン</button>
+			<br>
 
 			<!-- 新規登録ページへのリンク -->
 			<a href="createUser.jsp">新規登録はこちら</a>

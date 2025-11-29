@@ -172,7 +172,7 @@ public class MusicDAO {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// SELECT文の準備（1曲のデータの取得）
-			String sql = "SELECT ID, TITLE, LIKE, URL FROM music WHERE id = ?";
+			String sql = "SELECT ID, TITLE, LIKE, URL FROM musics WHERE id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SELECT文の実行
@@ -181,10 +181,11 @@ public class MusicDAO {
 			
 			if (rs.next()) {
 				music = new Music(
-						rs.getInt("ID"),
-						rs.getString("TITLE"),
-						rs.getInt("LIKE"),
-						rs.getString("URL"));
+					rs.getInt("ID"),
+					rs.getString("TITLE"),
+					rs.getInt("LIKE"),
+					rs.getString("URL")
+				);
 			}
 			return music;
 

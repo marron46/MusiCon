@@ -55,11 +55,11 @@ public class CreateUser extends HttpServlet {
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("createResult.jsp");
 			dispatcher.forward(request, response);
-			System.out.print("でけた！");
+			System.out.println("でけた！");
 		} else { // ログイン失敗時
 			// リダイレクト
 			response.sendRedirect("CreateUser");
-			System.out.print("ろぐいんできない");
+			System.out.println("ろぐいんできない");
 		}
 	}
 

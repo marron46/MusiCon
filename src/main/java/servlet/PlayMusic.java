@@ -38,7 +38,7 @@ public class PlayMusic extends HttpServlet {
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("playMusic.jsp");
 			dispatcher.forward(request, response);
-			System.out.print("曲とばすことはでけた！");
+			System.out.println("曲とばすことはでけた！");
 		}
 
 	}
