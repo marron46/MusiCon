@@ -26,7 +26,7 @@ public class ImportMusic extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("ImportMusic.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("importMusic.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -78,7 +78,7 @@ public class ImportMusic extends HttpServlet {
 		logic.addMusic(title, genre, artist, lyricist, composer, releaseYMD, music_time, dbFilePath);
 
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("PlayMusic");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");// のちにフォワード先をPlayMusicのservletに変更
 		dispatcher.forward(request, response);
 
 		// 曲インポート処理の成否によって処理を分岐
