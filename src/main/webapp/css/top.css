@@ -28,7 +28,7 @@ body {
 	transition: 0.3s;
 	border-radius: 3px;
 	}
-/* クリックして開いた時の線の変形（×にする） */
+/* クリックして開いた時の線の変形 */
 #menu-check:checked + .hamburger .line:nth-child(1) {
 	transform: translateY(11px) rotate(45deg);
 	}
@@ -82,7 +82,7 @@ body {
 	}
 
 	.searchbox {
-	    width: 300px;
+	    width: 900px;
 	    height: 40px;
 	    font-size: 18px;
 	    padding: 5px 10px;
