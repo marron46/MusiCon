@@ -6,46 +6,32 @@
 <meta charset="UTF-8">
 <title>曲の追加</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet"
-	href="webapp/css/style.css">
+<link rel="stylesheet" href="webapp/css/style.css">
 </head>
 <body>
-	<div class="container">
-	<a href="top.jsp" class="top">TOP</a>
-		<%-- ページの見出し部分 --%>
-		<h1 class="cUser-title">曲の追加</h1>
+	<h1>音楽アップロード</h1>
 
-		<form action="ImportMusic" method="post">
-			<%-- 曲名の入力欄 --%>
-			<label>曲名</label> <input type="text" name="title" required>
+	<!-- enctype="multipart/form-data" が重要。これを付けないとファイルがサーバーに送れない。 -->
+	<form action="ImportMusic" method="post"
+		enctype="multipart/form-data">
 
-			<%-- アーティストの入力欄 --%>
-			<label>アーティスト</label><input type="text" name="artist"
-				required>
-				
-			<%-- ジャンルの入力欄 --%>
-			<label>ジャンル</label><input type="text" name="genre"
-				required>
-				
-			<%-- リリース日の入力欄 --%>
-			<label>リリース日</label><input type="text" name="releaseYMD"
-				required>
-				
-			<%-- 作詞者の入力欄 --%>
-			<label>作詞者</label><input type="text" name="lyricist"
-				required>
-				
-			<%-- 作曲者の入力欄 --%>
-			<label>作曲者</label><input type="text" name="composer"
-				required>
-				
-			<%-- 再生時間の入力欄 --%>
-			<label>再生時間</label><input type="text" name="music_time"
-				required>
-				
-			<%-- 追加ボタン --%>
-			<button type="submit">追加</button>
-		</form>
-	</div>
+		<!-- タイトル入力欄（DBのtitleに入る） -->
+		タイトル：<br> <input type="text" name="title" required><br>
+		<br>
+
+		<!-- 音楽ファイル選択欄（mp3などの音声ファイル） -->
+		音楽ファイル：<br>
+		<!-- accept="audio/*" は音声ファイルだけ選べるようにする -->
+		<input type="file" name="file" accept="audio/*" required><br>
+		<br>
+
+		<!-- 送信ボタン。押すとサーブレットにデータが送られる -->
+		<input type="submit" value="アップロード">
+	</form>
+
+	<br>
+
+	<!-- topページへ戻るリンク -->
+	<a href="PlayMusic">← top画面に戻る</a>
 </body>
 </html>
