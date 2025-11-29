@@ -1,120 +1,183 @@
+/* ===============================
+   文字コード設定（CSS読み込み時に使用）
+   =============================== */
+
 @charset "UTF-8";
+
+/* ===============================
+   body 全体のスタイル
+   - 背景を薄紫色にする
+   - 画面の高さを100%確保
+   - 余白なし
+   - 全体フォント設定
+   - 中央揃えのために flex を使用
+   =============================== */
+
 body {
-    background-color: #A997C6; /* 背景色：薄紫 */
-    min-height: 100vh; /* 画面全体の高さを確保 */
-    margin: 0; /* 余白なし */
-    font-family: Arial, sans-serif; /* 全体フォント */
-    display: flex; /* 中央配置のためflex使用 */
-    justify-content: center; /* 水平方向中央寄せ */
-    align-items: center; /* 垂直方向中央寄せ */
-	}
-	/* チェックボックス非表示 */
-	#menu-check {
-	    display: none;
-	}
+    background-color: #A997C6;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-	/* ハンバーガーアイコン */
-	.hamburger {
-	    width: 40px;
-	    height: 30px;
-	    position: fixed;
-	    top: 20px;
-	    left: 20px;
-	    cursor: pointer;
-	    z-index: 1001;
-	}
-	.hamburger .line {
-	    width: 100%;
-	    height: 5px;
-	    background: #333;
-	    margin: 6px 0;
-	    transition: 0.3s;
-	    border-radius: 3px;
-	}
+/* ===============================
+   チェックボックスを非表示にする
+   （メニュー開閉に使うトリガー）
+   =============================== */
+#menu-check {
+    display: none;
+}
 
-	/* クリックで × に変形 */
+/* ===============================
+   ハンバーガーアイコン
+   - 3本線を固定位置に配置
+   - クリックできるようカーソル変更
+   =============================== */
+   .hamburger {
+       position: fixed;
+       top: 20px;
+       left: 20px;
+       width: 60px;       /* 1.5倍 */
+       height: 45px;      /* 1.5倍 */
+       padding: 0;     /* 四角背景の余白 */
+       background: rgba(255,255,255,0.75);
+       cursor: pointer;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;     /* 中央に寄せる */                   /* 明確な間隔指定 */
+       align-items: center;
+       transition: transform .2s, background .2s, box-shadow .2s;
+       z-index: 1001;
+   }
+
+   /* ホバー時 */
+   .hamburger:hover {
+       transform: scale(1.08);
+       background: rgba(255,255,255,1);
+       box-shadow: 0 0 10px rgba(0,0,0,0.2); /* 押せる感 */
+   }
+
+   .hamburger .line {
+       width: 35px;
+       height: 5px;
+       background: #333;
+       border-radius: 3px;
+	   margin: 4px 0;
+       transition: 0.3s;
+   }
+
+   /* ===============================
+      正しく中心で × になる位置に調整
+      =============================== */
+	#menu-check:checked + .hamburger .line {
+	      height: 4px;
+	  }
 	#menu-check:checked + .hamburger .line:nth-child(1) {
-	    transform: translateY(11px) rotate(45deg);
-	}
+       transform: translateY(12px) rotate(45deg);
+   }
+
 	#menu-check:checked + .hamburger .line:nth-child(2) {
-	    opacity: 0;
-	}
+       opacity: 0;
+   }
+
 	#menu-check:checked + .hamburger .line:nth-child(3) {
-	    transform: translateY(-11px) rotate(-45deg);
-	}
+       transform: translateY(-12px) rotate(-45deg);
+   }
 
-	/* サイドメニュー */
-	.side-menu {
-	    position: fixed;
-	    top: 0;
-	    left: -260px;
-	    width: 260px;
-	    height: 100%;
-	    background: #ffffff;
-	    transition: 0.4s;
-	    padding-top: 80px;
-	    z-index: 1000;
-	}
+/* ===============================
+   サイドメニュー
+   - 左からスライドしてくるメニュー
+   - 初期位置は画面外（left: -260px）
+   =============================== */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #ffffff;
+    transition: 0.4s;
+    padding-top: 80px;
+    z-index: 1000;
+}
 
-	/* メニューが開いたら */
-	#menu-check:checked ~ .side-menu {
-	    left: 0;
-	}
+/* ===============================
+   チェックが入ったらメニューを表示
+   =============================== */
+#menu-check:checked ~ .side-menu {
+    left: 0;
+}
 
-	/* 半透明背景オーバーレイ */
-	.overlay {
-	    position: fixed;
-	    top: 0;
-	    left: 0;
-	    width: 100%;
-	    height: 100%;
-	    background: rgba(0, 0, 0, 0.5);
-	    opacity: 0;
-	    pointer-events: none;
-	    transition: 0.3s;
-	    z-index: 900;
-	}
-	#menu-check:checked ~ .overlay {
-	    opacity: 1;
-	    pointer-events: auto;
-	}
+/* ===============================
+   メニュー表示時の半透明背景（オーバーレイ）
+   - 初期状態は透明でクリック不可
+   - メニューオープン時に表示
+   =============================== */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 900;
+}
+#menu-check:checked ~ .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
 
-	/* カスケードアニメーション */
-	.side-menu ul {
-	    list-style: none;
-	    padding: 0;
-	}
-	.side-menu li {
-	    margin: 20px;
-	    opacity: 0;
-	    transform: translateX(-20px);
-	    transition: 0.3s;
-	}
-	#menu-check:checked ~ .side-menu ul li {
-	    opacity: 1;
-	    transform: translateX(0);
-	}
-	.side-menu li:nth-child(1){ transition-delay: 0.1s; }
-	.side-menu li:nth-child(2){ transition-delay: 0.2s; }
-	.side-menu li:nth-child(3){ transition-delay: 0.3s; }
-	.side-menu li:nth-child(4){ transition-delay: 0.4s; }
-	.side-menu li:nth-child(5){ transition-delay: 0.5s; }
+/* ===============================
+   メニュー内リストのカスケードアニメーション
+   - 1つずつ遅れて表示される
+   =============================== */
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+.side-menu li {
+    margin: 20px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: 0.3s;
+}
+#menu-check:checked ~ .side-menu ul li {
+    opacity: 1;
+    transform: translateX(0);
+}
 
-.search-area{
-	position: fixed;/* 画面に固定 */
-	    top: 20px;/* 画面上からの距離 */
-	    left: 50%;/* 画面中央に配置 */
-	    transform: translateX(-50%);/* 自身の半分だけ戻す＝完全な中央 */
-	    display: flex;
-	    align-items: center;
-	    gap: 10px;
-	    z-index: 900;/* メニューより下なら調整 */
-	}
+.side-menu li:nth-child(1){ transition-delay: 0.1s; }
+.side-menu li:nth-child(2){ transition-delay: 0.2s; }
+.side-menu li:nth-child(3){ transition-delay: 0.3s; }
+.side-menu li:nth-child(4){ transition-delay: 0.4s; }
+.side-menu li:nth-child(5){ transition-delay: 0.5s; }
 
-	.searchbox {
-	    width: 900px;
-	    height: 40px;
-	    font-size: 18px;
-	    padding: 5px 10px;
-	}
-	
+/* ===============================
+   画面上部の検索フォームエリア
+   - 常に画面上に固定
+   - 中央上部に配置
+   =============================== */
+
+.search-area {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 900;
+}
+
+.searchbox {
+    width: 900px;
+    height: 40px;
+    font-size: 18px;
+    padding: 5px 10px;
+}
