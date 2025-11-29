@@ -77,30 +77,31 @@ public class UserDAO {
 
 			ResultSet rs = pStmt1.executeQuery();
 
-			if (rs.next() && rs.getInt("IS_DELETED") == 1) {
-				// 入力したユーザ名とパスワードが存在していて、かつ削除済みの場合
-				// UPDATE文の準備（指定したユーザー名またはパスワードでユーザーを削除）
-				String sql_restore_user = "UPDATE USERS SET IS_DELETED = 0 WHERE USER_NAME=? AND USER_PASS=?";
-				PreparedStatement pStmt = conn.prepareStatement(sql_restore_user);
+			if (rs.next()) {
+				if (rs.getInt("IS_DELETED") == 1) {
+					// 入力したユーザ名とパスワードが存在していて、かつ削除済みの場合
+					// UPDATE文の準備（指定したユーザー名またはパスワードでユーザーを削除）
+					String sql_restore_user = "UPDATE USERS SET IS_DELETED = 0 WHERE USER_NAME=? AND USER_PASS=?";
+					PreparedStatement pStmt = conn.prepareStatement(sql_restore_user);
 
-				pStmt.setString(1, nm);
-				pStmt.setString(2, pw);
-				
-				// UPDATE文を実行
-				int delete = pStmt.executeUpdate();
-				if (delete > 0) {
-					System.out.println("削除済みのユーザーを復元しました。");
-					return true;
-				} else {
-					System.out.println("削除に失敗しました。");
+					pStmt.setString(1, nm);
+					pStmt.setString(2, pw);
+
+					// UPDATE文を実行
+					int delete = pStmt.executeUpdate();
+					if (delete > 0) {
+						System.out.println("削除済みのユーザーを復元しました。");
+						return true;
+					} else {
+						System.out.println("削除に失敗しました。");
+						return false;
+					}
+
+				} else if (rs.getInt("IS_DELETED") == 0) {
+					// 入力したユーザ名とパスワードが存在していて、削除されていない場合
+					System.out.println("このユーザーはすでに存在しています。");
 					return false;
 				}
-				
-			} else if (rs.next() && rs.getInt("IS_DELETED") == 0) {
-				// 入力したユーザ名とパスワードが存在していて、削除されていない場合
-				System.out.println("このユーザーはすでに存在しています。");
-				return false;
-				
 			} else {
 				// データベースに入力したユーザ名とパスワードが存在しない場合（新規登録）
 				// INSERT文の準備（新規ユーザーをデータベースに登録）
@@ -128,6 +129,7 @@ public class UserDAO {
 			System.out.println("Error : UserDAO.registerUser");
 			return false; // 失敗
 		}
+		return false;
 	}
 
 	// データベースからユーザーを見た目上削除するメソッド
