@@ -67,7 +67,7 @@ label {
     top: 10px; /* 上から10px */
     left: 10px; /* 左から10px */
     background: white; /* 白背景 */
-    padding: 16px 60px; /* 内側余白 */
+    padding: 12px 28px; /* 内側余白 */
     border-radius: 4px; /* 角丸 */
     box-shadow: 0 0 5px rgba(0,0,0,0.1); /* ほんのり影 */
     font-weight: bold; /* 太字 */

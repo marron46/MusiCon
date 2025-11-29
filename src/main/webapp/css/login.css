@@ -2,7 +2,11 @@
 
 /* ページ全体の基本設定 */
 body{
-	background-color: #A997C6;  /* 背景カラーを薄紫に */
+	/* background-image: #A997C6;  /* 背景カラーを薄紫に */
+	background-image: url("../backGround.png"); /* ← 画像のパスを指定 */
+	background-size: cover;        /* 画面いっぱいに拡大縮小 */
+	background-position: center;   /* 中央に配置 */
+	background-repeat: no-repeat;  /* 繰り返しなし */
 	min-height: 100vh;  /* 画面全体の高さを確保 */
 	margin: 0;  /* ブラウザのデフォルト余白を削除 */
 	font-family: Arial, sans-serif;  /* 使用フォント */

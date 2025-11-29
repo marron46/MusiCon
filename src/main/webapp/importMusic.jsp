@@ -6,56 +6,69 @@
 <meta charset="UTF-8">
 <title>曲の追加</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/importMusic.css">
 </head>
 <body>
-	<h1>音楽アップロード</h1>
+	<div class="reverse">
+		<a href="top.jsp">TOP</a>
+	</div>
+	<div class="container">
+		<h1 class="iMusic-title">音楽アップロード</h1>
+		<!-- enctype="multipart/form-data" が重要。これを付けないとファイルがサーバーに送れない。 -->
+		<form action="ImportMusic" method="post" enctype="multipart/form-data"
+			class="grid">
+			<div class="form-item">
+				<!-- タイトル入力欄（DBのtitleに入る） -->
+				<!--タイトル：-->
+				<input type="text" name="title" placeholder="タイトル" required>
+			</div>
 
-	<!-- enctype="multipart/form-data" が重要。これを付けないとファイルがサーバーに送れない。 -->
-	<form action="ImportMusic" method="post"
-		enctype="multipart/form-data">
+			<!-- アーティスト入力欄（DBのartistに入る） -->
+			<!--アーティスト名：-->
+			<div class="form-item">
+				<input type="text" name="artist" placeholder="アーティスト" required>
+			</div>
+			<!-- ジャンル入力欄（DBのgenreに入る） -->
+			<!--ジャンル：-->
+			<div class="form-item">
+				<input type="text" name="genre" placeholder="ジャンル" required>
+			</div>
 
-		<!-- タイトル入力欄（DBのtitleに入る） -->
-		タイトル：<br> <input type="text" name="title" required><br>
-		<br>
-		
-		<!-- ジャンル入力欄（DBのgenreに入る） -->
-		ジャンル：<br> <input type="text" name="genre" required><br>
-		<br>
-		
-		<!-- アーティスト入力欄（DBのartistに入る） -->
-		アーティスト名：<br> <input type="text" name="artist" required><br>
-		<br>
-		
-		<!-- 作詞家入力欄（DBのlyricistに入る） -->
-		作詞家：<br> <input type="text" name="lyricist" required><br>
-		<br>
-		
-		<!-- 作曲家入力欄（DBのcomposerに入る） -->
-		作曲家：<br> <input type="text" name="composer" required><br>
-		<br>
-		
-		<!-- 発売年月日入力欄（DBのrelease_ymdに入る） -->
-		発売年月日：<br> <input type="text" name="releaseYMD" required><br>
-		<br>
-		
-		<!-- 再生時間入力欄（DBのmusic_timeに入る） -->
-		再生時間：<br> <input type="text" name="music_time" required><br>
-		<br>
+			<!-- 作詞家入力欄（DBのlyricistに入る） -->
+			<!--作詞家：-->
+			<div class="form-item">
+				<input type="text" name="lyricist" placeholder="作詞家" required>
+			</div>
 
-		<!-- 音楽ファイル選択欄（mp3などの音声ファイル） -->
-		音楽ファイル：<br>
-		<!-- accept="audio/*" は音声ファイルだけ選べるようにする -->
-		<input type="file" name="file" accept="audio/*" required><br>
-		<br>
+			<!-- 作曲家入力欄（DBのcomposerに入る） -->
+			<!--作曲家：-->
+			<div class="form-item">
+				<input type="text" name="composer" placeholder="作曲家" required>
+			</div>
 
-		<!-- 送信ボタン。押すとサーブレットにデータが送られる -->
-		<input type="submit" value="アップロード">
-	</form>
+			<!-- 発売年月日入力欄（DBのrelease_ymdに入る） -->
+			<!--発売年月日：-->
+			<div class="form-item">
+				<input type="text" name="releaseYMD" placeholder="発売年月日" required>
+			</div>
 
-	<br>
+			<!-- 再生時間入力欄（DBのmusic_timeに入る） -->
+			<!--再生時間：-->
+			<div class="form-item">
+				<input type="text" name="music_time" placeholder="再生時間" required>
+			</div>
 
-	<!-- topページへ戻るリンク -->
-	<a href="PlayMusic">← top画面に戻る</a>
+			<!-- 音楽ファイル選択欄（mp3などの音声ファイル） -->
+			<div class="form-item">
+				<!-- accept="audio/*" は音声ファイルだけ選べるようにする -->
+				<input type="file" name="file" accept="audio/*" required>
+			</div>
+			<!-- 送信ボタン。押すとサーブレットにデータが送られる -->
+			<div class="form-item"
+				style="grid-column: span 2; text-align: center;">
+				<input type="submit" value="アップロード" class="submit-btn">
+			</div>
+		</form>
+	</div>
 </body>
 </html>
