@@ -41,7 +41,7 @@
 		<form action="Seach" method="post">
 			<%-- 検索バー --%>
 			<div class="search-area">
-				<img src="無記入" class="無記入"> <input type="text"
+				<img src="searchMark.png" class="search" width="50"> <input type="text"
 					class="searchbox" placeholder="検索">
 			</div>
 		</form>
