@@ -26,6 +26,13 @@
 		ブラウザが audio タグに対応していません。
 	</audio>
 
+	<form action="LikeMusic" method="post">
+	<imput type="hidden" name="id" value="${music.id}"><!-- name="id" → サーブレットで request.getParameter("id") として受け取れる value="${music.id}" → 現在再生中の曲の ID が代入される  -->
+	<button type="submit">いいね！ (${music.likes})</button><!-- ${music.likes}→現在いいね数が表示される -->
+	</form>
+
+	
+
 	<br>
 	<br>
 
