@@ -18,4 +18,9 @@ public class PlayMusicLogic {
 	public Music getMusic(int id) {
 		return dao.playMusicById(id);
 	}
+	
+	// いいね処理
+	public boolean likeMusic(int id) {
+		return dao.likeMusic(id);
+	}
 }
