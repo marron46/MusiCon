@@ -37,7 +37,8 @@ public class Search extends HttpServlet {
 
 		// セッションスコープに曲タイトルを保存
 		HttpSession session = request.getSession();
-		session.setAttribute("searchText", searchText);
+		session.setAttribute("searchList", result);
+		System.out.println("検索結果" + result);
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("searchResult.jsp");
 		dispatcher.forward(request, response);

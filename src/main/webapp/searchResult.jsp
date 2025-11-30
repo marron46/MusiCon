@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, model.Music"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +8,7 @@
 <title>検索結果</title>
 
 <%-- cssの連携 --%>
-<link rel="stylesheet"
-	href="webapp/css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<%-- ページタイトル --%>
@@ -16,28 +16,31 @@
 		<a href="top.jsp" class="top">TOP</a>
 	</div>
 
-		<%-- ページの見出し部分 --%>
-		<div class="result-title">"無記入"の検索結果</div>
+	<h1>検索結果</h1>
 
-		<%-- 検索結果一覧 --%>
-		<ul class="result-list">
-			<c:choose>
-				<c:when test="${not empty 無記入}">
-					<c:forEach var="s" items="${無記入}" varStatus="st">
-						<li class="result-item"><c:out value="${s.title}" />-<c:out
-								value="${s.artist}" /></li>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<li class="result-item">無記入</li>
-					<li class="result-item">無記入</li>
-					<li class="result-item">無記入</li>
-					<li class="result-item">無記入</li>
-					<li class="result-item">無記入</li>
-					<li class="result-item">無記入</li>
-					<li class="result-item">無記入</li>
-				</c:otherwise>
-			</c:choose>
-		</ul>
+	<%
+	List<Music> list = (List<Music>) session.getAttribute("searchList");
+
+	if (list == null || list.isEmpty()) {
+	%>
+	<p>検索結果がありません。</p>
+	<%
+	} else {
+	%>
+	<ul>
+		<%
+		for (Music m : list) {
+		%>
+		<li>タイトル：<a href="PlayMusic?id=<%=m.getId()%>"> <%=m.getTitle()%></a><br>
+			アーティスト：<%=m.getArtist()%><br> いいね：<%=m.getLikes()%>
+		</li>
+		<hr>
+		<%
+		}
+		%>
+	</ul>
+	<%
+	}
+	%>
 </body>
 </html>

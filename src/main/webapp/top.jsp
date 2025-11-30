@@ -51,7 +51,7 @@
 
 		<ul>
 			<%
-			List<model.Music> list = (List<model.Music>) request.getAttribute("musicList");
+			List<model.Music> list = (List<model.Music>) session.getAttribute("musicList");
 
 			// list にデータがあれば1件ずつループ
 			for (model.Music m : list) {

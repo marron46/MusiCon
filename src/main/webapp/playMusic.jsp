@@ -11,7 +11,7 @@
 <body>
 
 	<!--
-    Servlet（MusicServlet）の中で、request.setAttribute("music", music);として送られてきた 1 曲分のデータを受け取っている。 -->
+    Servlet（PlayMusic）の中で、request.setAttribute("music", music);として送られてきた 1 曲分のデータを受け取っている。 -->
 	<%
 	model.Music m = (model.Music) request.getAttribute("music");
 	%>
