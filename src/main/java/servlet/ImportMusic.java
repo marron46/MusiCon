@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -12,7 +13,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
+import model.Music;
 import model.logic.ImportMusicLogic;
+import model.logic.PlayMusicLogic;
 
 @WebServlet("/ImportMusic")
 
@@ -25,9 +28,20 @@ public class ImportMusic extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		PlayMusicLogic logic = new PlayMusicLogic();
+		// 曲一覧を取得して JSP へ
+        List<Music> musicList = logic.getMusicList();
+        request.setAttribute("musicList", musicList);
+        System.out.println("DAOからとってきた曲リスト" + musicList);
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("importMusic.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");
 		dispatcher.forward(request, response);
+		System.out.println("id順に曲リストを作ってtopに戻ります");
+		
+		// フォワード
+		/*RequestDispatcher dispatcher = request.getRequestDispatcher("importMusic.jsp");
+		dispatcher.forward(request, response);*/
 
 	}
 
@@ -56,12 +70,6 @@ public class ImportMusic extends HttpServlet {
 		if (!uploadDir.exists())
 			uploadDir.mkdir(); // 「music フォルダが無ければ作る」
 
-		// 曲インポート処理の実行
-		/*Music music = new Music(title,genre,artist,composer,lyricist,releaseYMD,music_time);
-		ImportMusicLogic logic = new ImportMusicLogic();
-		boolean result = logic.execute(music);
-		System.out.println(music);*/
-
 		ImportMusicLogic logic = new ImportMusicLogic();
 
 		// ファイル名取得
@@ -78,22 +86,9 @@ public class ImportMusic extends HttpServlet {
 		logic.addMusic(title, genre, artist, lyricist, composer, releaseYMD, music_time, dbFilePath);
 
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");// のちにフォワード先をPlayMusicのservletに変更
-		dispatcher.forward(request, response);
-
-		// 曲インポート処理の成否によって処理を分岐
-		/*if (result) { // 曲インポート成功時
-			// セッションスコープに曲タイトルを保存
-			HttpSession session = request.getSession();
-			session.setAttribute("title", title);
-			// フォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");
-			dispatcher.forward(request, response);
-			System.out.print("でけた！");
-		} else { // 曲インポート失敗時
-			// リダイレクト
-			response.sendRedirect("ImportMusic");
-			System.out.print("曲入らない");
-		}*/
+		/*RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");// のちにフォワード先をPlayMusicのservletに変更
+		dispatcher.forward(request, response);*/
+		//response.sendRedirect("PlayMusic");
+		doGet(request, response);
 	}
 }
