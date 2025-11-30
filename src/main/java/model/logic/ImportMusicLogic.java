@@ -24,6 +24,3 @@ public class ImportMusicLogic {
 		dao.insert(title, genre, artist, lyricist, composer, releaseYMD, music_time, url);
 	}
 }
-
-
-  
