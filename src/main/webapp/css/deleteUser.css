@@ -15,20 +15,22 @@ body {
 .container {
     background-color: #ffffff; /* 白背景 */
     width: 400px; /* 横幅 */
-    padding: 30px 40px 60px; /* 内側余白 上・左右・下 */
+    padding: 40px; /* 内側余白 上・左右・下 */
     box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* ふわっとした影 */
     text-align: center; /* 文字中央寄せ */
 	min-height: 550px;
 	}
+	
 .form-area{
 	margin-top: 60px;
 	}
+	
 /* 見出し（新規登録）*/
 .dUser-title {
-    font-size: 42px; /* 大きめのタイトル文字 */
-	margin-top: 0;
-    margin-bottom: 50px; /* 下の余白 */
+	font-size: 48px;  /* 大きめのタイトル文字 */
+		margin-bottom: 30px;  /* タイトル下の余白 */
 	}
+	
 /* テキスト入力欄（ユーザ名・パスワード） */
 input[type="text"],
 input[type="password"] {
@@ -39,12 +41,7 @@ input[type="password"] {
     padding: 5px 10px; /* 内側余白 */
     border: 2px solid #333; /* 黒い枠線 */
     border-radius: 4px; /* 角丸 */
-	}
-
-/* ラベル（ユーザー名 / パスワード） */
-label {
-    font-size: 20px; /* 文字サイズ */
-    font-weight: bold; /* 太字 */
+	margin-bottom: 25px;  /* 下の余白 */
 	}
 
 /* 削除ボタン */

@@ -22,8 +22,12 @@ body{
 	box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
 	width: 400px;  /* ボックス幅 */
 	text-align: center;  /* 中の文字を中央揃え */
+	min-height: 550px;
 }
 
+.form-area{
+	margin-top: 60px;
+	}
 /* ログインタイトル */
 .cUser-title{
 	font-size: 48px;  /* 大きめのタイトル文字 */
