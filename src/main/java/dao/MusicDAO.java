@@ -17,32 +17,30 @@ public class MusicDAO {
 	private final String DB_PASS = "";
 
 	public List<Music> topFindAll() {// 書き足し
-        List<Music> list = new ArrayList<>();
-     // JDBCドライバを読み込む
-     		try {
-     			Class.forName("com.mysql.jdbc.Driver");
-     		} catch (ClassNotFoundException e) {
-     			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-     		}
-     		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-     			String sql = "SELECT ID, TITLE, LIKE, URL FROM music";
-     			PreparedStatement ps = conn.prepareStatement(sql);
-     			ResultSet rs = ps.executeQuery();
-     			while (rs.next()) {
-                    list.add(new Music(
-                        rs.getInt("ID"),
-                        rs.getString("TITLE"),
-                        rs.getInt("LIKE"),
-                        rs.getString("URL")
-                    ));
-                }
-     		} catch (Exception e) {
-                e.printStackTrace();
-            }
-            return list;
+		List<Music> list = new ArrayList<>();
+		// JDBCドライバを読み込む
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
+		}
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "SELECT ID, TITLE, LIKES, URL FROM MUSICS";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(new Music(
+						rs.getInt("ID"),
+						rs.getString("TITLE"),
+						rs.getInt("LIKES"),
+						rs.getString("URL")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
-	
 	public List<Music> searchMusic(String str_searchWord) {
 		List<Music> musicList = new ArrayList<>();
 		// JDBCドライバを読み込む
@@ -125,16 +123,16 @@ public class MusicDAO {
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
-
+	
 		// データベース接続
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
+	
 			// INSERT文の準備（新規ユーザーをデータベースに登録）
 			String sql = "INSERT INTO MUSICS(TITLE, GENRE, ARTIST, LYRICIST,"
 					+ "COMPOSER, RELEASE_YMD, MUSIC_TIME, URL) VALUES ("
 					+ "?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-
+	
 			pStmt.setString(1, music.getTitle());
 			pStmt.setString(2, music.getGenre());
 			pStmt.setString(3, music.getArtist());
@@ -143,20 +141,21 @@ public class MusicDAO {
 			pStmt.setInt(6, music.getReleaseYear());
 			pStmt.setInt(7, music.getMusicTime());
 			pStmt.setString(8, music.getUrl());
-
+	
 			// INSERT文を実行
 			int result = pStmt.executeUpdate();
-
+	
 			// 登録成功か確認
 			return result > 0;
-
+	
 		} catch (SQLException e) {
 			e.printStackTrace(); // SQLエラーを表示
 			System.out.println("Error : UserDAO.registerUser");
 			return false; // 失敗
 		}
 	}*/
-	public void insert(String title,String genre,String artist,String lyricist,String composer,int release_ymd,int music_time,String url) {// 書き足し
+	public void insert(String title, String genre, String artist, String lyricist, String composer, int release_ymd,
+			int music_time, String url) {// 書き足し
 		// JDBCドライバを読み込む
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -189,13 +188,12 @@ public class MusicDAO {
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
-		
+
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// INSERT文の準備（新規ユーザーをデータベースに登録）
 			String sql = "UPDATE SET LIKES = LIKES+1 WHERE MUSIC_ID=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-
 
 			// INSERT文を実行
 			int result = pStmt.executeUpdate();
@@ -209,7 +207,7 @@ public class MusicDAO {
 			return false; // 失敗lll
 		}
 	}
-	
+
 	// 曲再生のためのSQLです。自分の書き方に合わせて書き換えてね( ´∀｀)b
 	public Music playMusicById(int id) {// 書き足し
 		// JDBCドライバを読み込む
@@ -218,26 +216,25 @@ public class MusicDAO {
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
-		
+
 		Music music = null;
 
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// SELECT文の準備（1曲のデータの取得）
-			String sql = "SELECT ID, TITLE, LIKE, URL FROM musics WHERE id = ?";
+			String sql = "SELECT ID, TITLE, LIKES, URL FROM MUSICS WHERE ID = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SELECT文の実行
 			pStmt.setInt(1, id); // SQL の一つ目の ? に id をセット
 			ResultSet rs = pStmt.executeQuery();
-			
+
 			if (rs.next()) {
 				music = new Music(
-					rs.getInt("ID"),
-					rs.getString("TITLE"),
-					rs.getInt("LIKE"),
-					rs.getString("URL")
-				);
+						rs.getInt("ID"),
+						rs.getString("TITLE"),
+						rs.getInt("LIKES"),
+						rs.getString("URL"));
 			}
 			return music;
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List, model.Music"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,16 +40,36 @@
     });
 </script>
 	<div class="main">
-		<form action="Seach" method="post">
+		<form action="Search" method="post">
 			<%-- 検索バー --%>
 			<div class="search-area">
-				<img src="png/searchMark.png" class="search" width="70"> <input type="text"
-					class="searchbox" placeholder="検索">
+				<img src="png/searchMark.png" class="search" width="70" alt="検索アイコン">
+				<input type="text" class="searchbox" name="searchText"
+					placeholder="検索">
 			</div>
 		</form>
 
+
+		<ul>
+			<%
+			List<model.Music> list = (List<model.Music>) request.getAttribute("musicList");
+
+			// list にデータがあれば1件ずつループ
+			for (model.Music m : list) {
+			%>
+
+			<!-- 曲タイトルをリンクとして表示 -->
+			<!-- クリックすると MusicServlet?id=○○ に飛び、play.jsp で再生画面へ -->
+			<li><a href="PlayMusic?id=<%=m.getId()%>"> <%=m.getTitle()%></a>
+			</li>
+
+			<%
+			} // for の終わり
+			%>
+		</ul>
+
 		<%-- 曲リスト --%>
-		<ul class="music-list">
+		<%-- <ul class="music-list">
 			<c:choose>
 				<c:when test="${not empty 無記入}">
 					<c:forEach var="s" items="${無記入}" varStatus="st">
@@ -66,6 +87,6 @@
 					<li class="music-item">なんか曲7-なんかアーティスト</li>
 				</c:otherwise>
 			</c:choose>
-		</ul>
+		</ul> --%>
 </body>
 </html>

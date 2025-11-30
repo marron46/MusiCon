@@ -28,6 +28,7 @@ public class PlayMusic extends HttpServlet {
 			// 曲一覧を取得して JSP へ
             List<Music> musicList = logic.getMusicList();
             request.setAttribute("musicList", musicList);
+            System.out.println("DAOからとってきた曲リスト" + musicList);
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");
 			dispatcher.forward(request, response);

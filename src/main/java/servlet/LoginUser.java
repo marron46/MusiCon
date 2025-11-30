@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import model.User;
 import model.logic.LoginUserLogic;
 
@@ -35,6 +36,8 @@ public class LoginUser extends HttpServlet {
 
 		if (Hr_user_pass == null || Hr_user_pass.isEmpty()) {
 			System.out.println("値が空です");
+			request.setAttribute("loginError", "パスワードが空です");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 			return;
 		}
 		// ハッシュ化
@@ -50,13 +53,14 @@ public class LoginUser extends HttpServlet {
 			// セッションスコープにユーザーIDを保存
 			HttpSession session = request.getSession();
 			session.setAttribute("user_name", user_name);
-			// フォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");
-			dispatcher.forward(request, response);
+			// PlayMuzicページへリダイレクト
+			response.sendRedirect("PlayMusic");
 			System.out.print("でけた！");
 		} else { // ログイン失敗時
-			// リダイレクト
-			response.sendRedirect("LoginUser");
+			// ログイン失敗のメッセージを表示
+			request.setAttribute("loginError", "ログインに失敗しました。");
+			// ログイン画面に戻す
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 			System.out.print("ろぐいんできない");
 		}
 	}

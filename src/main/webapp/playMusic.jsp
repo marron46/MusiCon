@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>曲の再生</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="webapp/css/style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
