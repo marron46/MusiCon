@@ -118,44 +118,6 @@ public class MusicDAO {
 		return musicList; // 全てのMutterリストを返す
 	}
 
-	/*public boolean importMusic(Music music) {
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-	
-		// データベース接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-	
-			// INSERT文の準備（新規ユーザーをデータベースに登録）
-			String sql = "INSERT INTO MUSICS(TITLE, GENRE, ARTIST, LYRICIST,"
-					+ "COMPOSER, RELEASE_YMD, MUSIC_TIME, URL) VALUES ("
-					+ "?, ?, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-	
-			pStmt.setString(1, music.getTitle());
-			pStmt.setString(2, music.getGenre());
-			pStmt.setString(3, music.getArtist());
-			pStmt.setString(4, music.getLyricist());
-			pStmt.setString(5, music.getComposer());
-			pStmt.setInt(6, music.getReleaseYear());
-			pStmt.setInt(7, music.getMusicTime());
-			pStmt.setString(8, music.getUrl());
-	
-			// INSERT文を実行
-			int result = pStmt.executeUpdate();
-	
-			// 登録成功か確認
-			return result > 0;
-	
-		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : UserDAO.registerUser");
-			return false; // 失敗
-		}
-	}*/
 	public void insert(String title, String genre, String artist, String lyricist, String composer, int release_ymd,
 			int music_time, String url) {// 書き足し
 		// JDBCドライバを読み込む
