@@ -49,7 +49,6 @@
 			</div>
 		</form>
 
-
 		<ul>
 			<%
 			List<model.Music> list = (List<model.Music>) request.getAttribute("musicList");
