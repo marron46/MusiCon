@@ -29,7 +29,7 @@
 	%>
 	<ul>
 		<%
-		for (Music m : list) {
+		for (model.Music m : list) {
 		%>
 		<li>タイトル：<a href="PlayMusic?id=<%=m.getId()%>"> <%=m.getTitle()%></a><br>
 			アーティスト：<%=m.getArtist()%><br> いいね：<%=m.getLikes()%>
