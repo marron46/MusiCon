@@ -22,6 +22,7 @@ public class ShowRanking extends HttpServlet {
 		ShowRankingLogic logic = new ShowRankingLogic();
 		// いいねランキングを取得
 		List<Music> ranking = logic.getRanking();
+		System.out.println("ランキング出力:" + ranking);
 		// JSP へ渡す
 		request.setAttribute("ranking", ranking);
 		// フォワード

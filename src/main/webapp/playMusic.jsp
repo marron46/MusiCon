@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.Music"%>
 
 <!DOCTYPE html>
@@ -7,36 +6,61 @@
 <head>
 <meta charset="UTF-8">
 <title>曲の再生</title>
-<%-- cssの連携 --%>
+
 <link rel="stylesheet" href="css/playMusic.css">
+<script defer src="js/playMusic.js"></script>
+
 </head>
+
 <body>
-	<!-- topページに戻るリンク -->
-	<a href="PlayMusic">← topに戻る</a>
-	<!--
-    Servlet（PlayMusic）の中で、request.setAttribute("music", music);として送られてきた 1 曲分のデータを受け取っている。 -->
-	<%
-	model.Music music = (model.Music) request.getAttribute("music");
-	%>
 
-	<!-- 曲のタイトル表示 -->
-	<h1><%=music.getTitle()%></h1>
+<a href="PlayMusic" class="back-btn">← topに戻る</a>
 
-	<!-- HTML5 の audio タグで音楽を再生する。controls … 再生/停止/シークバーなどの標準コントロールを表示。source の src は DB に保存されている「ファイルパス」を使用する。 -->
-	<audio controls>
-		<source src="<%=music.getUrl()%>" type="audio/mpeg">
-		ブラウザが audio タグに対応していません。
-	</audio>
+<%
+    Music music = (Music) request.getAttribute("music");
+%>
 
-	<form action="LikeMusic" method="post">
-		<input type="hidden" name="id" value="<%=music.getId()%>">
-		<!-- name="id" → サーブレットで request.getParameter("id") として受け取れる value="music.getId()" → 現在再生中の曲の ID が代入される  -->
-		<button type="submit">
-			いいね！ (<%=music.getLikes()%>)
-		</button>
-		<!-- music.getLikes()→現在いいね数が表示される -->
-	</form>
-	<br>
-	<br>
+<div class="player">
+
+    <!-- 左のジャケット（白無地） -->
+    <div class="album-art"></div>
+
+    <!-- 右側情報 -->
+    <div class="info">
+
+        <h1><%=music.getTitle()%></h1>
+        <p class="artist">No Artist Info</p>
+
+        <!-- 再生する audio -->
+        <audio id="audio">
+            <source src="<%=music.getUrl()%>" type="audio/mpeg">
+        </audio>
+
+        <!-- 再生ボタン -->
+        <div class="controls">
+            <button id="prev">⏮</button>
+            <button id="play" class="play">⏸</button>
+            <button id="next">⏭</button>
+        </div>
+
+        <!-- 進捗バー -->
+        <div class="progress-area">
+            <span id="current">0:00</span>
+            <input type="range" id="progress" min="0" value="0">
+            <span id="duration">0:00</span>
+        </div>
+
+        <!-- いいね -->
+        <form action="LikeMusic" method="post">
+            <input type="hidden" name="id" value="<%=music.getId()%>">
+            <button type="submit" class="like-btn">
+                いいね！ (<%=music.getLikes()%>)
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
 </body>
 </html>
