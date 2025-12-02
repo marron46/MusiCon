@@ -95,7 +95,7 @@ public class MusicDAO {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// SELECT文の準備（データベースからmusicsを取得）
-			String sql = "SELECT TITLE,ARTIST,LIKES FROM MUSICS ORDER BY LIKES DESC,MUSIC_ID ASC";
+			String sql = "SELECT ID, TITLE, ARTIST, LIKES FROM MUSICS ORDER BY LIKES DESC, ID ASC";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SELECT文を実行
@@ -103,12 +103,13 @@ public class MusicDAO {
 
 			// 結果をArrayListに格納
 			while (rs.next()) {
+				int int_id = rs.getInt("ID");
 				String str_title = rs.getString("TITLE");
 				String str_artist = rs.getString("ARTIST");
 				int int_likes = rs.getInt("LIKES");
 
 				// 新しいMutterオブジェクトを作成
-				Music music = new Music(str_title, str_artist, int_likes);
+				Music music = new Music(int_id, str_title, str_artist, int_likes);
 				musicList.add(music); // リストに追加
 			}
 		} catch (SQLException e) {

@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Music;
 import model.logic.ShowRankingLogic;
 
@@ -23,8 +24,9 @@ public class ShowRanking extends HttpServlet {
 		// いいねランキングを取得
 		List<Music> ranking = logic.getRanking();
 		System.out.println("ランキング出力:" + ranking);
-		// JSP へ渡す
-		request.setAttribute("ranking", ranking);
+		// セッションスコープにランキングリストを保存
+		HttpSession session = request.getSession();
+		session.setAttribute("ranking", ranking);
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("showRanking.jsp");
 		dispatcher.forward(request, response);

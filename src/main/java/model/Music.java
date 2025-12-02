@@ -41,7 +41,8 @@ public class Music {//Music情報格納
 		this.url = url;
 	}
 	
-	public Music(String title, String artist, int likes) {
+	public Music(int id, String title, String artist, int likes) {
+		this.id = id;
 		this.title = title;
 		this.artist = artist;
 		this.likes = likes;
