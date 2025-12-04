@@ -8,12 +8,12 @@
 <title>検索結果</title>
 
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/searchResult.css">
 </head>
 <body>
 	<%-- ページタイトル --%>
 	<div class="top-area">
-		<a href="top.jsp" class="top">TOP</a>
+		<a href="${pageContext.request.contextPath}/PlayMusic" class="top">TOP</a>
 	</div>
 
 	<h1>検索結果</h1>
@@ -31,7 +31,7 @@
 		<%
 		for (model.Music m : list) {
 		%>
-		<li>タイトル：<a href="PlayMusic?id=<%=m.getId()%>"> <%=m.getTitle()%></a><br>
+		<li>タイトル：<a href="${pageContext.request.contextPath}/PlayMusic?id=<%=m.getId()%>"> <%=m.getTitle()%></a><br>
 			アーティスト：<%=m.getArtist()%><br> いいね：<%=m.getLikes()%>
 		</li>
 		<hr>

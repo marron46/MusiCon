@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import model.logic.PlayMusicLogic;
 
@@ -17,6 +18,14 @@ public class LikeMusic extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// ログインチェック
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("user_name");
+		if (userName == null) {
+			response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+			return;
+		}
+
 		// リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -25,7 +34,7 @@ public class LikeMusic extends HttpServlet {
 		logic.likeMusic(id);
 
 		// 更新後、同じ曲ページへ戻る（リダイレクト）
-		response.sendRedirect("PlayMusic?id=" + id);
+		response.sendRedirect(request.getContextPath() + "/PlayMusic?id=" + id);
 
 	}
 

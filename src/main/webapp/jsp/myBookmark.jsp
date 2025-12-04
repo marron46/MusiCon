@@ -8,11 +8,11 @@
 <meta charset="UTF-8">
 <title>ブックマーク</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="webapp/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/myBookmark.css">
 </head>
 <body>
 	<div class="reverse">
-		<a href="top.jsp" class="top">TOPへ戻る</a>
+		<a href="${pageContext.request.contextPath}/PlayMusic" class="top">TOPへ戻る</a>
 	</div>
 
 	<h2>📌 ブックマーク一覧</h2>

@@ -6,16 +6,16 @@
 <meta charset="UTF-8">
 <title>曲の追加</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="css/importMusic.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/importMusic.css">
 </head>
 <body>
 	<div class="reverse">
-		<a href="top.jsp">TOP</a>
+		<a href="${pageContext.request.contextPath}/PlayMusic">TOP</a>
 	</div>
 	<div class="container">
 		<h1 class="iMusic-title">音楽アップロード</h1>
 		<!-- enctype="multipart/form-data" が重要。これを付けないとファイルがサーバーに送れない。 -->
-		<form action="ImportMusic" method="post" enctype="multipart/form-data"
+		<form action="${pageContext.request.contextPath}/ImportMusic" method="post" enctype="multipart/form-data"
 			class="grid">
 			<div class="form-item">
 				<!-- タイトル入力欄（DBのtitleに入る） -->

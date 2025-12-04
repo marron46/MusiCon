@@ -12,7 +12,7 @@ import model.Music;
 
 public class MusicDAO {
 
-	private final String JDBC_URL = "jdbc:mysql://localhost/musicon";
+	private final String JDBC_URL = "jdbc:mysql://localhost/musicon?useSSL=false&serverTimezone=Asia/Tokyo&characterEncoding=UTF-8";
 	private final String DB_USER = "root";
 	private final String DB_PASS = "";
 
@@ -20,7 +20,7 @@ public class MusicDAO {
 		List<Music> list = new ArrayList<>();
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
@@ -45,7 +45,7 @@ public class MusicDAO {
 		List<Music> musicList = new ArrayList<>();
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
@@ -86,7 +86,7 @@ public class MusicDAO {
 		List<Music> musicList = new ArrayList<>();
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
@@ -123,7 +123,7 @@ public class MusicDAO {
 			int music_time, String url) {// 書き足し
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
@@ -149,7 +149,7 @@ public class MusicDAO {
 	public boolean likeMusic(int id) {
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
@@ -179,7 +179,7 @@ public class MusicDAO {
 	public Music playMusicById(int id) {// 書き足し
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}

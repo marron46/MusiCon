@@ -9,11 +9,11 @@
 <title>ランキング</title>
 
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="css/showRanking.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/showRanking.css">
 </head>
 <body>
 	<div class="reverse">
-		<a href="top.jsp" class="top">TOP</a>
+		<a href="${pageContext.request.contextPath}/PlayMusic" class="top">TOP</a>
 	</div>
 	<%-- ページタイトル --%>
 	<div class="rank-title">人気曲ランキング</div>
@@ -35,7 +35,7 @@
 			<%
 			for (model.Music m : list) {
 			%>
-			<li>タイトル：<a href="PlayMusic?id=<%=m.getId()%>"> <%=m.getTitle()%></a><br>
+			<li>タイトル：<a href="${pageContext.request.contextPath}/PlayMusic?id=<%=m.getId()%>"> <%=m.getTitle()%></a><br>
 				アーティスト：<%=m.getArtist()%><br> いいね：<%=m.getLikes()%>
 			</li>
 			<hr>
