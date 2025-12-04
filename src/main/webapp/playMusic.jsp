@@ -16,6 +16,8 @@
 
 <a href="PlayMusic" class="back-btn">← topに戻る</a>
 
+<a href="Bookmark?id=<%=m.getId()%>">⭐ブックマーク</a>
+
 <%
     Music music = (Music) request.getAttribute("music");
 %>
