@@ -204,51 +204,69 @@ body {
    /* ===============================
       音楽ボタン（music-area）の演出修正
       =============================== */
-   .music-area {
-	position: absolute;
-       font-family: Arial, sans-serif;
-       font-size: 40px;
-       background-color: #ffffff;
-       padding: 0px;
-       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-       width: 80%;
-	   text-decoration: none;     /* 下線を消す */
-       height: 70px;
-       padding: 0 20px;
-       z-index: 1500; /* 他の要素よりも前面に表示 */
-   }
+	  /* 音楽ボタン（music-area）の基本スタイル */
+	  /* 音楽ボタン（music-area）の基本スタイル */
+	  /* 音楽ボタン（music-area）の基本スタイル */
+	  .music-area {
+	      position: relative;
+	      font-family: Arial, sans-serif;
+	      font-size: 40px;
+	      background-color: #ffffff;
+	      padding: 15px 20px;  /* 十分な内側余白を確保 */
+	      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	      width: 100%;  /* ボタンの幅を調整 */
+		  max-width: 1200px;  /* 最大幅を1200pxに設定 */
+		  min-width: 600px;  /* 最小幅を600pxに設定 */
+		  text-decoration: none; /* 下線を消す */
+	      height: 70px;  /* 固定の高さ */
+	      z-index: 1500; /* 他の要素よりも前面に表示 */
+	      margin-bottom: 15px; /* ボタン同士の間にスペースを作る */
+	      transition: all 0.3s ease; /* スムーズなトランジション */
+	      display: flex;
+	      align-items: center; /* ボタン内のテキストを中央揃え */
+	      justify-content: center; /* ボタン内のテキストを中央揃え */
+	  }
 
-   /* 既存の btn-flat クラスもそのままにしておく */
-   .music-area.btn-flat {
-     position: relative;       /* 擬似要素の基準に */
-     overflow: hidden;
-     padding: 1.5rem 6rem;
-     color: #fff;
-     border-radius: 0;
-     background: #000;
-   }
+	  /* 音楽ボタンのホバー時のスタイル */
+	  .music-area:hover {
+	      background-color: rgb(128, 128, 128); /* ホバー時の背景色変更 */
+	  }
 
-   .music-area.btn-flat span {
-     position: relative;
-     z-index: 1;               /* 擬似要素より前に表示 */
-   }
+	  /* 音楽ボタンが押されたとき（ホールド時） */
+	  .music-area:active {
+	      background-color: rgba(255, 0, 255, 0.3); /* ピンク色の四角が現れる */
+	      border-right: 4px solid pink; /* ボタンの右端にピンクの枠線 */
+	      box-shadow: 0 4px 8px rgba(255, 0, 255, 0.4); /* 少し浮き上がる効果 */
+	  }
 
-   .music-area.btn-flat:before {
-     content: '';
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 5px;               /* 左端の細い縦ライン */
-     height: 100%;             /* ボタン全体の高さ */
-     background: rgb(255, 0, 255);
-     transform: translateX(-100%); /* 左に隠す */
-     transition: transform 0.5s ease-in-out;
-     z-index: 0;               /* 背景に配置 */
-   }
+	  /* 音楽ボタン内のテキストの色や配置 */
+	  .music-area span {
+	      position: relative;
+	      z-index: 1; /* 擬似要素より前に表示 */
+	  }
 
-   .music-area.btn-flat:hover:before {
-     transform: translateX(0); /* スライドイン */
-   }
+	  /* ピンクのライン（hover時にスライドイン） */
+	  .music-area.btn-flat:before {
+	      content: '';
+	      position: absolute;
+	      top: 0;
+	      left: 0;
+	      width: 5px;
+	      height: 100%;
+	      background: rgb(255, 0, 255);
+	      transform: translateX(-100%); /* 左に隠す */
+	      transition: transform 0.5s ease-in-out;
+	      z-index: 0;
+	  }
+
+	  .music-area.btn-flat:hover:before {
+	      transform: translateX(0); /* ホバー時にスライドイン */
+	  }
+
+	  /* ボタン間のスペース */
+	  .music-area + .music-area {
+	      margin-top: 10px; /* ボタン間の縦の間隔 */
+	  }
 
    
    
@@ -256,26 +274,28 @@ body {
    /* ===============================
       container の調整（必要に応じて）
       =============================== */
-   .container {
-	position: relative;
-       bottom: 0;
-       transform: translateX(-50%);
-       background-color: #000000;
-       padding: 10px 40px;
-       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-       width: 60%;
-       height: 80%;
-       max-width: 900px;
-       min-width: 250px;
-       max-height: 900px;
-       min-height: 50px;
-       overflow-y: auto;
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       text-align: center;
-       z-index: 1; /* containerのz-indexは低め */   
-   }
+	  .container {
+	      position: fixed;  /* 固定位置 */
+	      bottom: 20px;  /* 画面下から20pxの位置に配置 */
+	      left: 50%;  /* 横方向に中央配置 */
+	      transform: translateX(-50%);  /* 幅が変わっても中央に位置を調整 */
+	      background-color: #000000;
+	      padding: 30px 60px;  /* 内側の余白を広げて、コンテナを大きく */
+	      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	      width: 80%;  /* 幅を80%に設定 */
+	      height: 80%;  /* 高さを80%に設定 */
+	      max-width: 900px;  /* 最大幅を1200px */
+	      min-width: 600px;  /* 最小幅を600px */
+	      max-height: 1000px;  /* 最大高さを1000px */
+	      min-height: 500px;  /* 最小高さを500px */
+	      overflow-y: auto;
+	      display: flex;
+	      flex-direction: column;
+	      align-items: center;
+	      text-align: center;
+	      z-index: 1; /* containerのz-indexは低め */
+	  }
+
 
    
    
