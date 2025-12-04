@@ -1,80 +1,108 @@
+/* 全体のbodyスタイル */
 body {
-  background: #0b1333;
-  color: white;
-  font-family: "Arial", sans-serif;
-  margin: 0;
-  padding: 30px;
+  background-color: #A997C6 !important; /* 背景色を薄紫に変更 */
+  color: white; /* 文字色は白 */
+  font-family: "Arial", sans-serif; /* フォントはArial */
+  margin: 0; /* デフォルトのマージンを削除 */
+  padding: 30px; /* 全体に30pxのパディングを追加 */
 }
 
+/* topに戻るボタンのスタイル */
 .back-btn {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
+  color: white; /* 文字色は白 */
+  text-decoration: none; /* 下線を消す */
+  font-size: 24px; /* フォントサイズは */
 }
 
+/* プレイヤーのコンテナ */
 .player {
-  margin-top: 30px;
+  margin-top: 30px; /* 上に30pxの余白を追加 */
+  display: flex; /* フレックスボックスレイアウト */
+  gap: 40px; /* 要素間に40pxの隙間を設定 */
+  align-items: center; /* 垂直方向に中央揃え */
+}
+
+/* アルバムアート(ジャケ写)のスタイル */
+.album-art {
+  width: 180px; /* 横幅180px */
+  height: 180px; /* 高さ180px */
+  background-color: #fff; /* 背景色は白 */
+  border-radius: 10px; /* 角を10pxの半径で丸く */
+  border: 1px solid #ddd; /* 薄い灰色の枠線（必要なら） */
+}
+
+/* タイトル　スタイル */
+.info h2 {
+  margin: 0; /* マージンを削除 */
+  font-size: 20px; /* フォントサイズは20px */
+  font-weight: bold; /* 太字に */
+}
+
+/* アーティスト名のスタイル */
+.artist {
+  margin: 6px 0 20px; /* 上6px、下20pxのマージン */
+  opacity: 0.7; /* 少し透明に */
+}
+
+/* 再生ボタンのコンテナ */
+.controls {
+  display: flex; /* フレックスボックスレイアウト */
+  gap: 20px; /* ボタン間に20pxの隙間を設定 */
+  margin-bottom: 20px; /* 下に20pxの余白を追加 */
+}
+
+/* 再生ボタンのスタイル */
+.controls button {
+  background: transparent; /* 背景は透明 */
+  border: 2px solid white; /* 白い枠線 */
+  border-radius: 50%; /* ボタンを丸く */
+  width: 55px; /* 横幅55px */
+  height: 55px; /* 高さ55px */
+  font-size: 20px; /* フォントサイズは20px */
+  color: white; /* 文字色は白 */
+  cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+}
+
+/* 再生ボタンのホバー効果 */
+.controls button:hover {
+  background: rgba(255, 255, 255, 0.15); /* ホバー時に背景色を少し透明に */
+}
+
+/* シークバー周りのエリア */
+.progress-area {
+  display: flex; /* フレックスボックスレイアウト */
+  align-items: center; /* 垂直方向に中央揃え */
+  gap: 10px; /* 要素間に10pxの隙間を設定 */
+  margin-bottom: 15px; /* 下に15pxの余白を追加 */
+}
+
+/* シークバーの幅 */
+#progress {
+  width: 220px; /* プログレスバーの横幅 */
+}
+
+/* いいねボタンのスタイル */
+.like-btn {
+  margin-top: 10px; /* 上に10pxの余白を追加 */
+  padding: 8px 15px; /* ボタン内のパディング */
+  border-radius: 6px; /* 角を6pxの半径で丸く */
+  border: none; /* 枠線なし */
+  font-size: 14px; /* フォントサイズは14px */
+  cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+}
+
+/* 全体を中央に配置するためのラッパー */
+.center-wrapper {
+  display: flex;
+  justify-content: center;   /* 横方向の中央 */
+  align-items: center;       /* 縦方向の中央 */
+  min-height: calc(100vh - 80px); /* 戻るボタンの高さ分を引く */
+}
+
+/* プレイヤー自身も中央寄せしやすく */
+.player {
   display: flex;
   gap: 40px;
   align-items: center;
 }
 
-.album-art {
-  width: 180px;
-  height: 180px;
-  background-color: #fff; /* ←白い無地 */
-  border-radius: 10px;
-  border: 1px solid #ddd; /* 薄い枠（必要なら） */
-}
-
-.info h2 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.artist {
-  margin: 6px 0 20px;
-  opacity: 0.7;
-}
-
-.controls {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.controls button {
-  background: transparent;
-  border: 2px solid white;
-  border-radius: 50%;
-  width: 55px;
-  height: 55px;
-  font-size: 20px;
-  color: white;
-  cursor: pointer;
-}
-
-.controls button:hover {
-  background: rgba(255,255,255,0.15);
-}
-
-.progress-area {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-#progress {
-  width: 220px;
-}
-
-.like-btn {
-  margin-top: 10px;
-  padding: 8px 15px;
-  border-radius: 6px;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-}
