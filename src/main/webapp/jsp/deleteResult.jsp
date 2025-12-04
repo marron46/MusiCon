@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <title>ユーザー削除</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="css/deleteResult.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/deleteResult.css">
 </head>
 <body>
 	<div class="reverse">
-		<a href="top.jsp">TOP</a>
+		<a href="${pageContext.request.contextPath}/index.jsp">TOP</a>
 	</div>
 	<div class="container">
 		<div class="message">

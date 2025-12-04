@@ -22,7 +22,7 @@ public class DeleteUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("deleteUser.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/deleteUser.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -51,12 +51,12 @@ public class DeleteUser extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("user_name", user_name);
 			// フォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("deleteResult.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/deleteResult.jsp");
 			dispatcher.forward(request, response);
 			System.out.println("でけた！");
 		} else { // ユーザー削除失敗時
 			// リダイレクト
-			response.sendRedirect("DeleteUser");
+			response.sendRedirect(request.getContextPath() + "/DeleteUser");
 			System.out.println("できない");
 		}
 	}

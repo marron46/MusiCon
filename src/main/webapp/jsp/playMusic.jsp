@@ -7,14 +7,14 @@
 <meta charset="UTF-8">
 <title>曲の再生</title>
 
-<link rel="stylesheet" href="css/playMusic.css">
-<script defer src="js/playMusic.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/playMusic.css">
+<script defer src="${pageContext.request.contextPath}/js/playMusic.js"></script>
 
 </head>
 
 <body>
 
-<a href="PlayMusic" class="back-btn">← topに戻る</a>
+<a href="${pageContext.request.contextPath}/PlayMusic" class="back-btn">← topに戻る</a>
 
 <%
     Music music = (Music) request.getAttribute("music");
@@ -56,14 +56,14 @@
         	</div>
 
         	<!-- いいね -->
-			<form action="LikeMusic" method="post">
+			<form action="${pageContext.request.contextPath}/LikeMusic" method="post">
             	<input type="hidden" name="id" value="<%=music.getId()%>">
             	<button type="submit" class="like-btn">
                 	いいね！ (<%=music.getLikes()%>)
             	</button>
         	</form>
         	
-        	<a href="MyBookmark?id=<%=music.getId()%>">⭐ブックマーク</a>
+        	<a href="${pageContext.request.contextPath}/MyBookmark?id=<%=music.getId()%>">⭐ブックマーク</a>
 
 		</div>
 

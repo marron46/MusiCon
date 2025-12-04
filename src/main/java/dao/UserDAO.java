@@ -10,7 +10,7 @@ import model.User;
 
 public class UserDAO {
 
-	private final String JDBC_URL = "jdbc:mysql://localhost/musicon";
+	private final String JDBC_URL = "jdbc:mysql://localhost/musicon?useSSL=false&serverTimezone=Asia/Tokyo&characterEncoding=UTF-8";
 	private final String DB_USER = "root";
 	private final String DB_PASS = "";
 
@@ -18,7 +18,7 @@ public class UserDAO {
 	public boolean executeLogin(String nm, String pw) {
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
@@ -57,7 +57,7 @@ public class UserDAO {
 	public boolean registerUser(User user) {
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
@@ -136,7 +136,7 @@ public class UserDAO {
 	public boolean deleteUser(User user) {
 		// JDBCドライバを読み込む
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}

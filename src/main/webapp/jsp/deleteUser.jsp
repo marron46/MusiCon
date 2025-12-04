@@ -6,17 +6,17 @@
 <meta charset="UTF-8">
 <title>アカウント削除</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="css/deleteUser.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/deleteUser.css">
 </head>
 <body>
 	<div class="reverse">
-		<a href="top.jsp">TOP</a>
+		<a href="${pageContext.request.contextPath}/PlayMusic">TOP</a>
 	</div>
 	<div class="container">
 		<%-- ページの見出し部分 --%>
 		<h1 class="dUser-title">アカウント削除</h1>
 
-		<form action="DeleteUser" method="post">
+		<form action="${pageContext.request.contextPath}/DeleteUser" method="post">
 			<div class="form-area">
 				<%-- ユーザー名の入力欄 --%>
 				<%-- <label>ユーザー名</label><br>--%>
