@@ -189,7 +189,7 @@ public class MusicDAO {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			// SELECT文の準備（1曲のデータの取得）
-			String sql = "SELECT ID, TITLE, LIKES, URL FROM MUSICS WHERE ID = ?";
+			String sql = "SELECT ID, TITLE, ARTIST, LIKES, URL FROM MUSICS WHERE ID = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SELECT文の実行
@@ -200,6 +200,7 @@ public class MusicDAO {
 				music = new Music(
 						rs.getInt("ID"),
 						rs.getString("TITLE"),
+						rs.getString("ARTIST"),
 						rs.getInt("LIKES"),
 						rs.getString("URL"));
 			}
@@ -208,7 +209,7 @@ public class MusicDAO {
 		} catch (SQLException e) {
 			e.printStackTrace(); // SQLエラーを表示
 			System.out.println("Error : UserDAO.registerUser");
-			return null; // 失敗lll
+			return null; // 失敗
 		}
 	}
 }

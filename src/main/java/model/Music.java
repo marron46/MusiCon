@@ -48,12 +48,12 @@ public class Music {//Music情報格納
 		this.likes = likes;
 	}
 
-	/*public Music(int id, String title,int likes, String url) { // 曲再生用
+	public Music(int id, String title,int likes, String url) { // 曲再生用
 		this.id = id;
 		this.title = title;
 		this.likes = likes;
 		this.url = url;
-	}*/
+	}
 
 	public int getId() {
 		return id;
