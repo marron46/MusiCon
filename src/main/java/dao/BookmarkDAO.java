@@ -89,12 +89,14 @@ public class BookmarkDAO {
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			//TODO UserとMusicがすでにテーブル内にある場合は弾く機能を作る
-			
+
 			// Usersテーブルで該当のユーザIDを取得
 			String sql_get_userid = "SELECT USER_ID FROM USERS WHERE USER_NAME=?";
 			PreparedStatement pStmt1 = conn.prepareStatement(sql_get_userid);
 			pStmt1.setString(1, user.getUserName());
 			ResultSet rs1 = pStmt1.executeQuery();
+			if (!rs1.next())
+				return false;
 			int int_userid = rs1.getInt("USER_ID");
 
 			// Musicテーブルで音楽名から音楽IDを取得
@@ -102,7 +104,19 @@ public class BookmarkDAO {
 			PreparedStatement pStmt2 = conn.prepareStatement(sql_get_musicid);
 			pStmt2.setString(1, music.getTitle());
 			ResultSet rs2 = pStmt2.executeQuery();
+			if (!rs2.next())
+				return false;
 			int int_musicid = rs2.getInt("MUSIC_ID");
+
+			// ---- 重複チェック ----
+			String sqlCheck = "SELECT COUNT(*) FROM BOOKMARKS WHERE B_USER=? AND B_MUSIC=?";
+			PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck);
+			stmtCheck.setInt(1, int_userid);
+			stmtCheck.setInt(2, int_musicid);
+			ResultSet rsCheck = stmtCheck.executeQuery();
+			rsCheck.next();
+			if (rsCheck.getInt(1) > 0)
+				return false; // 既に登録済み→弾く
 
 			// INSERT文の準備（新規ユーザーをデータベースに登録）
 			String sql = "INSERT INTO BOOKMARKS(B_USER, B_MUSIC) VALUES (?, ?)";

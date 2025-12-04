@@ -1,17 +1,13 @@
 package model.logic;
 
-import java.util.List;
-
 import dao.BookmarkDAO;
-import model.Bookmark;
+import model.Music;
 import model.User;
 
 public class MyBookmarkLogic {
 	private BookmarkDAO dao = new BookmarkDAO();
 	
-	//マイページ情報の取得
-	public List<Bookmark> getBookmark(User user) {
-		List<Bookmark> allList = dao.getBookmark(user);
-		return allList;
+	public boolean execute(User user, Music music) {
+		return dao.registerBookmark(user, music);
 	}
 }
