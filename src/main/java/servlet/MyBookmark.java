@@ -29,6 +29,7 @@ public class MyBookmark extends HttpServlet {
 		// クリックされたMusic IDを取得
 		String musicIdStr = request.getParameter("id");
 		if (musicIdStr == null) {
+			System.out.println("topに行こうとしている");
 			response.sendRedirect("top.jsp");
 			return;
 		}
@@ -48,6 +49,8 @@ public class MyBookmark extends HttpServlet {
 		} else {
 			request.setAttribute("message", "すでに登録済みです。");
 		}
+		
+		System.out.println("resultに"+result+"が返ってきている");
 
 		request.getRequestDispatcher("myBookmark.jsp").forward(request, response);
 	}
