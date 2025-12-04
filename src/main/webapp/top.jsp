@@ -60,15 +60,19 @@
 				for (model.Music m : list) {
 				%>
 
+
 				<!-- 曲タイトルをリンクとして表示 -->
 				<!-- クリックすると MusicServlet?id=○○ に飛び、play.jsp で再生画面へ -->
-
-				<a href="PlayMusic?id=<%=m.getId()%>" class="music-area"> <%=m.getTitle()%></a>
-
+				<a href="PlayMusic?id=<%=m.getId()%>" class="music-area btn-flat">
+					<span><%=m.getTitle()%></span>
+				</a>
+				<br>
+				<br>
 				<%
 				} // for の終わり
 				%>
 			</ul>
 		</div>
+	</div>
 </body>
 </html>

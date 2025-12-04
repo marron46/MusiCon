@@ -201,34 +201,81 @@ body {
    =============================== */
    
    /* 曲フォーム全体のボックス */
-.container {
-	position: fixed;
-	bottom: 0;  /* ボックスを画面の下に固定 */
-	transform: translateX(-50%);  /* 中央揃え */
-	background-color: #000000;  /* 背景を白に */
-	padding: 10px 40px;  /* 内側余白 */
-	box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
-	width: 60%;
-	height: 80%;
-	max-width: 900px;  /*最大の幅 */
-	min-width: 250px;  /*最小の幅 */
-	max-height: 900px;  /* 最大高さを設定 */
-	min-height: 50px;  /* 最小高さを設定 */
-	overflow-y: auto;  /* 内容が溢れる場合、スクロール可能 */
-	display: flex;
-	flex-direction: column;
-	align-items: center; /* 横方向中央 */
-	text-align: center;  /* 中の文字を中央揃え */
-	z-index: 900;
-}
+   /* ===============================
+      音楽ボタン（music-area）の演出修正
+      =============================== */
+   .music-area {
+	position: absolute;
+       font-family: Arial, sans-serif;
+       font-size: 40px;
+       background-color: #ffffff;
+       padding: 0px;
+       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+       width: 80%;
+	   text-decoration: none;     /* 下線を消す */
+       height: 70px;
+       padding: 0 20px;
+       z-index: 1500; /* 他の要素よりも前面に表示 */
+   }
 
-.music-area {
-	font-family: Arial, sans-serif; /* フォント設定 */
-	font-size: 40px;
-	background-color: #ffffff;  /* 背景を白に */
-	padding: 0px;  /* 内側余白 */
-	box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
-	width: 100%;
-	height: 70px;
-	padding: 0 20px;
-}
+   /* 既存の btn-flat クラスもそのままにしておく */
+   .music-area.btn-flat {
+     position: relative;       /* 擬似要素の基準に */
+     overflow: hidden;
+     padding: 1.5rem 6rem;
+     color: #fff;
+     border-radius: 0;
+     background: #000;
+   }
+
+   .music-area.btn-flat span {
+     position: relative;
+     z-index: 1;               /* 擬似要素より前に表示 */
+   }
+
+   .music-area.btn-flat:before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 5px;               /* 左端の細い縦ライン */
+     height: 100%;             /* ボタン全体の高さ */
+     background: rgb(255, 0, 255);
+     transform: translateX(-100%); /* 左に隠す */
+     transition: transform 0.5s ease-in-out;
+     z-index: 0;               /* 背景に配置 */
+   }
+
+   .music-area.btn-flat:hover:before {
+     transform: translateX(0); /* スライドイン */
+   }
+
+   
+   
+
+   /* ===============================
+      container の調整（必要に応じて）
+      =============================== */
+   .container {
+	position: relative;
+       bottom: 0;
+       transform: translateX(-50%);
+       background-color: #000000;
+       padding: 10px 40px;
+       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+       width: 60%;
+       height: 80%;
+       max-width: 900px;
+       min-width: 250px;
+       max-height: 900px;
+       min-height: 50px;
+       overflow-y: auto;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       text-align: center;
+       z-index: 1; /* containerのz-indexは低め */   
+   }
+
+   
+   
