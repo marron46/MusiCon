@@ -16,17 +16,19 @@ body {
     min-height: 100vh; /* 画面全体の高さ確保 */
     margin: 0; /* 余白なし */
     font-family: Arial, sans-serif; /* フォント設定 */
-    display: flex; /* フレックスボックスで配置 */
-    justify-content: center; /* 横方向中央寄せ */
-    align-items: center; /* 縦方向中央寄せ */
+    /*display: flex; /* フレックスボックスで配置 */
+    /*justify-content: center; /* 横方向中央寄せ */
+    /*align-items: center; /* 縦方向中央寄せ */
 }
 
 /* ===============================
    チェックボックスを非表示にする
    （メニュー開閉トリガー用）
    =============================== */
-#menu-check {
-    display: none;
+.menu-check {
+	position: absolute;
+	    opacity: 0;
+	    pointer-events: none;
 }
 
 /* ===============================
@@ -38,8 +40,8 @@ body {
     position: fixed; /* 固定配置 */
     top: 20px; /* 上から20px */
     left: 20px; /* 左から20px */
-    width: 60px; /* 幅 */
-    height: 45px; /* 高さ */
+    width: 80px; /* 幅 */
+    height: 60px; /* 高さ */
     padding: 0; /* 内側余白なし */
     background: rgba(255,255,255,0.75); /* 半透明白背景 */
     cursor: pointer; /* マウスオーバーで指アイコン */
@@ -60,28 +62,26 @@ body {
 
 /* ハンバーガーの3本線 */
 .hamburger .line {
-    width: 35px;
-    height: 5px;
+    width: 50px;
+    height: 6px;
     background: #333; /* 黒色 */
     border-radius: 3px; /* 角丸 */
-    margin: 4px 0; /* 上下間隔 */
+    margin: 6px 0; /* 上下間隔 */
     transition: 0.3s; /* 変形アニメーション */
 }
+
 
 /* ===============================
    ハンバーガークリックで × に変形
    =============================== */
-#menu-check:checked + .hamburger .line {
-    height: 4px; /* 線を少し細く */
+#menu-check:checked ~ .hamburger .line:nth-child(1) {
+    transform: translateY(17px) rotate(45deg);
 }
-#menu-check:checked + .hamburger .line:nth-child(1) {
-    transform: translateY(12px) rotate(45deg); /* 斜め線1本目 */
+#menu-check:checked ~ .hamburger .line:nth-child(2) {
+    opacity: 0;
 }
-#menu-check:checked + .hamburger .line:nth-child(2) {
-    opacity: 0; /* 真ん中の線を非表示 */
-}
-#menu-check:checked + .hamburger .line:nth-child(3) {
-    transform: translateY(-12px) rotate(-45deg); /* 斜め線2本目 */
+#menu-check:checked ~ .hamburger .line:nth-child(3) {
+    transform: translateY(-17px) rotate(-45deg);
 }
 
 /* ===============================
@@ -214,7 +214,7 @@ body {
 	      background-color: #ffffff;
 	      padding: 15px 20px;  /* 十分な内側余白を確保 */
 	      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-	      width: 100%;  /* ボタンの幅を調整 */
+	      width: 900px;  /* ボタンの幅を調整 */
 		  max-width: 1200px;  /* 最大幅を1200pxに設定 */
 		  min-width: 600px;  /* 最小幅を600pxに設定 */
 		  text-decoration: none; /* 下線を消す */
@@ -225,11 +225,13 @@ body {
 	      display: flex;
 	      align-items: center; /* ボタン内のテキストを中央揃え */
 	      justify-content: center; /* ボタン内のテキストを中央揃え */
+		  transition: background-color 0.3s ease, color 0.3s ease;
 	  }
 
 	  /* 音楽ボタンのホバー時のスタイル */
 	  .music-area:hover {
 	      background-color: rgb(128, 128, 128); /* ホバー時の背景色変更 */
+		  color: black;
 	  }
 
 	  /* 音楽ボタンが押されたとき（ホールド時） */
@@ -246,17 +248,23 @@ body {
 	  }
 
 	  /* ピンクのライン（hover時にスライドイン） */
+	  /* 左側のピンクライン（初期は5px） */
 	  .music-area.btn-flat:before {
 	      content: '';
 	      position: absolute;
 	      top: 0;
 	      left: 0;
-	      width: 5px;
+	      width: 5px;                 /* 初期は細いライン */
 	      height: 100%;
 	      background: rgb(255, 0, 255);
-	      transform: translateX(-100%); /* 左に隠す */
-	      transition: transform 0.5s ease-in-out;
+	      transform-origin: left;     /* 左から右へ広がる */
+	      transition: width 0.5s ease-in-out;
 	      z-index: 0;
+	  }
+
+	  /* ホバーで左のラインが全体を覆う */
+	  .music-area.btn-flat:hover:before {
+	      width: 100%;                /* ボタン全体に広げる */
 	  }
 
 	  .music-area.btn-flat:hover:before {
