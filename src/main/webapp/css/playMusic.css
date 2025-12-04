@@ -41,6 +41,7 @@ body {
 /* アーティスト名のスタイル */
 .artist {
   margin: 6px 0 20px; /* 上6px、下20pxのマージン */
+  font-size: 15px; /* フォントサイズ */
   opacity: 0.7; /* 少し透明に */
 }
 
@@ -96,7 +97,7 @@ body {
   display: flex;
   justify-content: center;   /* 横方向の中央 */
   align-items: center;       /* 縦方向の中央 */
-  min-height: calc(100vh - 80px); /* 戻るボタンの高さ分を引く */
+  min-height: calc(100vh - 250px); /* 100vh(画面の高さ)から250px分だけ上のスペースを確保した高さ*/
 }
 
 /* プレイヤー自身も中央寄せしやすく */
