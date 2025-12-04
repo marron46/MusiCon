@@ -37,13 +37,13 @@
 			<!-- 作詞家入力欄（DBのlyricistに入る） -->
 			<!--作詞家：-->
 			<div class="form-item">
-				<input type="text" name="lyricist" placeholder="作詞家" required>
+				<input type="text" name="lyricist" placeholder="作詞者" required>
 			</div>
 
 			<!-- 作曲家入力欄（DBのcomposerに入る） -->
 			<!--作曲家：-->
 			<div class="form-item">
-				<input type="text" name="composer" placeholder="作曲家" required>
+				<input type="text" name="composer" placeholder="作曲者" required>
 			</div>
 
 			<!-- 発売年月日入力欄（DBのrelease_ymdに入る） -->
