@@ -8,7 +8,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.Music;
+import model.User;
 import model.logic.MyBookmarkLogic;
 
 @WebServlet("/MyBookmark")
@@ -20,6 +22,9 @@ public class MyBookmark extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
+		// ログインユーザーを取得
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user_name");
 
 		// クリックされたMusic IDを取得
 		String musicIdStr = request.getParameter("id");
