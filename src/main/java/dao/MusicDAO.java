@@ -33,6 +33,7 @@ public class MusicDAO {
 						rs.getInt("ID"),
 						rs.getString("TITLE"),
 						rs.getString("ARTIST"),
+						rs.getInt("MUSIC_TIME"),
 						rs.getInt("LIKES"),
 						rs.getString("URL")));
 			}

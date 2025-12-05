@@ -95,7 +95,7 @@ session.setAttribute("musicList", musicList);
 					class="music-area btn-flat"> 
 					<div class="title"><%=m.getTitle()%></div>
 					<div class="artist"><%=m.getArtist()%></div>
-					<div class="time"><%=m.getMusicTime()%></div>
+					<div class="time"><%=m.getMusicTime() / 100%>:<%= m.getMusicTime() % 100%></div>
 				</a>
 				<br>
 				<br>
