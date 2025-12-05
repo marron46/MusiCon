@@ -20,15 +20,22 @@ public class ShowRanking extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// ログインチェック
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("user_name");
+		if (userName == null) {
+			response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+			return;
+		}
+
 		ShowRankingLogic logic = new ShowRankingLogic();
 		// いいねランキングを取得
 		List<Music> ranking = logic.getRanking();
 		System.out.println("ランキング出力:" + ranking);
 		// セッションスコープにランキングリストを保存
-		HttpSession session = request.getSession();
 		session.setAttribute("ranking", ranking);
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("showRanking.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/showRanking.jsp");
 		dispatcher.forward(request, response);
 	}
 

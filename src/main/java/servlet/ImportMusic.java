@@ -11,8 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-
 import model.Music;
 import model.logic.ImportMusicLogic;
 import model.logic.PlayMusicLogic;
@@ -28,17 +28,25 @@ public class ImportMusic extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
+		// ログインチェック
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("user_name");
+		if (userName == null) {
+			response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+			return;
+		}
+
 		PlayMusicLogic logic = new PlayMusicLogic();
 		// 曲一覧を取得して JSP へ
-        List<Music> musicList = logic.getMusicList();
-        request.setAttribute("musicList", musicList);
-        System.out.println("DAOからとってきた曲リスト" + musicList);
+		List<Music> musicList = logic.getMusicList();
+		session.setAttribute("musicList", musicList);
+		System.out.println("DAOからとってきた曲リスト" + musicList);
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/top.jsp");
 		dispatcher.forward(request, response);
 		System.out.println("id順に曲リストを作ってtopに戻ります");
-		
+
 		// フォワード
 		/*RequestDispatcher dispatcher = request.getRequestDispatcher("importMusic.jsp");
 		dispatcher.forward(request, response);*/
@@ -47,6 +55,14 @@ public class ImportMusic extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// ログインチェック
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("user_name");
+		if (userName == null) {
+			response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+			return;
+		}
 
 		// リクエストパラメータを取得
 		// releaseYearをint型に変換 + 残りの宣言

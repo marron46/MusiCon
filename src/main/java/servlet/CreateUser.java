@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import model.User;
 import model.logic.CreateUserLogic;
 
@@ -22,7 +21,7 @@ public class CreateUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("createUser.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/createUser.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -53,12 +52,12 @@ public class CreateUser extends HttpServlet {
 			session.setAttribute("user_name", user_name);
 			System.out.println(user_name);
 			// フォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("createResult.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/createResult.jsp");
 			dispatcher.forward(request, response);
 			System.out.println("でけた！");
 		} else { // 新規ユーザー登録失敗時
 			// リダイレクト
-			response.sendRedirect("CreateUser");
+			response.sendRedirect(request.getContextPath() + "/CreateUser");
 			System.out.println("ろぐいんできない");
 		}
 	}

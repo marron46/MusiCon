@@ -55,18 +55,20 @@ public class BookmarkDAO {
 				int int_Bmusic = rs2.getInt("B_MUSIC");
 
 				// BookmarkテーブルとMusicテーブルの情報を照合させる
-				String sql_bookmark_to_music = "SELECT TITLE,ARTIST FROM MUSIC WHERE ID=?";
+				String sql_bookmark_to_music = "SELECT TITLE,ARTIST FROM MUSICS WHERE ID=?";
 				pStmt3 = conn.prepareStatement(sql_bookmark_to_music);
 
 				pStmt3.setInt(1, int_Bmusic);
-				ResultSet rs3 = pStmt2.executeQuery();
+				ResultSet rs3 = pStmt3.executeQuery();
 
-				String str_title = rs3.getString("TITLE");
-				String str_artist = rs3.getString("ARTIST");
+				if (rs3.next()) {
+					String str_title = rs3.getString("TITLE");
+					String str_artist = rs3.getString("ARTIST");
 
-				// 新しいオブジェクトを作成
-				Bookmark bookmark = new Bookmark(int_bookmark_id, str_title, str_artist);
-				bookmarkList.add(bookmark); // リストに追加
+					// 新しいオブジェクトを作成
+					Bookmark bookmark = new Bookmark(int_bookmark_id, str_title, str_artist);
+					bookmarkList.add(bookmark); // リストに追加
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // SQLエラーを表示
@@ -100,13 +102,13 @@ public class BookmarkDAO {
 			int int_userid = rs1.getInt("USER_ID");
 
 			// Musicテーブルで音楽名から音楽IDを取得
-			String sql_get_musicid = "SELECT MUSIC_ID FROM USERS WHERE TITLE=?";
+			String sql_get_musicid = "SELECT ID FROM MUSICS WHERE TITLE=?";
 			PreparedStatement pStmt2 = conn.prepareStatement(sql_get_musicid);
 			pStmt2.setString(1, music.getTitle());
 			ResultSet rs2 = pStmt2.executeQuery();
 			if (!rs2.next())
 				return false;
-			int int_musicid = rs2.getInt("MUSIC_ID");
+			int int_musicid = rs2.getInt("ID");
 
 			// ---- 重複チェック ----
 			String sqlCheck = "SELECT COUNT(*) FROM BOOKMARKS WHERE B_USER=? AND B_MUSIC=?";

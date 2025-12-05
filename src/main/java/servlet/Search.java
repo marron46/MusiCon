@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import model.Music;
 import model.logic.SearchResultLogic;
 
@@ -26,6 +25,14 @@ public class Search extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// ログインチェック
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("user_name");
+		if (userName == null) {
+			response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+			return;
+		}
+
 		// リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
 		String searchText = request.getParameter("searchText");
@@ -36,11 +43,10 @@ public class Search extends HttpServlet {
 		List<Music> result = logic.execute(musicSearch);
 
 		// セッションスコープに曲タイトルを保存
-		HttpSession session = request.getSession();
 		session.setAttribute("searchList", result);
 		System.out.println("検索結果" + result);
 		// フォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("searchResult.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/searchResult.jsp");
 		dispatcher.forward(request, response);
 		System.out.print("でけた！");
 

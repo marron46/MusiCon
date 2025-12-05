@@ -1,13 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, model.Music"%>
+<%@ page
+	import="java.util.List, model.Music, model.logic.PlayMusicLogic"%>
+<%
+// ログインチェック
+String userName = (String) session.getAttribute("user_name");
+if (userName == null) {
+	response.sendRedirect(request.getContextPath() + "/index.jsp");
+	return;
+}
+
+// 曲一覧を取得
+PlayMusicLogic logic = new PlayMusicLogic();
+List<Music> musicList = logic.getMusicList();
+session.setAttribute("musicList", musicList);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>トップ</title>
 <%-- cssの連携 --%>
-<link rel="stylesheet" href="css/top.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/top.css">
 </head>
 <body>
 	<%-- チェックボックス(非表示) --%>
@@ -24,14 +39,18 @@
 	<%-- メニュー --%>
 	<nav class="side-menu">
 		<ul>
-			<li><a href="myBookmark.jsp" class="menu">ブックマーク</a></li>
-			<li><a href="ShowRanking" class="menu">ランキング</a></li>
-			<li><a href="importMusic.jsp" class="menu">曲追加</a></li>
-			<li><a href="login.jsp" class="menu">ログイン</a></li>
-			<p>
-			<li><a>ログアウト</a></li>
-			<li><a href="deleteUser.jsp" class="menu">アカウント削除</a></li>
-			</p>
+			<li><a href="${pageContext.request.contextPath}/MyBookmark"
+				class="menu">ブックマーク</a></li>
+			<li><a href="${pageContext.request.contextPath}/ShowRanking"
+				class="menu">ランキング</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
+				class="menu">曲追加</a></li>
+			<li><a href="${pageContext.request.contextPath}/Logout"
+				class="menu">ログアウト</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/jsp/deleteUser.jsp"
+				class="menu">アカウント削除</a></li>
 		</ul>
 	</nav>
 
@@ -42,14 +61,14 @@
     });
 </script>
 	<div class="main">
-		<form action="Search" method="post">
+		<form action="${pageContext.request.contextPath}/Search" method="post">
 			<%-- 検索バー --%>
 			<div class="search-area">
 				<input type="text" class="searchbox" name="searchText"
 					placeholder="検索">
 				<button type="submit" class="search-button">
-					<img src="png/searchMark.png" class="search" width="60"
-						alt="検索アイコン">
+					<img src="${pageContext.request.contextPath}/png/searchMark.png"
+						class="search" width="60" alt="検索アイコン">
 				</button>
 			</div>
 		</form>
@@ -59,19 +78,26 @@
 				List<model.Music> list = (List<model.Music>) session.getAttribute("musicList");
 
 				// list にデータがあれば1件ずつループ
-				for (model.Music m : list) {
+				if (list != null && !list.isEmpty()) {
+					for (model.Music m : list) {
 				%>
 
 
 				<!-- 曲タイトルをリンクとして表示 -->
 				<!-- クリックすると MusicServlet?id=○○ に飛び、play.jsp で再生画面へ -->
-				<a href="PlayMusic?id=<%=m.getId()%>" class="music-area btn-flat">
-					<span><%=m.getTitle()%></span>
+				<a
+					href="${pageContext.request.contextPath}/PlayMusic?id=<%=m.getId()%>"
+					class="music-area btn-flat"> <span><%=m.getTitle()%></span>
 				</a>
 				<br>
 				<br>
 				<%
 				} // for の終わり
+				} else {
+				%>
+				<p>曲がありません。</p>
+				<%
+				}
 				%>
 			</ul>
 		</div>
