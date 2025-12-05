@@ -7,12 +7,24 @@ body {
   padding: 30px; /* 全体に30pxのパディングを追加 */
 }
 
-/* topに戻るボタンのスタイル */
-.back-btn {
-  color: white; /* 文字色は白 */
-  text-decoration: none; /* 下線を消す */
-  font-size: 34px; /* フォントサイズは */
-}
+/* TOP へ戻るボタン */
+.reverse {
+	position: fixed; /* 画面固定位置 */
+	top: -20px; /* 上から10px */
+	left: -20px; /* 左から10px */
+    margin: 20px;
+	}
+	
+.reverse-img {
+	width: 180px;   /* 好きなサイズに調整 */
+	height: auto;
+	cursor: pointer;
+	transition: 0.2s;
+	}
+
+.reverse-img:hover {
+	opacity: 0.8;
+	}
 
 /* プレイヤーのコンテナ */
 .player {
@@ -34,7 +46,7 @@ body {
   border: 1px solid #ddd; /* 薄い灰色の枠線（必要なら） */
 }
 
-/* タイトル　スタイル */
+/* タイトルのスタイル */
 .info h2 {
   margin: 0; /*マージンを削除 */
   font-size: 30px; /* フォントサイズは20px */
