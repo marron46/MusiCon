@@ -153,7 +153,7 @@ body {
     font-weight: bold;
     align-items: center;
     justify-content: center;
-
+	text-decoration: none; /* 下線なし */
     transform: translateX(-20px);
     transition: 0.3s;
 }
