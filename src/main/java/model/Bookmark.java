@@ -8,6 +8,8 @@ public class Bookmark {
 	private String artist;//アーティスト名（外部キー）
 	private int music_id;//楽曲ID
 	
+	private Music music;
+	
     // コンストラクタ : フィールド設定
 	public Bookmark(int bookmark_id,String title,String artist,int music_id){
 		this.bookmark_id = bookmark_id;
@@ -21,4 +23,6 @@ public class Bookmark {
 	public String getTitle() { return title; }
 	public String getArtist() { return artist; }
 	public int getMusic_id() { return music_id; }
+	
+	public Music getMusic() { return music; }
 }

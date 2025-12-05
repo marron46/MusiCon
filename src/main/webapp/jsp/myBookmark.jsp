@@ -34,7 +34,10 @@
 		<%
 		for (Bookmark b : list) {
 		%>
-		<li>🎵 <b><%=b.getTitle()%></b>（<%=b.getArtist()%>）
+		<li>🎵 <a
+			href="${pageContext.request.contextPath}/BookmarkPlay?id=<%=b.getMusic_id()%>"
+			class="music-area btn-flat"> <span><%=b.getTitle()%></span>
+		</a> <br> <br>
 		</li>
 		<hr>
 		<%

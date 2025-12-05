@@ -143,4 +143,41 @@ public class BookmarkDAO {
 			return false; // 失敗
 		}
 	}
+	
+	public Music playMusicById(int id) {// 書き足し
+		// JDBCドライバを読み込む
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
+		}
+
+		Music music = null;
+
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+
+			// SELECT文の準備（1曲のデータの取得）
+			String sql = "SELECT ID, TITLE, ARTIST, LIKES, URL FROM MUSICS WHERE ID = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SELECT文の実行
+			pStmt.setInt(1, id); // SQL の一つ目の ? に id をセット
+			ResultSet rs = pStmt.executeQuery();
+
+			if (rs.next()) {
+				music = new Music(
+						rs.getInt("ID"),
+						rs.getString("TITLE"),
+						rs.getString("ARTIST"),
+						rs.getInt("LIKES"),
+						rs.getString("URL"));
+			}
+			return music;
+
+		} catch (SQLException e) {
+			e.printStackTrace(); // SQLエラーを表示
+			System.out.println("Error : UserDAO.registerUser");
+			return null; // 失敗
+		}
+	}
 }
