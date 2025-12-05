@@ -11,7 +11,7 @@ body {
 .back-btn {
   color: white; /* 文字色は白 */
   text-decoration: none; /* 下線を消す */
-  font-size: 24px; /* フォントサイズは */
+  font-size: 34px; /* フォントサイズは */
 }
 
 /* プレイヤーのコンテナ */
@@ -24,8 +24,11 @@ body {
 
 /* アルバムアート(ジャケ写)のスタイル */
 .album-art {
-  width: 180px; /* 横幅180px */
-  height: 180px; /* 高さ180px */
+  margin:30px 60px 0 0;/*上 右 下 左のマージンをそれぞれ別に指定する*/
+  padding-right: 30px;
+  padding-top: 10px;
+  width: 250px; /* 横幅 */
+  height: 265px; /* 高さ */
   background-color: #fff; /* 背景色は白 */
   border-radius: 10px; /* 角を10pxの半径で丸く */
   border: 1px solid #ddd; /* 薄い灰色の枠線（必要なら） */
@@ -33,15 +36,15 @@ body {
 
 /* タイトル　スタイル */
 .info h2 {
-  margin: 0; /* マージンを削除 */
-  font-size: 20px; /* フォントサイズは20px */
+  margin: 0; /*マージンを削除 */
+  font-size: 30px; /* フォントサイズは20px */
   font-weight: bold; /* 太字に */
 }
 
 /* アーティスト名のスタイル */
 .artist {
-  margin: 6px 0 20px; /* 上6px、下20pxのマージン */
-  font-size: 15px; /* フォントサイズ */
+  margin: 3px 0 20px; /* 上6px、下20pxのマージン */
+  font-size: 31px; /* フォントサイズ */
   opacity: 0.7; /* 少し透明に */
 }
 
@@ -59,7 +62,8 @@ body {
   border-radius: 50%; /* ボタンを丸く */
   width: 55px; /* 横幅55px */
   height: 55px; /* 高さ55px */
-  font-size: 20px; /* フォントサイズは20px */
+  justify-content: center; /* 横方向中央揃え（重要） */
+  font-size: 30px; /* フォントサイズは20px */
   color: white; /* 文字色は白 */
   cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
 }
@@ -88,7 +92,7 @@ body {
   padding: 8px 15px; /* ボタン内のパディング */
   border-radius: 6px; /* 角を6pxの半径で丸く */
   border: none; /* 枠線なし */
-  font-size: 14px; /* フォントサイズは14px */
+  font-size: 17px; /* フォントサイズは14px */
   cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
 }
 

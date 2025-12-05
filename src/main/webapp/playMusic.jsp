@@ -41,10 +41,11 @@
             <source src="<%=music.getUrl()%>" type="audio/mpeg">
      		</audio>
 
+	<div class="center-block">	
         	<!-- 再生ボタン -->
         	<div class="controls">
 				<button id="prev">⏮</button>
-				<button id="play" class="play">⏸</button>
+				<button id="play" class="play">▶</button>
 				<button id="next">⏭</button>
        		</div>
 
@@ -54,7 +55,8 @@
 				<input type="range" id="progress" min="0" value="0">
             	<span id="duration">0:00</span>
         	</div>
-
+	</div>
+	
         	<!-- いいね -->
 			<form action="LikeMusic" method="post">
             	<input type="hidden" name="id" value="<%=music.getId()%>">
