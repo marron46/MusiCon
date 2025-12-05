@@ -25,7 +25,7 @@ public class MusicDAO {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			String sql = "SELECT ID, TITLE, LIKES, URL FROM MUSICS";
+			String sql = "SELECT ID, TITLE, LIKES, URL FROM MUSICS ORDER BY RAND()";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
