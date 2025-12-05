@@ -53,13 +53,13 @@
 			<!-- 発売年月日入力欄（DBのrelease_ymdに入る） -->
 			<!--発売年月日：-->
 			<div class="form-item">
-				<input type="text" name="releaseYMD" placeholder="発売年月日" required>
+				<input type="text" name="releaseYMD" placeholder="発売年月日（半角8桁：YYYYMMDD）" required>
 			</div>
 
 			<!-- 再生時間入力欄（DBのmusic_timeに入る） -->
 			<!--再生時間：-->
 			<div class="form-item">
-				<input type="text" name="music_time" placeholder="再生時間" required>
+				<input type="text" name="music_time" placeholder="再生時間（半角4桁：mmss）" required>
 			</div>
 
 			<!-- 音楽ファイル選択欄（mp3などの音声ファイル） -->
