@@ -43,7 +43,7 @@ body {
 
 /* アーティスト名のスタイル */
 .artist {
-  margin: 6px 0 20px; /* 上6px、下20pxのマージン */
+  margin: 3px 0 20px; /* 上6px、下20pxのマージン */
   font-size: 31px; /* フォントサイズ */
   opacity: 0.7; /* 少し透明に */
 }
@@ -62,6 +62,7 @@ body {
   border-radius: 50%; /* ボタンを丸く */
   width: 55px; /* 横幅55px */
   height: 55px; /* 高さ55px */
+  justify-content: center; /* 横方向中央揃え（重要） */
   font-size: 30px; /* フォントサイズは20px */
   color: white; /* 文字色は白 */
   cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
