@@ -48,9 +48,17 @@ body {
   opacity: 0.7; /* 少し透明に */
 }
 
+/* タイトルが長くても影響しない中央揃え用ブロック */
+.center-block {
+  width: 300px;               /* ← 中央揃えがブレないための固定幅 */
+  margin: 0 auto;             /* 真ん中に配置 */
+  text-align: center;
+}
+
 /* 再生ボタンのコンテナ */
 .controls {
   display: flex; /* フレックスボックスレイアウト */
+  justify-content: center;
   gap: 20px; /* ボタン間に20pxの隙間を設定 */
   margin-bottom: 20px; /* 下に20pxの余白を追加 */
 }
@@ -76,9 +84,14 @@ body {
 /* シークバー周りのエリア */
 .progress-area {
   display: flex; /* フレックスボックスレイアウト */
+  justify-content: center;
   align-items: center; /* 垂直方向に中央揃え */
   gap: 10px; /* 要素間に10pxの隙間を設定 */
   margin-bottom: 15px; /* 下に15pxの余白を追加 */
+}
+
+#progress {
+  width: 160px;   /* center-block内で収まるサイズ */
 }
 
 /* シークバーの幅 */
