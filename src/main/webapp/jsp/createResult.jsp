@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>ユーザー登録結果</title>
 <!-- cssの連携 -->
-<link rel="stylesheet" href="css/createResult.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/createResult.css">
 </head>
 <body>
 	<div class="container">
@@ -20,7 +20,7 @@
 					はじめまして
 				</h2>
 			</div>
-			<a href="login.jsp" class="log-btn">ログイン画面へ</a>
+			<a href="${pageContext.request.contextPath}/jsp/login.jsp" class="log-btn">ログイン画面へ</a>
 		</div>
 	</div>
 </body>
