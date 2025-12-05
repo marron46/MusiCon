@@ -70,7 +70,7 @@ public class BookmarkDAO {
 					String str_artist = rs3.getString("ARTIST");
 
 					// 新しいオブジェクトを作成
-					Bookmark bookmark = new Bookmark(int_bookmark_id, str_title, str_artist);
+					Bookmark bookmark = new Bookmark(int_bookmark_id, str_title, str_artist, int_Bmusic);
 					bookmarkList.add(bookmark); // リストに追加
 				}
 			}

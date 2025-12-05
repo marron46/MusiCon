@@ -40,12 +40,15 @@ session.setAttribute("musicList", musicList);
 	<nav class="side-menu">
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/MyBookmark"
-				class="menu">ブックマーク</a></li>
+				class="menu">マイページ</a></li>
 			<li><a href="${pageContext.request.contextPath}/ShowRanking"
 				class="menu">ランキング</a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
 				class="menu">曲追加</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
+				class="menu">曲一覧</a></li>
 			<li><a href="${pageContext.request.contextPath}/Logout"
 				class="menu">ログアウト</a></li>
 			<li><a
