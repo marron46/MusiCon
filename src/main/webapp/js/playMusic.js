@@ -83,9 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	function updateIcon(v) {
 		if (v === 0) {
 			volumeIcon.textContent = "🔇";
-		} else if (v < 0.3) {
+		} else if (v < 0.1) {
 			volumeIcon.textContent = "🔈";
-		} else if (v < 0.7) {
+		} else if (v < 0.2) {
 			volumeIcon.textContent = "🔉";
 		} else {
 			volumeIcon.textContent = "🔊";
