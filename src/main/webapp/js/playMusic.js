@@ -39,8 +39,7 @@ function formatTime(t) {
 	return `${m}:${s}`;
 }
 
-/* 追加した部分 */
-
+// 音量バーで変更する関数
 document.addEventListener("DOMContentLoaded", () => {
 
 	const audio = document.getElementById("audio");
@@ -93,7 +92,3 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 });
-/* 追加した部分 */
-/**
- * 
- */

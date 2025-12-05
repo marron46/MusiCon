@@ -62,13 +62,12 @@
 							min="0" value="0"> <span id="duration">0:00</span>
 					</div>
 				
-	<!-- 追加した部分 -->
-					<!-- ▼ 音量バー ▼ -->
+	
+					<!--  音量バー  -->
 					<div class="volume-area">
 						<span id="volume-icon">🔊</span> <input type="range" id="volume"
 							min="0" max="1" step="0.01" value="1">
 					</div>
-	<!-- 追加した部分 -->
 
 				</div>
 

@@ -143,7 +143,7 @@ body {
   align-items: center;
 }
 
-									/* 追加した部分 */
+
 /* ▼ 音量バー全体（progress-area と統一） */
 .volume-area {
   display: flex;
@@ -187,4 +187,3 @@ body {
 }
 
 
-								/* 追加した部分 */
