@@ -7,27 +7,58 @@ body {
   padding: 30px; /* 全体に30pxのパディングを追加 */
 }
 
-.reverse-img {
-	width: 12vw;
-	max-width: 180px;  /*最大の幅 */
-	min-width: 60px;  /*最小の幅 */
-	height: auto;
+/* ▼ ロゴと文字全体の位置（左上に固定） */
+.reverse,
+.reverseStr {
+    position: fixed;
+    left: 10px;
+    text-align: center;
 }
 
-/* TOP へ戻るボタン */
+/* ▼ ロゴ（上側） */
 .reverse {
-	position: fixed; /* 画面固定位置 */
-	top: -20px; /* 上から10px */
-	left: -20px; /* 左から10px */
-    margin: 20px;
-	}
-	
+    top: 10px;
+}
+
+/* ▼ TOPに戻る（ロゴの下） */
+.reverseStr {
+    top: 140px;  /* ロゴの高さに応じて調整 */
+    width: 150px; /* ロゴ画像の幅に揃えて中央揃えに */
+	font: bold;
+	margin-top: 25px;
+	padding: 5px 12px;
+	margin-left: -10px;
+}
+
+.reverseStr a:hover{
+	background-color: #ededed;
+	color: #000000;
+}
+
+/* ▼ ロゴ画像 */
 .reverse-img {
-	width: 180px;   /* 好きなサイズに調整 */
-	height: auto;
-	cursor: pointer;
-	transition: 0.2s;
-	}
+    width: 150px;
+    height: auto;
+    display: block;
+}
+
+/* ▼ リンク文字 */
+.reverseStr a {
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+	padding: 5px 12px;
+	border: 1px solid black;
+	border-radius: 6px;
+	display: inline-block;
+	background-color: white;
+}
+
+
+.reverse a:hover {
+    opacity: 0.8;
+}
+
 
 .reverse-img:hover {
 	opacity: 0.8;

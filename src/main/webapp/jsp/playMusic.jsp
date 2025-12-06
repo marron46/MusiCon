@@ -17,10 +17,13 @@
 <body>
 
 	<div class="reverse">
-		<a href="${pageContext.request.contextPath}/PlayMusic"> <img
+		<a href="${pageContext.request.contextPath}/PlayMusic"><img
 			src="${pageContext.request.contextPath}/png/MusiConLogo.png"
 			alt="TOPに戻る" class="reverse-img">
 		</a>
+	</div>
+	<div class="reverseStr">
+		<a href="${pageContext.request.contextPath}/PlayMusic">	TOPに戻る </a>
 	</div>
 
 	<%

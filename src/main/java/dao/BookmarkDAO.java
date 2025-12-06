@@ -115,14 +115,14 @@ public class BookmarkDAO {
 			int int_musicid = rs2.getInt("ID");
 
 			// ---- 重複チェック ----
-			String sqlCheck = "SELECT COUNT(*) FROM BOOKMARKS WHERE B_USER=? AND B_MUSIC=?";
+			/* String sqlCheck = "SELECT COUNT(*) FROM BOOKMARKS WHERE B_USER=? AND B_MUSIC=?";
 			PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck);
 			stmtCheck.setInt(1, int_userid);
 			stmtCheck.setInt(2, int_musicid);
 			ResultSet rsCheck = stmtCheck.executeQuery();
 			rsCheck.next();
 			if (rsCheck.getInt(1) > 0)
-				return false; // 既に登録済み→弾く
+				return false; // 既に登録済み→弾く		*/
 
 			// INSERT文の準備（新規ユーザーをデータベースに登録）
 			String sql = "INSERT INTO BOOKMARKS(B_USER, B_MUSIC) VALUES (?, ?)";

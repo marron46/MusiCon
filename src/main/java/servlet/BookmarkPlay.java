@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpSession;
 import dao.MusicDAO;
 import model.Bookmark;
 import model.Music;
+import model.User;
+import model.logic.MyBookmarkLogic;
 
 @WebServlet("/BookmarkPlay")
 public class BookmarkPlay extends HttpServlet {
@@ -89,5 +91,23 @@ public class BookmarkPlay extends HttpServlet {
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playBookmark.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+
+		int musicId = Integer.parseInt(request.getParameter("id"));
+		int index = Integer.parseInt(request.getParameter("index"));
+
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+
+		MyBookmarkLogic logic = new MyBookmarkLogic();
+		logic.toggleBookmark(user.getUserId(), musicId);
+
+		// 元の曲に戻る
+		response.sendRedirect("PlayBookmark?index=" + index);
 	}
 }
