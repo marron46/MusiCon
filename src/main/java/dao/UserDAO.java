@@ -165,4 +165,29 @@ public class UserDAO {
 			return false; // 失敗
 		}
 	}
+	
+	public int getUserId(User user) {
+		// JDBCドライバを読み込む
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
+		}
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+
+			String sql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			pStmt.setString(1, user.getUserName());
+			
+			ResultSet rs = pStmt.executeQuery();
+			return rs.getInt("USER_ID");
+			
+		} catch (SQLException e) {
+			e.printStackTrace(); // SQLエラーを表示
+			return 0;
+		}
+		
+	}
+	
 }
