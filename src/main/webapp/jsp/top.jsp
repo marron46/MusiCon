@@ -40,7 +40,7 @@ session.setAttribute("musicList", musicList);
 	<div class="overlay"></div>
 	<%-- メニュー --%>
 	<nav class="side-menu">
-		<ul>
+		<ul class="menu-list">
 			<li><a href="${pageContext.request.contextPath}/MyBookmark"
 				class="menu">マイページ</a></li>
 			<li><a href="${pageContext.request.contextPath}/ShowRanking"
@@ -51,11 +51,13 @@ session.setAttribute("musicList", musicList);
 			<li><a
 				href="${pageContext.request.contextPath}/jsp/.jsp"
 				class="menu">曲一覧</a></li>
+		</ul>
+		<ul class="menu-bottom">
 			<li><a href="${pageContext.request.contextPath}/jsp/.jsp"
-				class="menu">ログアウト</a></li>
+				class="menu logout">ログアウト</a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/jsp/deleteUser.jsp"
-				class="menu">アカウント削除</a></li>
+				class="menu delete">アカウント削除</a></li>
 		</ul>
 	</nav>
 

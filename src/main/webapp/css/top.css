@@ -107,6 +107,24 @@ body {
     z-index: 1000; /* ハンバーガーの下 */
 }
 
+/* サイドメニュー内を上下で分割する */
+.side-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 上・下メニュー */
+.menu-list, .menu-bottom {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-bottom {
+    margin-top: auto;
+	margin-bottom: 70px;
+}
+
 /* チェック時にメニュー表示 */
 #menu-check:checked ~ .side-menu {
     right: 0;
@@ -146,6 +164,16 @@ body {
 .side-menu li {
     list-style: none;
 	color: #000000;
+}
+/* ログアウトを赤に */
+.side-menu a.logout {
+    color: #FF0000;
+}
+
+/* アカウント削除も赤に（濃い赤） */
+.side-menu a.delete {
+    color: #BA0000;
+    font-weight: bold;
 }
 
 .side-menu li a {
