@@ -23,7 +23,7 @@ public class MyBookmarkLogic {
 			return dao.deleteBookmark(user, music);
 		} else {
 			// 登録されていない → 登録
-			return dao.insertBookmark(user, music);
+			return dao.registerBookmark(user, music);
 		}
 	}
 

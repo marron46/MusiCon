@@ -144,6 +144,7 @@ public class BookmarkDAO {
 		}
 	}
 	
+	// 曲IDから曲を検索し返す
 	public Music playMusicById(int id) {// 書き足し
 		// JDBCドライバを読み込む
 		try {
@@ -180,4 +181,70 @@ public class BookmarkDAO {
 			return null; // 失敗
 		}
 	}
+	
+	// すでにブックマークに存在しているかどうか調べて結果を返す（true = 存在する）
+	public boolean isBookmarked(User user, Music music) {
+		// JDBCドライバを読み込む
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
+		}
+		
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+			
+			String sql_existing_check = "SELECT * FROM BOOKMARKS WHERE B_USER = ? AND B_MUSIC = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql_existing_check);
+			
+			pStmt.setInt(1, user.getUserId());
+			pStmt.setInt(2, music.getId());
+			
+			ResultSet rs = pStmt.executeQuery();
+			
+			if(rs.next()) {	// 存在するならば
+				System.out.println("existing in bookmark");
+				return true;
+			} else {
+				System.out.println("NOT existing in bookmark");
+				return false;
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace(); // SQLエラーを表示
+			System.out.println("Error : BookmarkDAO.isBookmarked");
+			return false; // 失敗
+		}
+	}
+	
+	// ブックマークテーブルから削除するメソッド
+	public boolean deleteBookmark(User user, Music music) {
+		// JDBCドライバを読み込む
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
+		}
+
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+
+			// INSERT文の準備（新規ユーザーをデータベースに登録）
+			String sql_delete_from_bookmarks = "DELETE FROM BOOKMARKS WHERE B_USER = ? AND B_MUSIC = ? ";
+			PreparedStatement pStmt = conn.prepareStatement(sql_delete_from_bookmarks);
+
+			pStmt.setInt(1, user.getUserId());
+			pStmt.setInt(2, music.getId());
+			
+			// INSERT文を実行
+			int result = pStmt.executeUpdate();
+
+			// 登録成功か確認
+			return result > 0;
+
+		} catch (SQLException e) {
+			e.printStackTrace(); // SQLエラーを表示
+			System.out.println("Error : BookmarkDAO.deleteBookmark");
+			return false; // 失敗
+		}
+	}
+	
 }

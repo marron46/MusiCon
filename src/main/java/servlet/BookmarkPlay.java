@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import dao.BookmarkDAO;
 import dao.MusicDAO;
 import model.Bookmark;
 import model.Music;
@@ -82,12 +83,16 @@ public class BookmarkPlay extends HttpServlet {
 
 		// 現在の曲
 		Music music = musicList.get(index);
-
+		User user = (User) session.getAttribute("user");
+		
 		// JSP に渡す
 		request.setAttribute("music", music);
 		request.setAttribute("musicList", musicList);
 		request.setAttribute("index", index);
 
+		BookmarkDAO b_dao = new BookmarkDAO();
+		request.setAttribute("isBookmarked", b_dao.isBookmarked(user, music));
+		
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playBookmark.jsp");
 		dispatcher.forward(request, response);
@@ -98,15 +103,16 @@ public class BookmarkPlay extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		int musicId = Integer.parseInt(request.getParameter("id"));
+		// int musicId = Integer.parseInt(request.getParameter("id"));
 		int index = Integer.parseInt(request.getParameter("index"));
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-
+		Music music = (Music) session.getAttribute("music");
+		
 		MyBookmarkLogic logic = new MyBookmarkLogic();
-		logic.toggleBookmark(user.getUserId(), musicId);
-
+		logic.toggleBookmark(user, music);
+		
 		// 元の曲に戻る
 		response.sendRedirect("PlayBookmark?index=" + index);
 	}
