@@ -9,6 +9,11 @@ public class User {//ユーザー情報格納
     public User() {}*/
 
     // コンストラクタ : フィールド設定
+	public User(){}
+	public User(String user_name,String user_pass){
+		this.user_name = user_name;
+		this.user_pass = user_pass;
+	}
 	public User(String user_name,String user_pass,int user_id){
 		this.user_name = user_name;
 		this.user_pass = user_pass;
