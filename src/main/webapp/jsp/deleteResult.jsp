@@ -10,13 +10,11 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/deleteResult.css">
 </head>
+<div class="reverse">
+	<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
+		alt="MusiConのロゴ" width="180" class="icon">
+</div>
 <body>
-	<div class="reverse">
-		<a href="${pageContext.request.contextPath}/PlayMusic"> 
-		<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
-			alt="TOPに戻る" class="reverse-img">
-		</a>
-	</div>
 	<div class="container">
 		<div class="message">
 			<h1>
@@ -25,6 +23,9 @@
 			<h2>
 				<%=(String) session.getAttribute("user_name")%>さん<br>グッバイ!!
 			</h2>
+			<div class="toLoginBtn">
+				<a href="${pageContext.request.contextPath}/jsp/login.jsp"> ←ログインへ </a>
+			</div>
 		</div>
 	</div>
 </body>

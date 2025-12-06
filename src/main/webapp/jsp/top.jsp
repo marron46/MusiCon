@@ -70,7 +70,7 @@ session.setAttribute("musicList", musicList);
 			<%-- 検索バー --%>
 			<div class="search-area">
 				<input type="text" class="searchbox" name="searchText"
-					placeholder="検索">
+					placeholder="キーワードで検索">
 				<button type="submit" class="search-button">
 					<img src="${pageContext.request.contextPath}/png/searchMark.png"
 						class="search" width="60" alt="検索アイコン">

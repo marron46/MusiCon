@@ -19,18 +19,21 @@
 			alt="TOPに戻る" class="reverse-img">
 		</a>
 	</div>
-
+	<%
+	String schWd = (String) session.getAttribute("searchText");
+	System.out.println(schWd);
+	%>
 	<h1>検索結果</h1>
-
 	<%
 	List<Music> list = (List<Music>) session.getAttribute("searchList");
-
-	if (list == null || list.isEmpty()) {
+	
+	if (list == null || list.isEmpty() || schWd.length() == 0) {
 	%>
-	<p>検索結果がありません。</p>
+	<p>"<%= schWd %>"を含む楽曲：0件</p>
 	<%
 	} else {
 	%>
+	<p>"<%= schWd %>"を含む楽曲：<%= list.size() %>件</p>
 	<ul>
 		<%
 		for (model.Music m : list) {

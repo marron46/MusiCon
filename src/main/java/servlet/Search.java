@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import model.Music;
 import model.logic.SearchResultLogic;
 
@@ -36,7 +37,7 @@ public class Search extends HttpServlet {
 		// リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
 		String searchText = request.getParameter("searchText");
-
+		
 		//曲の検索処理
 		Music musicSearch = new Music(searchText);
 		SearchResultLogic logic = new SearchResultLogic();
@@ -45,6 +46,8 @@ public class Search extends HttpServlet {
 		// セッションスコープに曲タイトルを保存
 		session.setAttribute("searchList", result);
 		System.out.println("検索結果" + result);
+		session.setAttribute("searchText", searchText);
+		System.out.println("searchText:"+searchText);
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/searchResult.jsp");
 		dispatcher.forward(request, response);

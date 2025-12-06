@@ -32,12 +32,17 @@ body {
 	margin-top: 60px;
 	}
 	
-/* 見出し（新規登録）*/
+/* 見出し（削除）*/
 .dUser-title {
 	font-size: 48px;  /* 大きめのタイトル文字 */
 		margin-bottom: 30px;  /* タイトル下の余白 */
 	}
-	
+/* 説明文 */
+.description {
+	font-size: 16px;
+	color: #ff0000;
+	margin-bottom: 30px;
+}
 /* テキスト入力欄（ユーザ名・パスワード） */
 input[type="text"],
 input[type="password"] {
@@ -58,7 +63,8 @@ input[type="password"] {
     width: 200px; /* ボタン幅 */
     padding: 15px 0; /* ボタンの高さ */
     margin-top: 30px; /* 上の余白 */
-    background-color: #8848A8; /* ボタン背景色 */
+    /* background-color: #8848A8; /* ボタン背景色（紫）*/
+	background-color: #DC143C; /* ボタン背景色（赤）*/
     color: white; /* 文字色 */
     border: none; /* 枠線なし */
     border-radius: 5px; /* 角丸 */
@@ -66,7 +72,8 @@ input[type="password"] {
     cursor: pointer; /* カーソルを指マークに */
 	}
 .submit-btn:hover {
-    background-color: #A997C6; /* ホバー時の薄い紫 */
+    /* background-color: #A997C6; /* ホバー時の薄い紫 */
+	background-color: #F08080; /* ホバー時の薄い赤 */
 	}
 
 /* TOP へ戻るボタン */

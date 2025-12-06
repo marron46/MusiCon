@@ -19,7 +19,7 @@
 	<div class="container">
 		<%-- ページの見出し部分 --%>
 		<h1 class="dUser-title">アカウント削除</h1>
-
+		<h4 class="description">削除するユーザー名とパスワードを入力してください。</h4>
 		<form action="${pageContext.request.contextPath}/DeleteUser"
 			method="post">
 			<div class="form-area">
