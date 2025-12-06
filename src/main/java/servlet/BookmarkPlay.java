@@ -107,7 +107,8 @@ public class BookmarkPlay extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("index"));
 
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		User user = (User) session.getAttribute("loginUser");
+		System.out.println("user情報(BookmarkPlay):" + user);
 		Music music = (Music) session.getAttribute("music");
 		
 		MyBookmarkLogic logic = new MyBookmarkLogic();
