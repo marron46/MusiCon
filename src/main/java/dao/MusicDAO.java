@@ -214,4 +214,31 @@ public class MusicDAO {
 			return null; // 失敗
 		}
 	}
+	public Music findByUrl(String url) {
+
+	    Music music = null;
+
+	    try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+
+	        String sql = "SELECT * FROM MUSICS WHERE url = ?";
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+	        pStmt.setString(1, url);
+
+	        ResultSet rs = pStmt.executeQuery();
+
+	        if (rs.next()) {
+	            int id = rs.getInt("id");
+	            String title = rs.getString("title");
+	            String artist = rs.getString("artist");
+	            int likes = rs.getInt("likes");
+
+	            music = new Music(id, title, artist, likes, url);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return music;
+	}
 }

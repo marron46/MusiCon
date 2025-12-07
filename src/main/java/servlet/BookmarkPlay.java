@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpSession;
 
 import dao.BookmarkDAO;
 import dao.MusicDAO;
-import dao.UserDAO;
 import model.Bookmark;
 import model.Music;
 import model.User;
@@ -29,12 +28,6 @@ public class BookmarkPlay extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-
-		UserDAO udao = new UserDAO();
-		User user2;
-		int userId = udao.getUserId(user2);
-		User user3 = new User(userId);
-		session.setAttribute("user3",user3);
 
 		// ブックマークリストを取得
 		List<Bookmark> bookmarkList = (List<Bookmark>) session.getAttribute("bookmarkList");
@@ -90,38 +83,56 @@ public class BookmarkPlay extends HttpServlet {
 
 		// 現在の曲
 		Music music = musicList.get(index);
-		User user = (User) session.getAttribute("user");
-		
+		System.out.println("BookmarkPlayGet music:" + music);
+		User user = (User) session.getAttribute("loginUser");
+
+		// ★ すでにブックマーク済みかどうか
+		boolean isBookmarked = new BookmarkDAO().isBookmarked(user, music);
+		request.setAttribute("isBookmarked", isBookmarked);
+
 		// JSP に渡す
 		request.setAttribute("music", music);
+		System.out.println("BookmarkPlay(スコープ確認) music:" + music);
 		request.setAttribute("musicList", musicList);
 		request.setAttribute("index", index);
+		System.out.println("BookmarkPlayGet index:" + index);
 
 		BookmarkDAO b_dao = new BookmarkDAO();
 		request.setAttribute("isBookmarked", b_dao.isBookmarked(user, music));
-		
+
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playBookmark.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException {//直近のセッションスコープ（music）には
 
 		request.setCharacterEncoding("UTF-8");
+		
+		MusicDAO mdao = new MusicDAO();
 
 		// int musicId = Integer.parseInt(request.getParameter("id"));
 		int index = Integer.parseInt(request.getParameter("index"));
+		System.out.println("BookmarkPlayPost index:" + index);
+		
+		// JSP で渡した "id" を取得
+	    String idStr = request.getParameter("id");
+	    int id = Integer.parseInt(idStr);
+	    System.out.println("受け取ったMusic ID = " + id);
 
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user3");
-		System.out.println("user情報(BookmarkPlay):" + user);
-		Music music = (Music) session.getAttribute("music");
 		
+		User user = (User) session.getAttribute("loginUser");
+		System.out.println("user情報(BookmarkPlay):" + user);
+		
+		Music music = mdao.playMusicById(id);
+		System.out.println("BookmarkPlay music:" + music);
+
 		MyBookmarkLogic logic = new MyBookmarkLogic();
 		logic.toggleBookmark(user, music);
-		
+
 		// 元の曲に戻る
-		response.sendRedirect("PlayBookmark?index=" + index);
+		response.sendRedirect("playBookmark.jsp");
 	}
 }

@@ -66,7 +66,7 @@
 					<button type="submit" class="like-btn">⭐ブックマーク</button>
 				</form>
 
-				<form action="${pageContext.request.contextPath}BookmarkPlay"
+				<form action="${pageContext.request.contextPath}/BookmarkPlay"
 					method="post">
 					<input type="hidden" name="id" value="<%=music.getId()%>">
 					<input type="hidden" name="index" value="<%=index%>">

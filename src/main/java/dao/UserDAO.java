@@ -15,43 +15,44 @@ public class UserDAO {
 	private final String DB_PASS = "";
 
 	// ログインを実行するメソッド
-	public boolean executeLogin(String nm, String pw) {
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
+		public User executeLogin(String nm, String pw) {
+
+		    // JDBCドライバを読み込む
+		    try {
+		        Class.forName("com.mysql.jdbc.Driver");
+		    } catch (ClassNotFoundException e) {
+		        throw new IllegalStateException("JDBCドライバを読み込めませんでした");
+		    }
+
+		    // データベース接続
+		    try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+
+		        String sql = "SELECT * FROM USERS WHERE USER_NAME=? AND USER_PASS=? AND IS_DELETED=0";
+		        PreparedStatement pStmt = conn.prepareStatement(sql);
+
+		        pStmt.setString(1, nm);
+		        pStmt.setString(2, pw);
+
+		        ResultSet rs = pStmt.executeQuery();
+
+		        // データがあればUserのインスタンスを作成
+		        if (rs.next()) {
+		        	int userId = rs.getInt("USER_ID");
+		            String userName = rs.getString("USER_NAME");
+		            String userPass = rs.getString("USER_PASS");
+
+		            System.out.println("Success : UserDAO.executeLogin");
+		            return new User(userName, userPass, userId);
+		        }
+
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        System.out.println("Error : UserDAO.executeLogin");
+		        return null;
+		    }
+
+		    return null; // 失敗時
 		}
-
-		// データベース接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			// SELECT文の準備（ユーザー名とパスワードでユーザーを確認）
-
-			String sql = "SELECT * FROM USERS WHERE USER_NAME=? AND USER_PASS=? AND IS_DELETED=0";
-
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-			pStmt.setString(1, nm);
-			pStmt.setString(2, pw);
-
-			// SELECT文を実行
-			ResultSet rs = pStmt.executeQuery();
-
-			// 結果が存在すればユーザーを確認
-			while (rs.next()) {
-				if (rs.getString("USER_PASS").equals(pw) && rs.getString("USER_NAME").equals(nm)) {
-					System.out.println("Success : UserDAO.executeLogin");
-					return true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : UserDAO.executeLogin");
-			return false;
-		}
-		return false; // ユーザー確認失敗
-	}
 
 	// ユーザーをデータベースに登録するメソッド
 	public boolean registerUser(User user) {
@@ -166,13 +167,16 @@ public class UserDAO {
 		}
 	}
 	
-	public int getUserId(User user) {
+	public User getUserId(User user) {
 		// JDBCドライバを読み込む
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
 		}
+		
+		User id = null;
+		
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			String sql = "SELECT USER_ID FROM USERS WHERE USER_NAME = ?";
@@ -182,13 +186,15 @@ public class UserDAO {
 			
 			ResultSet rs = pStmt.executeQuery();
 			if (rs.next()) {
-				return rs.getInt("USER_ID");
+				id = new User(
+						rs.getInt("USER_ID"));
+				return id;
 			} else {
-				return 0;
+				return null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace(); // SQLエラーを表示
-			return 0;
+			return null;
 		}
 		
 	}

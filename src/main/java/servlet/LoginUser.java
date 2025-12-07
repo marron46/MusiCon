@@ -46,23 +46,22 @@ public class LoginUser extends HttpServlet {
 		// ログイン処理の実行
 		User user = new User(user_name, user_pass);
 		LoginUserLogic logic = new LoginUserLogic();
-		boolean result = logic.execute(user);
+		User result = logic.execute(user);
+		System.out.println("Servlet result:" + result);
 
-		// ログイン処理の成否によって処理を分岐
-		if (result) { // ログイン成功時
-			// セッションスコープにユーザーIDを保存
+		if (result != null) {
+			user = result;
 			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", user);
 			session.setAttribute("user_name", user_name);
+			session.setAttribute("loginUser", user);
 			// PlayMuzicページへリダイレクト
 			response.sendRedirect(request.getContextPath() + "/PlayMusic");
-			System.out.print("でけた！");
-		} else { // ログイン失敗時
-			// ログイン失敗のメッセージを表示
-			request.setAttribute("loginError", "ログインに失敗しました。");
+			System.out.print("ログインでけた！");
+		} else {
+			request.setAttribute("errorMessage", "ユーザー名またはパスワードが違います。");
 			// ログイン画面に戻す
 			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
-			System.out.print("ろぐいんできない");
+			System.out.print("ログインできない");
 		}
 	}
 

@@ -200,14 +200,9 @@ public class BookmarkDAO {
 			pStmt.setInt(2, music.getId());
 			
 			ResultSet rs = pStmt.executeQuery();
+			System.out.println("rs:" + rs);
 			
-			if(rs.next()) {	// 存在するならば
-				System.out.println("existing in bookmark");
-				return true;
-			} else {
-				System.out.println("NOT existing in bookmark");
-				return false;
-			}
+			return rs.next();
 			
 		} catch(SQLException e) {
 			e.printStackTrace(); // SQLエラーを表示
