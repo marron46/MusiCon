@@ -69,7 +69,7 @@
 					<!--  音量バー  -->
 					<div class="volume-area">
 						<span id="volume-icon">🔊</span> <input type="range" id="volume"
-							min="0" max="0.2" step="0.002" value="0.2">
+							min="0" max="0.7" step="0.02" value="0.7">
 					</div>
 
 				</div>
