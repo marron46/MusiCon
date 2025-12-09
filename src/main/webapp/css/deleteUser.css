@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+/* ページ全体の基本設定 */
+body {
+    background-color: #A997C6; /* 背景色：薄紫 */
+    min-height: 100vh; /* 画面全体の高さを確保 */
+    margin: 0; /* 余白なし */
+    font-family: Arial, sans-serif; /* 全体フォント */
+    display: flex; /* 中央配置のためflex使用 */
+    justify-content: center; /* 水平方向中央寄せ */
+    align-items: center; /* 垂直方向中央寄せ */
+	}
+
+.reverse-img {
+	width: 12vw;
+	max-width: 180px;  /*最大の幅 */
+	min-width: 60px;  /*最小の幅 */
+	height: auto;
+	}
+	
+/* 中央の白いフォーム枠 */
+.container {
+    background-color: #ffffff; /* 白背景 */
+    width: 400px; /* 横幅 */
+    padding: 40px; /* 内側余白 上・左右・下 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* ふわっとした影 */
+    text-align: center; /* 文字中央寄せ */
+	min-height: 550px;
+	}
+	
+.form-area{
+	margin-top: 60px;
+	}
+	
+/* 見出し（削除）*/
+.dUser-title {
+	font-size: 48px;  /* 大きめのタイトル文字 */
+		margin-bottom: 30px;  /* タイトル下の余白 */
+	}
+/* 説明文 */
+.description {
+	font-size: 16px;
+	color: #ff0000;
+	margin-bottom: 30px;
+}
+/* テキスト入力欄（ユーザ名・パスワード） */
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* 幅いっぱい */
+    height: 45px; /* 高さ */
+    font-size: 18px; /* 文字サイズ */
+    margin: 10px -10px 25px; /* 上・左右・下の余白 */
+    padding: 5px 10px; /* 内側余白 */
+    border: 2px solid #333; /* 黒い枠線 */
+    border-radius: 4px; /* 角丸 */
+	margin-bottom: 25px;  /* 下の余白 */
+	}
+
+/* 削除ボタン */
+.submit-btn {
+    display: block;
+    margin: 0 auto; /* 中央寄せ */
+    width: 200px; /* ボタン幅 */
+    padding: 15px 0; /* ボタンの高さ */
+    margin-top: 30px; /* 上の余白 */
+    /* background-color: #8848A8; /* ボタン背景色（紫）*/
+	background-color: #DC143C; /* ボタン背景色（赤）*/
+    color: white; /* 文字色 */
+    border: none; /* 枠線なし */
+    border-radius: 5px; /* 角丸 */
+    font-size: 20px; /* 文字サイズ */
+    cursor: pointer; /* カーソルを指マークに */
+	}
+.submit-btn:hover {
+    /* background-color: #A997C6; /* ホバー時の薄い紫 */
+	background-color: #F08080; /* ホバー時の薄い赤 */
+	}
+
+/* TOP へ戻るボタン */
+.reverse {
+	position: fixed; /* 画面固定位置 */
+	top: -20px; /* 上から10px */
+	left: -20px; /* 左から10px */
+    margin: 20px;
+	}
+	
+.reverse-img {
+	width: 180px;   /* 好きなサイズに調整 */
+	height: auto;
+	cursor: pointer;
+	transition: 0.2s;
+	}
+
+.reverse-img:hover {
+	opacity: 0.8;
+	}

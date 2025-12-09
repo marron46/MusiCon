@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+/* ページ全体の基本設定 */
+body {
+    background-color: #A997C6; /* 背景色：薄紫 */
+    min-height: 100vh; /* 画面全体の高さを確保 */
+    margin: 0; /* ブラウザのデフォルト余白を削除 */
+    font-family: Arial, sans-serif; /* 全体のフォント設定 */
+    display: flex; /* フレックスで中央配置 */
+    justify-content: center; /* 横方向の中央寄せ */
+    align-items: flex-start; /* 縦方向は上寄せ */
+    padding-top: 40px; /* 上部余白 */
+}
+
+/* フォーム内のグリッドレイアウト */
+.grid{
+    display: grid; /* グリッドを使用 */
+    grid-template-columns: 1fr 1fr; /* 2列に分割 */
+    gap: 20px 30px; /* 行間20px、列間30px */
+}
+
+/* ラベルのスタイル */
+.form-item label {
+    display: block; /* ブロック要素にして改行 */
+    margin-bottom: 8px; /* 下の余白 */
+    font-weight: bold; /* 太字 */
+    font-size: 18px; /* 文字サイズ */
+    text-align: left; /* 左揃え */
+}
+
+/* 入力欄とセレクトボックスのスタイル */
+.form-item input,
+.form-item select {
+    width: 100%; /* 横幅いっぱい */
+    padding: 10px; /* 内側余白 */
+    font-size: 16px; /* 文字サイズ */
+    border: 2px solid #ccc; /* 枠線 */
+    border-radius: 5px; /* 角丸 */
+    box-sizing: border-box; /* パディング込みでサイズを計算 */
+}
+
+/* ファイル選択欄のパディング調整 */
+input[type="file"]{
+    padding: 6px;
+}
+
+/* 中央の白いフォーム枠 */
+.container {
+    background-color: #ffffff; /* 白背景 */
+    width: 850px; /* 横幅 */
+    padding: 40px 50px 30px; /* 内側余白 上・左右・下 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
+    border-radius: 10px; /* 角丸 */
+    text-align: center; /* 中央揃え（タイトルやボタン用） */
+}
+
+/* フォームタイトル */
+.iMusic-title {
+    font-size: 48px; /* 大きめの文字サイズ */
+    margin-bottom: 30px; /* 下の余白 */
+}
+
+/* 登録ボタン */
+.submit-btn {
+    display: block; /* ブロック表示で中央寄せが有効に */
+    margin: 0 auto; /* 中央寄せ */
+    width: 200px; /* 幅 */
+    padding: 15px 0; /* 高さ */
+    margin-top: 30px; /* 上の余白 */
+    background-color: #8848A8; /* ボタン背景色 */
+    color: white; /* 文字色 */
+    border: none; /* 枠線なし */
+    border-radius: 5px; /* 角丸 */
+    font-size: 20px; /* 文字サイズ */
+    cursor: pointer; /* カーソルを指マークに */
+}
+
+/* ボタンのホバー時 */
+.submit-btn:hover {
+    background-color: #A997C6; /* 薄い紫に変化 */
+}
+
+/* TOP へ戻るボタン */
+.reverse {
+	position: fixed; /* 画面固定位置 */
+	top: -20px; /* 上から10px */
+	left: -20px; /* 左から10px */
+    margin: 20px;
+	}
+	
+.reverse-img {
+	width: 12vw;
+	max-width: 180px;  /*最大の幅 */
+	min-width: 60px;  /*最小の幅 */
+	height: auto;
+	}
+	
+.reverse-img:hover {
+	opacity: 0.8;
+	}

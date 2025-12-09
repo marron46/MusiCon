@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ログイン</title>
+<%-- cssの連携 --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/login.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="logo">
+			<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
+				alt="サイトのロゴアイコン">
+		</div>
+
+		<div class="container">
+			<%-- ページの見出し部分 --%>
+			<h1 class="cUser-title">ログイン</h1>
+			<form action="${pageContext.request.contextPath}/LoginUser"
+				method="post">
+				<%-- ユーザー名・パスワードの入力欄 --%>
+				<input type="text" name="user_name" placeholder="ユーザー名" required><br>
+				<%-- パスワードの入力欄 --%>
+				<input type="password" name="user_pass" placeholder="パスワード" required><br>
+
+				<%-- ログインボタン --%>
+				<button type="submit" class="login-btn">ログイン</button>
+				<br>
+				<!-- 新規登録ページへのリンク -->
+				<a href="${pageContext.request.contextPath}/jsp/createUser.jsp">新規登録はこちら</a>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

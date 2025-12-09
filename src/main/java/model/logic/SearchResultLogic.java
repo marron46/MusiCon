@@ -1,5 +1,19 @@
 package model.logic;
 
-public class SearchResultLogic {//検索結果を表示する
+import java.util.List;
 
+import dao.MusicDAO;
+import model.Music;
+
+public class SearchResultLogic {
+	private MusicDAO dao = new MusicDAO();
+	
+	//検索結果を表示する
+	public List<Music> execute(Music music) {
+		
+		// Musicから検索を取得
+		String str_searchWord = music.getSearchText();
+
+		return dao.searchMusic(str_searchWord);
+		}
 }

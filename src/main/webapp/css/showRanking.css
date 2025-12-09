@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+/* ページ全体の基本設定 */
+body {
+    background-color: #A997C6; /* 背景色：薄紫 */
+    min-height: 100vh; /* 画面全体の高さを確保 */
+    margin: 0; /* 余白なし */
+    font-family: Arial, sans-serif; /* 全体フォント */
+    display: flex; /* 中央配置のためflex使用 */
+    justify-content: center; /* 水平方向中央寄せ */
+    align-items: center; /* 垂直方向中央寄せ */
+}
+
+.reverse-img {
+	width: 12vw;
+	max-width: 180px;  /*最大の幅 */
+	min-width: 60px;  /*最小の幅 */
+	height: auto;
+}
+
+/* 中央の白いフォーム枠*/ 
+.container {
+    background-color: #ffffff; /* 白背景 */
+    width: 400px; /* 横幅 */
+    /*padding: 40px; /* 内側余白 上・左右・下 */
+    /*box-shadow: 0 4 12px rgba(0,0,0,0.15); /* ふわっとした影 */
+    /*text-align: center; /* 文字中央寄せ */
+	min-height: 550px;
+}
+	
+/* 見出し（新規登録） */
+.rank-title {
+    font-size: 48px; /* 大きめのタイトル文字 */
+    margin-top: 30px; /* 上の余白 */
+}
+
+/* TOP へ戻るボタン */
+.reverse {
+	position: fixed; /* 画面固定位置 */
+	top: -20px; /* 上から10px */
+	left: -20px; /* 左から10px */
+    margin: 20px;
+	}
+	
+.reverse-img {
+	width: 180px;   /* 好きなサイズに調整 */
+	height: auto;
+	cursor: pointer;
+	transition: 0.2s;
+	}
+
+.reverse-img:hover {
+	opacity: 0.8;
+	}

@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+/* ページ全体の基本設定 */
+body{
+	background-image: #A997C6;  /* 背景カラーを薄紫に */
+		background-image: url("../png/backGround.png"); /* ← 画像のパスを指定 */
+		background-size: cover;        /* 画面いっぱいに拡大縮小 */
+		background-position: center;   /* 中央に配置 */
+		background-repeat: no-repeat;  /* 繰り返しなし */
+		min-height: 100vh;  /* 画面全体の高さを確保 */
+		margin: 0;  /* ブラウザのデフォルト余白を削除 */
+		font-family: Arial, sans-serif;  /* 使用フォント */
+		display: flex;  /* 中央寄せに使うflexbox */
+		justify-content: center;  /* 水平方向の中央寄せ */
+		align-items: center;  /* 垂直方向の中央寄せ */
+}
+
+/* 外側全体を中央寄せ */
+.wrapper {
+    text-align: center;    /* ロゴを中央へ */
+	margin-top: -80px;
+}
+
+/* ロゴのサイズ調整 */
+.logo img {
+    width: 200px;   /* おおきさ */
+    height: auto;
+    margin-bottom: 20px; /* ログイン枠との間隔 */
+}
+
+/* ログインフォーム全体のボックス */
+.container{
+	background-color: #ffffff;  /* 背景を白に */
+	padding: 40px;  /* 内側余白 */
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
+	width: 400px;  /* ボックス幅 */
+	text-align: center;  /* 中の文字を中央揃え */
+	min-height: 550px;
+}
+
+.form-area{
+	margin-top: 60px;
+	}
+/* ログインタイトル */
+.cUser-title{
+	font-size: 48px;  /* 大きめのタイトル文字 */
+	margin-bottom: 30px;  /* タイトル下の余白 */
+}
+
+/* ユーザ名・パスワードの入力欄 */
+input[type="text"],
+input[type="password"] {
+	width: 100%;  /* 横幅いっぱいに広げる */
+	height: 45px;  /* 高さ */
+	font-size: 18px;  /* 文字サイズ */
+	margin: 10px -10px 25px;  /* 上・左右・下の余白 */
+	padding: 5px 10px;  /* 内側余白（文字の余白） */
+	border: 2px solid #333;  /* 濃い枠線で見やすく */
+	border-radius: 4px;  /* 角を丸くする */
+	margin-bottom: 25px;  /* 下の余白 */
+}
+
+/* ログインボタン */
+.login-btn{
+	display: block;  /* 幅・高さ指定を有効にする */
+	margin: 0 auto;  /* 中央寄せ */
+	width: 60%;  /* ボタン幅 */
+	padding: 15px 0;  /* ボタンの高さ */
+	margin-top: 20px;  /* 上の余白 */
+	background-color: #8848A8;  /* ボタン背景色 */
+	color: white;  /* ボタンの文字色 */
+	text-decoration: none;  /* リンク時の下線を消す */
+	border: none;  /* 枠線なし */
+	border-radius: 5px;  /* 角丸にする */
+	font-size: 1.1em;  /* ボタン文字を少し大きく */
+	cursor: pointer;  /* マウスを乗せると指マークに */
+	transition: background-color 0.3s;  /* 色が変わるアニメーション */
+	text-align: center;  /* 文字を中央寄せ */
+}
+
+/* ボタンのホバー時（マウスを乗せた時） */
+.login-btn:hover{
+	background-color:#A997C6;  /* 少し薄い紫に変更 */
+}
