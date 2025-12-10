@@ -36,16 +36,17 @@
 			<!--ジャンル：-->
 			<div class="pull-down">
 				<select name="genre">
-					<option value="JPOP">J-POP</option>
-					<option value="KPOP">K-POP</option>
-					<option value="HPOP">HIPHOP</option>
-					<option value="CLSC">クラシック</option>
-					<option value="ROCK">ロック</option>
-					<option value="JAZZ">ジャズ</option>
-					<option value="RYBL">R&B</option>
-					<option value="EDMS">EDM</option>
-					<option value="ENKA">演歌</option>
-					<option value="OTHR">その他</option>
+					<option class="head">ジャンルを選択</option>
+					<option value="JPOP">　J-POP</option>
+					<option value="KPOP">　K-POP</option>
+					<option value="HPOP">　HIPHOP</option>
+					<option value="CLSC">　クラシック</option>
+					<option value="ROCK">　ロック</option>
+					<option value="JAZZ">　ジャズ</option>
+					<option value="RYBL">　R&B</option>
+					<option value="EDMS">　EDM</option>
+					<option value="ENKA">　演歌</option>
+					<option value="OTHR">　その他</option>
 				</select>
 			</div>
 
