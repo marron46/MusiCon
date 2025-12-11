@@ -159,6 +159,16 @@ body {
   cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
 }
 
+/* いいね と ブックマーク を横並びに */
+.like-bookmark-box {
+  display: flex;
+  gap: 15px;        /* ボタンの間隔 */
+  margin-top: 15px; /* 上の余白 */
+}
+.like-bookmark-box form {
+  margin: 0;        /* form の余白を消す */
+}
+
 /* 全体を中央に配置するためのラッパー */
 .center-wrapper {
   display: flex;

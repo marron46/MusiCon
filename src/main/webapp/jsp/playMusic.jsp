@@ -69,27 +69,29 @@
 					<!--  音量バー  -->
 					<div class="volume-area">
 						<span id="volume-icon">🔊</span> <input type="range" id="volume"
-							min="0" max="0.2" step="0.002" value="0.2">
+							min="0" max="0.7" step="0.02" value="0.7">
 					</div>
 
 				</div>
 
-				<!-- いいね -->
-				<form action="${pageContext.request.contextPath}/LikeMusic"
-					method="post">
-					<input type="hidden" name="id" value="<%=music.getId()%>">
-					<button type="submit" class="like-btn">
-						いいね！ (<%=music.getLikes()%>)
-					</button>
-				</form>
+				<div class="like-bookmark-box">
+					<!-- いいね -->
+					<form action="${pageContext.request.contextPath}/LikeMusic"
+						method="post">
+						<input type="hidden" name="id" value="<%=music.getId()%>">
+						<button type="submit" class="like-btn">
+							いいね！ (<%=music.getLikes()%>)
+						</button>
+					</form>
 
-				<!-- ブックマーク -->
-				<form action="${pageContext.request.contextPath}/MyBookmark"
-					method="post">
-					<input type="hidden" name="id" value="<%=music.getId()%>">
-					<button type="submit" class="like-btn">ブックマーク</button>
-				</form>
-
+					<!-- ブックマーク -->
+					<form action="${pageContext.request.contextPath}/MyBookmark"
+						method="post">
+						<input type="hidden" name="id" value="<%=music.getId()%>">
+						<button type="submit" class="like-btn">ブックマーク</button>
+					</form>
+				</div>
+				
 			</div>
 
 		</div>

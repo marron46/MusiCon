@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
-<%-- cssの連携 --%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/login.css">
 </head>
@@ -17,20 +16,25 @@
 		</div>
 
 		<div class="container">
-			<%-- ページの見出し部分 --%>
 			<h1 class="cUser-title">ログイン</h1>
+
+			<!-- エラーメッセージの表示 -->
+			<c:if test="${not empty requestScope.errorMessage}">
+				<p class="error-message">${requestScope.errorMessage}</p>
+			</c:if>
+
 			<form action="${pageContext.request.contextPath}/LoginUser"
 				method="post">
-				<%-- ユーザー名・パスワードの入力欄 --%>
-				<input type="text" name="user_name" placeholder="ユーザー名" required><br>
-				<%-- パスワードの入力欄 --%>
-				<input type="password" name="user_pass" placeholder="パスワード" required><br>
+				<input type="text" name="user_name" placeholder="ユーザー名" required
+					class="${requestScope.userNameError != null && requestScope.userNameError ? 'error' : ''}"><br>
 
-				<%-- ログインボタン --%>
+				<input type="password" name="user_pass" placeholder="パスワード" required
+					class="${requestScope.userPassError != null && requestScope.userPassError ? 'error' : ''}"><br>
+
+
 				<button type="submit" class="login-btn">ログイン</button>
-				<br>
-				<!-- 新規登録ページへのリンク -->
-				<a href="${pageContext.request.contextPath}/jsp/createUser.jsp">新規登録はこちら</a>
+				<br> <a
+					href="${pageContext.request.contextPath}/jsp/createUser.jsp">新規登録はこちら</a>
 			</form>
 		</div>
 	</div>

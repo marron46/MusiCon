@@ -50,19 +50,32 @@ public class LoginUser extends HttpServlet {
 		System.out.println("Servlet result:" + result);
 
 		if (result != null) {
-			user = result;
-			HttpSession session = request.getSession();
-			session.setAttribute("user_name", user_name);
-			session.setAttribute("loginUser", user);
-			// PlayMuzicページへリダイレクト
-			response.sendRedirect(request.getContextPath() + "/PlayMusic");
-			System.out.print("ログインでけた！");
+		    // ログイン成功
+		    user = result;
+		    HttpSession session = request.getSession();
+		    session.setAttribute("user_name", user_name);
+		    session.setAttribute("loginUser", user);
+		    
+		 // ログイン成功時はエラー情報を削除
+		    request.setAttribute("userNameError", null);  
+		    request.setAttribute("userPassError", null); 
+		    
+		    // PlayMusicページへリダイレクト
+		    response.sendRedirect(request.getContextPath() + "/PlayMusic");
+		    System.out.print("ログインでけた！");
 		} else {
-			request.setAttribute("errorMessage", "ユーザー名またはパスワードが違います。");
-			// ログイン画面に戻す
-			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
-			System.out.print("ログインできない");
+		    // ログイン失敗した場合、エラーメッセージとエラー情報を設定
+		    request.setAttribute("errorMessage", "ユーザー名またはパスワードが違います。");
+		    
+		    // ユーザー名またはパスワードにエラーがあることを設定
+		    request.setAttribute("userNameError", true);  // ユーザー名エラー
+		    request.setAttribute("userPassError", true);  // パスワードエラー
+		    
+		    // エラー情報をJSPに転送
+		    request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+		    System.out.print("ログインできない");
 		}
+
 	}
 
 	// SHA-256 ハッシュ関数
