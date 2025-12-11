@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,236 +8,311 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Music;
+import util.DatabaseConnection;
 
+/**
+ * 音楽情報を管理するDAOクラス
+ */
 public class MusicDAO {
 
-	private final String JDBC_URL = "jdbc:mysql://localhost/musicon";
-	private final String DB_USER = "root";
-	private final String DB_PASS = "";
-
-	public List<Music> topFindAll() {// 書き足し
+	/**
+	 * トップページ用のランダムな曲リストを取得
+	 * @return 音楽リスト
+	 */
+	public List<Music> topFindAll() {
 		List<Music> list = new ArrayList<>();
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+		try (Connection conn = DatabaseConnection.getConnection()) {
 			String sql = "SELECT * FROM MUSICS ORDER BY RAND()";
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				list.add(new Music(
-						rs.getInt("ID"),
-						rs.getString("TITLE"),
-						rs.getString("ARTIST"),
-						rs.getInt("MUSIC_TIME"),
-						rs.getInt("LIKES"),
-						rs.getString("URL")));
+			try (PreparedStatement ps = conn.prepareStatement(sql);
+				 ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					list.add(new Music(
+							rs.getInt("ID"),
+							rs.getString("TITLE"),
+							rs.getString("ARTIST"),
+							rs.getInt("MUSIC_TIME"),
+							rs.getInt("LIKES"),
+							rs.getString("URL")));
+				}
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
 
-	public List<Music> searchMusic(String str_searchWord) {
+	/**
+	 * 検索ワードで音楽を検索
+	 * @param searchWord 検索ワード
+	 * @return 検索結果の音楽リスト
+	 */
+	public List<Music> searchMusic(String searchWord) {
 		List<Music> musicList = new ArrayList<>();
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-
-		// データベース接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			// SELECT文の準備（データベースからmusicsを取得）
+		try (Connection conn = DatabaseConnection.getConnection()) {
 			String sql = "SELECT ID,TITLE,ARTIST,LIKES,URL FROM MUSICS WHERE TITLE LIKE ? OR ARTIST LIKE ?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				String searchPattern = "%" + searchWord + "%";
+				pStmt.setString(1, searchPattern);
+				pStmt.setString(2, searchPattern);
 
-			pStmt.setString(1, "%" + str_searchWord + "%");
-			pStmt.setString(2, "%" + str_searchWord + "%");
-
-			// SELECT文を実行
-			ResultSet rs = pStmt.executeQuery();
-
-			// 結果をArrayListに格納
-			while (rs.next()) {
-				int int_id = rs.getInt("ID");
-				String str_title = rs.getString("TITLE");
-				String str_artist = rs.getString("ARTIST");
-				int int_likes = rs.getInt("LIKES");
-				String str_url = rs.getString("URL");
-
-				// 新しいMutterオブジェクトを作成
-				Music music = new Music(int_id, str_title, str_artist, int_likes, str_url);
-				musicList.add(music); // リストに追加
+				try (ResultSet rs = pStmt.executeQuery()) {
+					while (rs.next()) {
+						musicList.add(new Music(
+								rs.getInt("ID"),
+								rs.getString("TITLE"),
+								rs.getString("ARTIST"),
+								rs.getInt("LIKES"),
+								rs.getString("URL")));
+					}
+				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
+			e.printStackTrace();
 			return null;
 		}
-		return musicList; // 全てのmusicListリストを返す
+		return musicList;
 	}
 
+	/**
+	 * いいね数順のランキングを取得
+	 * @return ランキングの音楽リスト
+	 */
 	public List<Music> getRanking() {
 		List<Music> musicList = new ArrayList<>();
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-
-		// データベース接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			// SELECT文の準備（データベースからmusicsを取得）
+		try (Connection conn = DatabaseConnection.getConnection()) {
 			String sql = "SELECT ID, TITLE, ARTIST, LIKES FROM MUSICS ORDER BY LIKES DESC, ID ASC";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-			// SELECT文を実行
-			ResultSet rs = pStmt.executeQuery();
-
-			// 結果をArrayListに格納
-			while (rs.next()) {
-				int int_id = rs.getInt("ID");
-				String str_title = rs.getString("TITLE");
-				String str_artist = rs.getString("ARTIST");
-				int int_likes = rs.getInt("LIKES");
-
-				// 新しいMutterオブジェクトを作成
-				Music music = new Music(int_id, str_title, str_artist, int_likes);
-				musicList.add(music); // リストに追加
+			try (PreparedStatement pStmt = conn.prepareStatement(sql);
+				 ResultSet rs = pStmt.executeQuery()) {
+				while (rs.next()) {
+					musicList.add(new Music(
+							rs.getInt("ID"),
+							rs.getString("TITLE"),
+							rs.getString("ARTIST"),
+							rs.getInt("LIKES")));
+				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
+			e.printStackTrace();
 			return null;
 		}
-		return musicList; // 全てのMutterリストを返す
+		return musicList;
 	}
 
-	public void insert(String title, String genre, String artist, String lyricist, String composer, int release_ymd,
-			int music_time, String url) {// 書き足し
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-		// データベース接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+	/**
+	 * 音楽をデータベースに登録
+	 * @param title タイトル
+	 * @param genre ジャンル
+	 * @param artist アーティスト
+	 * @param lyricist 作詞家
+	 * @param composer 作曲家
+	 * @param releaseYmd 発売年月日
+	 * @param musicTime 再生時間
+	 * @param url URL
+	 */
+	public void insert(String title, String genre, String artist, String lyricist, String composer, int releaseYmd,
+			int musicTime, String url) {
+		try (Connection conn = DatabaseConnection.getConnection()) {
 			String sql = "INSERT INTO musics(title, genre, artist, lyricist, composer, release_ymd, music_time, url) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, title);
-			pStmt.setString(2, genre);
-			pStmt.setString(3, artist);
-			pStmt.setString(4, lyricist);
-			pStmt.setString(5, composer);
-			pStmt.setInt(6, release_ymd);
-			pStmt.setInt(7, music_time);
-			pStmt.setString(8, url);
-
-			pStmt.executeUpdate();
-		} catch (Exception e) {
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setString(1, title);
+				pStmt.setString(2, genre);
+				pStmt.setString(3, artist);
+				pStmt.setString(4, lyricist);
+				pStmt.setString(5, composer);
+				pStmt.setInt(6, releaseYmd);
+				pStmt.setInt(7, musicTime);
+				pStmt.setString(8, url);
+				pStmt.executeUpdate();
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * 音楽にいいねを追加
+	 * @param id 音楽ID
+	 * @return 更新成功時はtrue、失敗時はfalse
+	 */
 	public boolean likeMusic(int id) {
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			// INSERT文の準備（新規ユーザーをデータベースに登録）
+		try (Connection conn = DatabaseConnection.getConnection()) {
 			String sql = "UPDATE MUSICS SET LIKES = LIKES+1 WHERE ID=?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-			pStmt.setInt(1, id);
-			
-			// INSERT文を実行
-			int result = pStmt.executeUpdate();
-
-			// 登録成功か確認
-			return result > 0;
-
-		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : UserDAO.registerUser");
-			return false; // 失敗lll
-		}
-	}
-
-	// 曲再生のためのSQLです。自分の書き方に合わせて書き換えてね( ´∀｀)b
-	public Music playMusicById(int id) {// 書き足し
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-
-		Music music = null;
-
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			// SELECT文の準備（1曲のデータの取得）
-			String sql = "SELECT ID, TITLE, ARTIST, LIKES, URL FROM MUSICS WHERE ID = ?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-			// SELECT文の実行
-			pStmt.setInt(1, id); // SQL の一つ目の ? に id をセット
-			ResultSet rs = pStmt.executeQuery();
-
-			if (rs.next()) {
-				music = new Music(
-						rs.getInt("ID"),
-						rs.getString("TITLE"),
-						rs.getString("ARTIST"),
-						rs.getInt("LIKES"),
-						rs.getString("URL"));
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, id);
+				return pStmt.executeUpdate() > 0;
 			}
-			return music;
-
 		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : UserDAO.registerUser");
-			return null; // 失敗
+			e.printStackTrace();
+			return false;
 		}
 	}
+
+	/**
+	 * IDで音楽を取得
+	 * @param id 音楽ID
+	 * @return 音楽オブジェクト、見つからない場合はnull
+	 */
+	public Music playMusicById(int id) {
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			String sql = "SELECT ID, TITLE, ARTIST, LIKES, URL FROM MUSICS WHERE ID = ?";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, id);
+				try (ResultSet rs = pStmt.executeQuery()) {
+					if (rs.next()) {
+						return new Music(
+								rs.getInt("ID"),
+								rs.getString("TITLE"),
+								rs.getString("ARTIST"),
+								rs.getInt("LIKES"),
+								rs.getString("URL"));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * URLで音楽を取得
+	 * @param url 音楽URL
+	 * @return 音楽オブジェクト、見つからない場合はnull
+	 */
 	public Music findByUrl(String url) {
-
-	    Music music = null;
-
-	    try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-	        String sql = "SELECT * FROM MUSICS WHERE url = ?";
-	        PreparedStatement pStmt = conn.prepareStatement(sql);
-	        pStmt.setString(1, url);
-
-	        ResultSet rs = pStmt.executeQuery();
-
-	        if (rs.next()) {
-	            int id = rs.getInt("id");
-	            String title = rs.getString("title");
-	            String artist = rs.getString("artist");
-	            int likes = rs.getInt("likes");
-
-	            music = new Music(id, title, artist, likes, url);
-	        }
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-
-	    return music;
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			String sql = "SELECT ID, TITLE, ARTIST, MUSIC_TIME, LIKES, URL FROM MUSICS WHERE url = ?";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setString(1, url);
+				try (ResultSet rs = pStmt.executeQuery()) {
+					if (rs.next()) {
+						return new Music(
+								rs.getInt("ID"),
+								rs.getString("TITLE"),
+								rs.getString("ARTIST"),
+								rs.getInt("MUSIC_TIME"),
+								rs.getInt("LIKES"),
+								rs.getString("URL"));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * ID順で曲リストを取得（次の曲ボタン用）
+	 * @return ID順の音楽リスト
+	 */
+	public List<Music> getMusicListByIdOrder() {
+		List<Music> list = new ArrayList<>();
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			String sql = "SELECT * FROM MUSICS ORDER BY ID ASC";
+			try (PreparedStatement ps = conn.prepareStatement(sql);
+				 ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					list.add(new Music(
+							rs.getInt("ID"),
+							rs.getString("TITLE"),
+							rs.getString("ARTIST"),
+							rs.getInt("MUSIC_TIME"),
+							rs.getInt("LIKES"),
+							rs.getString("URL")));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	/**
+	 * 現在のIDから次のIDの曲を取得（ID順、循環）
+	 * @param currentId 現在の音楽ID
+	 * @return 次の音楽オブジェクト、見つからない場合は最初の曲
+	 */
+	public Music getNextMusicById(int currentId) {
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			// 現在のIDより大きい最小のIDを取得（次の曲）
+			String sql = "SELECT ID, TITLE, ARTIST, MUSIC_TIME, LIKES, URL FROM MUSICS WHERE ID > ? ORDER BY ID ASC LIMIT 1";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, currentId);
+				try (ResultSet rs = pStmt.executeQuery()) {
+					if (rs.next()) {
+						return new Music(
+								rs.getInt("ID"),
+								rs.getString("TITLE"),
+								rs.getString("ARTIST"),
+								rs.getInt("MUSIC_TIME"),
+								rs.getInt("LIKES"),
+								rs.getString("URL"));
+					}
+				}
+			}
+			
+			// 次の曲がない場合は最初の曲を取得（循環）
+			String sqlFirst = "SELECT ID, TITLE, ARTIST, MUSIC_TIME, LIKES, URL FROM MUSICS ORDER BY ID ASC LIMIT 1";
+			try (PreparedStatement pStmtFirst = conn.prepareStatement(sqlFirst);
+				 ResultSet rsFirst = pStmtFirst.executeQuery()) {
+				if (rsFirst.next()) {
+					return new Music(
+							rsFirst.getInt("ID"),
+							rsFirst.getString("TITLE"),
+							rsFirst.getString("ARTIST"),
+							rsFirst.getInt("MUSIC_TIME"),
+							rsFirst.getInt("LIKES"),
+							rsFirst.getString("URL"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 現在のIDから前のIDの曲を取得（ID順、循環）
+	 * @param currentId 現在の音楽ID
+	 * @return 前の音楽オブジェクト、見つからない場合は最後の曲
+	 */
+	public Music getPrevMusicById(int currentId) {
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			// 現在のIDより小さい最大のIDを取得（前の曲）
+			String sql = "SELECT ID, TITLE, ARTIST, MUSIC_TIME, LIKES, URL FROM MUSICS WHERE ID < ? ORDER BY ID DESC LIMIT 1";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, currentId);
+				try (ResultSet rs = pStmt.executeQuery()) {
+					if (rs.next()) {
+						return new Music(
+								rs.getInt("ID"),
+								rs.getString("TITLE"),
+								rs.getString("ARTIST"),
+								rs.getInt("MUSIC_TIME"),
+								rs.getInt("LIKES"),
+								rs.getString("URL"));
+					}
+				}
+			}
+			
+			// 前の曲がない場合は最後の曲を取得（循環）
+			String sqlLast = "SELECT ID, TITLE, ARTIST, MUSIC_TIME, LIKES, URL FROM MUSICS ORDER BY ID DESC LIMIT 1";
+			try (PreparedStatement pStmtLast = conn.prepareStatement(sqlLast);
+				 ResultSet rsLast = pStmtLast.executeQuery()) {
+				if (rsLast.next()) {
+					return new Music(
+							rsLast.getInt("ID"),
+							rsLast.getString("TITLE"),
+							rsLast.getString("ARTIST"),
+							rsLast.getInt("MUSIC_TIME"),
+							rsLast.getInt("LIKES"),
+							rsLast.getString("URL"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

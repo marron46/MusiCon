@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,234 +10,337 @@ import java.util.List;
 import model.Bookmark;
 import model.Music;
 import model.User;
+import util.DatabaseConnection;
 
+/**
+ * ブックマーク情報を管理するDAOクラス
+ */
 public class BookmarkDAO {
 
-	//データベース接続に使用する情報
-	private final String JDBC_URL = "jdbc:mysql://localhost/musicon"; // JDBC接続URL
-	private final String DB_USER = "root"; // データベースユーザー名
-	private final String DB_PASS = ""; // データベースパスワード
-
+	/**
+	 * ユーザーのブックマーク一覧を取得（INDEX順）
+	 * @param user ユーザー情報
+	 * @return ブックマークリスト
+	 */
 	public List<Bookmark> getBookmark(User user) {
 		List<Bookmark> bookmarkList = new ArrayList<>();
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
+		try (Connection conn = DatabaseConnection.getConnection()) {
 
-		// データベース接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			// Usersテーブルで該当のユーザIDを取得
-			String sql_get_userid = "SELECT USER_ID FROM USERS WHERE USER_NAME=?";
-			PreparedStatement pStmt1 = conn.prepareStatement(sql_get_userid);
-			pStmt1.setString(1, user.getUserName());
-			System.out.println("username:" + user.getUserName());
-			ResultSet rs1 = pStmt1.executeQuery();
-			int int_userid = 0;
-			if(rs1.next()) {
-				int_userid = rs1.getInt("USER_ID");
+			// ユーザーIDを取得
+			int userId = getUserId(conn, user.getUserName());
+			if (userId == 0) {
+				return bookmarkList;
 			}
 			
-			// SELECT文の準備（データベースからbookmarksを取得）
-			// 取得したユーザIDと一致しているBookmarksテーブルのレコードを全て取得
-			String sql_bookmark = "SELECT * FROM BOOKMARKS WHERE B_USER=? ORDER BY BOOKMARK_ID";
-			PreparedStatement pStmt2 = conn.prepareStatement(sql_bookmark);
+			// INDEX順でブックマークを取得
+			String sql = "SELECT * FROM BOOKMARKS WHERE B_USER=? ORDER BY COALESCE(B_INDEX, BOOKMARK_ID) ASC";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, userId);
+				try (ResultSet rs = pStmt.executeQuery()) {
+					int currentIndex = 0;
+					while (rs.next()) {
+						int bookmarkId = rs.getInt("BOOKMARK_ID");
+						int musicId = rs.getInt("B_MUSIC");
+						int bookmarkIndex = rs.getInt("B_INDEX");
+						if (rs.wasNull()) {
+							bookmarkIndex = currentIndex;
+						}
 
-			pStmt2.setInt(1, int_userid);
-
-			// SELECT文を実行
-			ResultSet rs2 = pStmt2.executeQuery();
-
-			PreparedStatement pStmt3;
-			// 結果をArrayListに格納
-			while (rs2.next()) {
-				int int_bookmark_id = rs2.getInt("BOOKMARK_ID");
-				int int_Bmusic = rs2.getInt("B_MUSIC");
-
-				// BookmarkテーブルとMusicテーブルの情報を照合させる
-				String sql_bookmark_to_music = "SELECT TITLE,ARTIST FROM MUSICS WHERE ID=?";
-				pStmt3 = conn.prepareStatement(sql_bookmark_to_music);
-
-				pStmt3.setInt(1, int_Bmusic);
-				ResultSet rs3 = pStmt3.executeQuery();
-
-				if (rs3.next()) {
-					String str_title = rs3.getString("TITLE");
-					String str_artist = rs3.getString("ARTIST");
-
-					// 新しいオブジェクトを作成
-					Bookmark bookmark = new Bookmark(int_bookmark_id, str_title, str_artist, int_Bmusic);
-					bookmarkList.add(bookmark); // リストに追加
+						// Music情報を取得
+						Music music = getMusicById(conn, musicId);
+						if (music != null) {
+							bookmarkList.add(new Bookmark(
+									bookmarkId,
+									music.getTitle(),
+									music.getArtist(),
+									musicId,
+									bookmarkIndex,
+									music.getUrl()));
+							currentIndex++;
+						}
+					}
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : BookmarkDAO.getBookmark");
+			e.printStackTrace();
 			return null;
 		}
-		return bookmarkList; // 全てのbookmarkListを返す
+		return bookmarkList;
+	}
+	
+	/**
+	 * ユーザー名からユーザーIDを取得（内部メソッド）
+	 */
+	private int getUserId(Connection conn, String userName) throws SQLException {
+		String sql = "SELECT USER_ID FROM USERS WHERE USER_NAME=?";
+		try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+			pStmt.setString(1, userName);
+			try (ResultSet rs = pStmt.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt("USER_ID");
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * 音楽IDからMusicオブジェクトを取得（内部メソッド）
+	 */
+	private Music getMusicById(Connection conn, int musicId) throws SQLException {
+		String sql = "SELECT TITLE, ARTIST, URL FROM MUSICS WHERE ID=?";
+		try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+			pStmt.setInt(1, musicId);
+			try (ResultSet rs = pStmt.executeQuery()) {
+				if (rs.next()) {
+					// Musicオブジェクトを作成するために、一時的なMusicオブジェクトを作成
+					// 実際のMusicオブジェクトはURLから取得する必要がある
+					return new Music(0, rs.getString("TITLE"), rs.getString("ARTIST"), 0, 0, rs.getString("URL"));
+				}
+			}
+		}
+		return null;
 	}
 
-	// ユーザ名からユーザID、音楽名から音楽IDを検索しブックマークとして保存（仮）
+	/**
+	 * ブックマークを登録
+	 * @param user ユーザー情報
+	 * @param music 音楽情報
+	 * @return 登録成功時はtrue、失敗時はfalse（既に登録済みの場合はfalse）
+	 */
 	public boolean registerBookmark(User user, Music music) {
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
+		try (Connection conn = DatabaseConnection.getConnection()) {
 
-		// データベース接続
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			//TODO UserとMusicがすでにテーブル内にある場合は弾く機能を作る
-
-			// Usersテーブルで該当のユーザIDを取得
-			String sql_get_userid = "SELECT USER_ID FROM USERS WHERE USER_NAME=?";
-			PreparedStatement pStmt1 = conn.prepareStatement(sql_get_userid);
-			pStmt1.setString(1, user.getUserName());
-			ResultSet rs1 = pStmt1.executeQuery();
-			if (!rs1.next())
+			int userId = getUserId(conn, user.getUserName());
+			if (userId == 0) {
 				return false;
-			int int_userid = rs1.getInt("USER_ID");
+			}
 
 			// Musicテーブルで音楽名から音楽IDを取得
-			String sql_get_musicid = "SELECT ID FROM MUSICS WHERE TITLE=?";
-			PreparedStatement pStmt2 = conn.prepareStatement(sql_get_musicid);
-			pStmt2.setString(1, music.getTitle());
-			ResultSet rs2 = pStmt2.executeQuery();
-			if (!rs2.next())
+			int musicId = getMusicIdByTitle(conn, music.getTitle());
+			if (musicId == 0) {
 				return false;
-			int int_musicid = rs2.getInt("ID");
-
-			// ---- 重複チェック ----
-			/* String sqlCheck = "SELECT COUNT(*) FROM BOOKMARKS WHERE B_USER=? AND B_MUSIC=?";
-			PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck);
-			stmtCheck.setInt(1, int_userid);
-			stmtCheck.setInt(2, int_musicid);
-			ResultSet rsCheck = stmtCheck.executeQuery();
-			rsCheck.next();
-			if (rsCheck.getInt(1) > 0)
-				return false; // 既に登録済み→弾く		*/
-
-			// INSERT文の準備（新規ユーザーをデータベースに登録）
-			String sql = "INSERT INTO BOOKMARKS(B_USER, B_MUSIC) VALUES (?, ?)";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-			pStmt.setInt(1, int_userid);
-			pStmt.setInt(2, int_musicid);
-
-			// INSERT文を実行
-			int result = pStmt.executeUpdate();
-
-			// 登録成功か確認
-			return result > 0;
-
-		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : UserDAO.registerUser");
-			return false; // 失敗
-		}
-	}
-	
-	// 曲IDから曲を検索し返す
-	public Music playMusicById(int id) {// 書き足し
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-
-		Music music = null;
-
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			// SELECT文の準備（1曲のデータの取得）
-			String sql = "SELECT ID, TITLE, ARTIST, LIKES, URL FROM MUSICS WHERE ID = ?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-			// SELECT文の実行
-			pStmt.setInt(1, id); // SQL の一つ目の ? に id をセット
-			ResultSet rs = pStmt.executeQuery();
-
-			if (rs.next()) {
-				music = new Music(
-						rs.getInt("ID"),
-						rs.getString("TITLE"),
-						rs.getString("ARTIST"),
-						rs.getInt("LIKES"),
-						rs.getString("URL"));
 			}
-			return music;
 
+			// 既にブックマーク済みかチェック
+			String checkSql = "SELECT B_USER, B_MUSIC FROM BOOKMARKS WHERE B_USER = ? AND B_MUSIC = ?";
+			try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+				checkStmt.setInt(1, userId);
+				checkStmt.setInt(2, musicId);
+				try (ResultSet rs = checkStmt.executeQuery()) {
+					if (rs.next()) {
+						// 既に登録済み
+						return false;
+					}
+				}
+			}
+
+			// 現在のユーザーのブックマーク数を取得してINDEXを決定
+			int nextIndex = getBookmarkCount(conn, userId);
+
+			// ブックマークを登録
+			String sql = "INSERT INTO BOOKMARKS(B_USER, B_MUSIC, B_INDEX) VALUES (?, ?, ?)";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, userId);
+				pStmt.setInt(2, musicId);
+				pStmt.setInt(3, nextIndex);
+				return pStmt.executeUpdate() > 0;
+			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : UserDAO.registerUser");
-			return null; // 失敗
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
-	// すでにブックマークに存在しているかどうか調べて結果を返す（true = 存在する）
+	/**
+	 * タイトルから音楽IDを取得（内部メソッド）
+	 */
+	private int getMusicIdByTitle(Connection conn, String title) throws SQLException {
+		String sql = "SELECT ID FROM MUSICS WHERE TITLE=?";
+		try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+			pStmt.setString(1, title);
+			try (ResultSet rs = pStmt.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt("ID");
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * ユーザーのブックマーク数を取得（内部メソッド）
+	 */
+	private int getBookmarkCount(Connection conn, int userId) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM BOOKMARKS WHERE B_USER=?";
+		try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+			pStmt.setInt(1, userId);
+			try (ResultSet rs = pStmt.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt(1);
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * 曲IDから曲を取得
+	 * @param id 音楽ID
+	 * @return 音楽オブジェクト、見つからない場合はnull
+	 */
+	public Music playMusicById(int id) {
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			String sql = "SELECT ID, TITLE, ARTIST, LIKES, URL FROM MUSICS WHERE ID = ?";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, id);
+				try (ResultSet rs = pStmt.executeQuery()) {
+					if (rs.next()) {
+						return new Music(
+								rs.getInt("ID"),
+								rs.getString("TITLE"),
+								rs.getString("ARTIST"),
+								rs.getInt("LIKES"),
+								rs.getString("URL"));
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * ブックマークに存在するかチェック
+	 * @param user ユーザー情報
+	 * @param music 音楽情報
+	 * @return 存在する場合はtrue、存在しない場合はfalse
+	 */
 	public boolean isBookmarked(User user, Music music) {
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-		
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			int userId = getUserId(conn, user.getUserName());
+			if (userId == 0) {
+				return false;
+			}
 			
-			String sql_existing_check = "SELECT B_USER B_MUSIC FROM BOOKMARKS WHERE B_USER = ? AND B_MUSIC = ?";
-			PreparedStatement pStmt = conn.prepareStatement(sql_existing_check);
-			
-			pStmt.setInt(1, user.getUserId());
-			pStmt.setInt(2, music.getId());
-			
-			ResultSet rs = pStmt.executeQuery();
-			System.out.println("rs:" + rs);
-			
-			return rs.next();
-			
-		} catch(SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : BookmarkDAO.isBookmarked");
-			return false; // 失敗
+			String sql = "SELECT B_USER, B_MUSIC FROM BOOKMARKS WHERE B_USER = ? AND B_MUSIC = ?";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, userId);
+				pStmt.setInt(2, music.getId());
+				try (ResultSet rs = pStmt.executeQuery()) {
+					return rs.next();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
-	// ブックマークテーブルから削除するメソッド
-	public boolean deleteBookmark(User user, Music music) {
-		// JDBCドライバを読み込む
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-		}
-
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-
-			// INSERT文の準備（新規ユーザーをデータベースに登録）
-			String sql_delete_from_bookmarks = "DELETE FROM BOOKMARKS WHERE B_USER = ? AND B_MUSIC = ? ";
-			PreparedStatement pStmt = conn.prepareStatement(sql_delete_from_bookmarks);
-
-			pStmt.setInt(1, user.getUserId());
-			pStmt.setInt(2, music.getId());
+	/**
+	 * URLベースでブックマークを取得
+	 * @param user ユーザー情報
+	 * @param musicUrl 音楽URL
+	 * @return ブックマークリスト
+	 */
+	public List<Bookmark> getBookmarkByUrl(User user, String musicUrl) {
+		List<Bookmark> bookmarkList = new ArrayList<>();
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			int userId = getUserId(conn, user.getUserName());
+			if (userId == 0) {
+				return bookmarkList;
+			}
 			
-			// INSERT文を実行
-			int result = pStmt.executeUpdate();
+			// URLからMusic IDを取得
+			int musicId = getMusicIdByUrl(conn, musicUrl);
+			if (musicId == 0) {
+				return bookmarkList;
+			}
+			
+			// ブックマークを取得
+			String sql = "SELECT * FROM BOOKMARKS WHERE B_USER=? AND B_MUSIC=? ORDER BY COALESCE(B_INDEX, BOOKMARK_ID) ASC";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, userId);
+				pStmt.setInt(2, musicId);
+				try (ResultSet rs = pStmt.executeQuery()) {
+					int currentIndex = 0;
+					while (rs.next()) {
+						int bookmarkId = rs.getInt("BOOKMARK_ID");
+						int bookmarkIndex = rs.getInt("B_INDEX");
+						if (rs.wasNull()) {
+							bookmarkIndex = currentIndex;
+						}
 
-			// 登録成功か確認
-			return result > 0;
-
+						Music music = getMusicById(conn, musicId);
+						if (music != null) {
+							bookmarkList.add(new Bookmark(
+									bookmarkId,
+									music.getTitle(),
+									music.getArtist(),
+									musicId,
+									bookmarkIndex,
+									music.getUrl()));
+							currentIndex++;
+						}
+					}
+				}
+			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // SQLエラーを表示
-			System.out.println("Error : BookmarkDAO.deleteBookmark");
-			return false; // 失敗
+			e.printStackTrace();
+			return null;
+		}
+		return bookmarkList;
+	}
+	
+	/**
+	 * URLから音楽IDを取得（内部メソッド）
+	 */
+	private int getMusicIdByUrl(Connection conn, String url) throws SQLException {
+		String sql = "SELECT ID FROM MUSICS WHERE URL=?";
+		try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+			pStmt.setString(1, url);
+			try (ResultSet rs = pStmt.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt("ID");
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * INDEX順でブックマークリストを取得（再生用）
+	 * @param user ユーザー情報
+	 * @return INDEX順のブックマークリスト
+	 */
+	public List<Bookmark> getBookmarkListOrderedByIndex(User user) {
+		return getBookmark(user);
+	}
+	
+	/**
+	 * ブックマークを削除
+	 * @param user ユーザー情報
+	 * @param music 音楽情報
+	 * @return 削除成功時はtrue、失敗時はfalse
+	 */
+	public boolean deleteBookmark(User user, Music music) {
+		try (Connection conn = DatabaseConnection.getConnection()) {
+			// ユーザーIDを取得
+			int userId = getUserId(conn, user.getUserName());
+			if (userId == 0) {
+				return false;
+			}
+			
+			String sql = "DELETE FROM BOOKMARKS WHERE B_USER = ? AND B_MUSIC = ?";
+			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				pStmt.setInt(1, userId);
+				pStmt.setInt(2, music.getId());
+				return pStmt.executeUpdate() > 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
