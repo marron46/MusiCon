@@ -16,7 +16,7 @@ import dao.MusicDAO;
 import model.Bookmark;
 import model.Music;
 import model.User;
-import model.logic.MyBookmarkLogic;
+import service.MyBookmarkService;
 
 @WebServlet("/MyBookmark")
 public class MyBookmark extends HttpServlet {
@@ -27,7 +27,7 @@ public class MyBookmark extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		
-		MyBookmarkLogic logic = new MyBookmarkLogic();
+		MyBookmarkService service = new MyBookmarkService();
 
 		// ログインユーザーを取得
 		HttpSession session = request.getSession();
@@ -50,7 +50,7 @@ public class MyBookmark extends HttpServlet {
 			Music music = musicDAO.playMusicById(musicId);
 
 			
-			boolean result = logic.execute(user, music);
+			boolean result = service.execute(user, music);
 
 			// 結果メッセージを設定
 			if (result) {
@@ -62,13 +62,13 @@ public class MyBookmark extends HttpServlet {
 			System.out.println("resultに" + result + "が返ってきている");
 		}
 
-		// ブックマーク一覧を取得
+		// ブックマーク一覧を取得（INDEX順）
 		BookmarkDAO bookmarkDAO = new BookmarkDAO();
-		List<Bookmark> bookmarkList = logic.getBookmark(user);
+		List<Bookmark> bookmarkList = service.getBookmark(user);
 		System.out.println("Servletでブックマーク出力:" + bookmarkList);
 		
 
-		// セッションにブックマーク一覧を保存
+		// セッションにブックマーク一覧を保存（INDEX順でソート済み）
 		session.setAttribute("bookmarkList", bookmarkList);
 
 		// ブックマーク一覧ページにフォワード
@@ -97,19 +97,32 @@ public class MyBookmark extends HttpServlet {
 			// Music情報取得
 			MusicDAO musicDAO = new MusicDAO();
 			Music music = musicDAO.playMusicById(musicId);
-
-			MyBookmarkLogic logic = new MyBookmarkLogic();
-			boolean result = logic.execute(user, music);
-
-			// 結果メッセージを設定
-			if (result) {
-				request.setAttribute("bookmarkMessage", "ブックマークに追加しました！");
-			} else {
-				request.setAttribute("bookmarkMessage", "すでに登録済みです。");
+			
+			// musicがnullの場合はエラー
+			if (music == null) {
+				response.sendRedirect(request.getContextPath() + "/PlayMusic");
+				return;
 			}
 
-			// PlayMusicに戻す
-			response.sendRedirect(request.getContextPath() + "/PlayMusic?id=" + musicId);
+			MyBookmarkService service = new MyBookmarkService();
+			// toggleBookmarkを使用して追加/削除を切り替え
+			boolean result = service.toggleBookmark(user, music);
+
+			// ブックマークモードかどうかを確認
+			String bookmarkMode = request.getParameter("bookmarkMode");
+			String bookmarkIndex = request.getParameter("bookmarkIndex");
+			
+			// リダイレクト先を決定
+			String redirectUrl;
+			if ("true".equals(bookmarkMode) && bookmarkIndex != null) {
+				// ブックマークモードの場合
+				redirectUrl = request.getContextPath() + "/PlayMusic?bookmarkMode=true&bookmarkIndex=" + bookmarkIndex;
+			} else {
+				// 通常再生モードの場合
+				redirectUrl = request.getContextPath() + "/PlayMusic?id=" + musicId;
+			}
+			
+			response.sendRedirect(redirectUrl);
 		}
 
 	}

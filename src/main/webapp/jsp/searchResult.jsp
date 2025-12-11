@@ -39,7 +39,7 @@
 <div class="container">
     <% for (model.Music m : list) { %>
         <a
-            href="${pageContext.request.contextPath}/PlayMusic?id=<%=m.getId()%>"
+            href="${pageContext.request.contextPath}/PlayMusic?url=<%=java.net.URLEncoder.encode(m.getUrl(), "UTF-8")%>"
             class="music-area btn-flat">
             <div class="title">タイトル：<%=m.getTitle()%></div>
             <div class="artist">アーティスト：<%=m.getArtist()%></div>

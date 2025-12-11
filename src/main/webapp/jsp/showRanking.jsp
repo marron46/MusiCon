@@ -40,7 +40,7 @@
 			for (model.Music m : list) {
 			%>
 			<li>タイトル：<a
-				href="${pageContext.request.contextPath}/PlayMusic?id=<%=m.getId()%>">
+				href="${pageContext.request.contextPath}/PlayMusic?url=<%=java.net.URLEncoder.encode(m.getUrl(), "UTF-8")%>">
 					<%=m.getTitle()%></a><br> アーティスト：<%=m.getArtist()%><br> いいね：<%=m.getLikes()%>
 			</li>
 			<hr>

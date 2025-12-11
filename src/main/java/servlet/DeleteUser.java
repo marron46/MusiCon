@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
-import model.logic.DeleteUserLogic;
+import service.DeleteUserService;
 
 @WebServlet("/DeleteUser")
 public class DeleteUser extends HttpServlet {
@@ -41,8 +41,8 @@ public class DeleteUser extends HttpServlet {
 
 		// ユーザー削除処理の実行
 		User user = new User(user_name, user_pass);
-		DeleteUserLogic logic = new DeleteUserLogic();
-		boolean result = logic.execute(user);
+		DeleteUserService service = new DeleteUserService();
+		boolean result = service.execute(user);
 
 		// ユーザー削除処理の成否によって処理を分岐
 		if (result) { // ユーザー削除成功時

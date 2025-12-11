@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import model.User;
-import model.logic.CreateUserLogic;
+import service.CreateUserService;
 
 @WebServlet("/CreateUser")
 public class CreateUser extends HttpServlet {
@@ -43,8 +43,8 @@ public class CreateUser extends HttpServlet {
 
 		// 新規ユーザー登録処理の実行
 		User user = new User(user_name, user_pass);
-		CreateUserLogic logic = new CreateUserLogic();
-		boolean result = logic.execute(user);
+		CreateUserService service = new CreateUserService();
+		boolean result = service.execute(user);
 
 		// 新規ユーザー登録処理の成否によって処理を分岐
 		if (result) { // 新規ユーザー登録成功時

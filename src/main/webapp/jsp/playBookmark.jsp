@@ -18,6 +18,17 @@
 
 	<%
 	Music music = (Music) request.getAttribute("music");
+	Boolean isBookmarked = (Boolean) request.getAttribute("isBookmarked");
+	if (isBookmarked == null) {
+		isBookmarked = false;
+	}
+	
+	// musicがnullの場合はエラーページにリダイレクト
+	if (music == null) {
+		response.sendRedirect(request.getContextPath() + "/MyBookmark");
+		return;
+	}
+	
 	int index = (int) request.getAttribute("index");
 	List<Music> musicList = (List<Music>) request.getAttribute("musicList");
 	int total = musicList.size();
@@ -66,10 +77,11 @@
 					<button type="submit" class="like-btn">⭐ブックマーク</button>
 				</form>
 
-				<form action="${pageContext.request.contextPath}/BookmarkPlay"
+				<form action="${pageContext.request.contextPath}/MyBookmark"
 					method="post">
 					<input type="hidden" name="id" value="<%=music.getId()%>">
-					<input type="hidden" name="index" value="<%=index%>">
+					<input type="hidden" name="bookmarkMode" value="true">
+					<input type="hidden" name="bookmarkIndex" value="<%=index%>">
 
 					<%
 					boolean bookmarked = (Boolean) request.getAttribute("isBookmarked");
@@ -94,16 +106,16 @@ document.getElementById("play").onclick = () => {
 };
 
 document.getElementById("next").onclick = () => {
-    window.location.href = "BookmarkPlay?index=<%=nextIndex%>";
+    window.location.href = "PlayMusic?bookmarkMode=true&bookmarkIndex=<%=nextIndex%>";
 };
 
 document.getElementById("prev").onclick = () => {
-    window.location.href = "BookmarkPlay?index=<%=prevIndex%>";
+    window.location.href = "PlayMusic?bookmarkMode=true&bookmarkIndex=<%=prevIndex%>";
 };
 
 // 自動次曲
 audio.onended = () => {
-    window.location.href = "BookmarkPlay?index=<%=nextIndex%>";
+    window.location.href = "PlayMusic?bookmarkMode=true&bookmarkIndex=<%=nextIndex%>";
 };
 </script>
 

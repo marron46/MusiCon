@@ -34,8 +34,16 @@
 		<%
 		for (Bookmark b : list) {
 		%>
+		<%
+		// URLがnullの場合はIDから取得（後方互換性）
+		String bookmarkUrl = b.getMusic_url();
+		if (bookmarkUrl == null || bookmarkUrl.isEmpty()) {
+			// IDからURLを構築（既存データ用）
+			bookmarkUrl = request.getContextPath() + "/music/" + b.getMusic_id();
+		}
+		%>
 		<li>🎵 <a
-			href="${pageContext.request.contextPath}/BookmarkPlay?id=<%=b.getMusic_id()%>"
+			href="${pageContext.request.contextPath}/PlayMusic?bookmarkMode=true&url=<%=java.net.URLEncoder.encode(bookmarkUrl, "UTF-8")%>"
 			class="music-area btn-flat"> <span><%=b.getTitle()%></span>
 		</a> <br> <br>
 		</li>

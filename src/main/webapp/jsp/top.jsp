@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="java.util.List, model.Music, model.logic.PlayMusicLogic"%>
+	import="java.util.List, model.Music, service.PlayMusicService"%>
 <%
 // ログインチェック
 String userName = (String) session.getAttribute("user_name");
@@ -11,8 +11,8 @@ if (userName == null) {
 }
 
 // 曲一覧を取得
-PlayMusicLogic logic = new PlayMusicLogic();
-List<Music> musicList = logic.getMusicList();
+PlayMusicService service = new PlayMusicService();
+List<Music> musicList = service.getMusicList();
 session.setAttribute("musicList", musicList);
 %>
 <!DOCTYPE html>
@@ -53,7 +53,7 @@ session.setAttribute("musicList", musicList);
 				class="menu">曲一覧</a></li>
 		</ul>
 		<ul class="menu-bottom">
-			<li><a href="${pageContext.request.contextPath}/jsp/.jsp"
+			<li><a href="${pageContext.request.contextPath}/Logout"
 				class="menu logout">ログアウト</a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/jsp/deleteUser.jsp"
@@ -91,9 +91,9 @@ session.setAttribute("musicList", musicList);
 
 
 				<!-- 曲タイトルをリンクとして表示 -->
-				<!-- クリックすると MusicServlet?id=○○ に飛び、play.jsp で再生画面へ -->
+				<!-- クリックすると URLベースで再生画面へ -->
 				<a
-					href="${pageContext.request.contextPath}/PlayMusic?id=<%=m.getId()%>"
+					href="${pageContext.request.contextPath}/PlayMusic?url=<%=java.net.URLEncoder.encode(m.getUrl(), "UTF-8")%>"
 					class="music-area btn-flat"> 
 					<div class="title"><%=m.getTitle()%></div>
 					<div class="artist"><%=m.getArtist()%></div>

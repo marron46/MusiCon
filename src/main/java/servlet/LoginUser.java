@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import model.User;
-import model.logic.LoginUserLogic;
+import service.LoginUserService;
 
 @WebServlet("/LoginUser")
 public class LoginUser extends HttpServlet {
@@ -45,8 +45,8 @@ public class LoginUser extends HttpServlet {
 
 		// ログイン処理の実行
 		User user = new User(user_name, user_pass);
-		LoginUserLogic logic = new LoginUserLogic();
-		User result = logic.execute(user);
+		LoginUserService service = new LoginUserService();
+		User result = service.execute(user);
 		System.out.println("Servlet result:" + result);
 
 		if (result != null) {

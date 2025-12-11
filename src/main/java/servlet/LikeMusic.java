@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.logic.PlayMusicLogic;
+import service.PlayMusicService;
 
 @WebServlet("/LikeMusic")
 public class LikeMusic extends HttpServlet {
@@ -29,8 +29,8 @@ public class LikeMusic extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		PlayMusicLogic logic = new PlayMusicLogic();
-		logic.likeMusic(id);
+		PlayMusicService service = new PlayMusicService();
+		service.likeMusic(id);
 
 		// 更新後、同じ曲ページへ戻る（リダイレクト）
 		response.sendRedirect(request.getContextPath() + "/PlayMusic?id=" + id);

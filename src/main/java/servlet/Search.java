@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import model.Music;
-import model.logic.SearchResultLogic;
+import service.SearchResultService;
 
 @WebServlet("/Search")
 public class Search extends HttpServlet {
@@ -40,8 +40,8 @@ public class Search extends HttpServlet {
 		
 		//曲の検索処理
 		Music musicSearch = new Music(searchText);
-		SearchResultLogic logic = new SearchResultLogic();
-		List<Music> result = logic.execute(musicSearch);
+		SearchResultService service = new SearchResultService();
+		List<Music> result = service.execute(musicSearch);
 
 		// セッションスコープに曲タイトルを保存
 		session.setAttribute("searchList", result);

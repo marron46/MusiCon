@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Music;
-import model.logic.ShowRankingLogic;
+import service.ShowRankingService;
 
 @WebServlet("/ShowRanking")
 public class ShowRanking extends HttpServlet {
@@ -28,9 +28,9 @@ public class ShowRanking extends HttpServlet {
 			return;
 		}
 
-		ShowRankingLogic logic = new ShowRankingLogic();
+		ShowRankingService service = new ShowRankingService();
 		// いいねランキングを取得
-		List<Music> ranking = logic.getRanking();
+		List<Music> ranking = service.getRanking();
 		System.out.println("ランキング出力:" + ranking);
 		// セッションスコープにランキングリストを保存
 		session.setAttribute("ranking", ranking);
