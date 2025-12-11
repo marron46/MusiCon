@@ -60,6 +60,30 @@ input[type="file"]{
     margin-bottom: 30px; /* 下の余白 */
 }
 
+/* プルダウンの見た目統一 */
+.pull-down select {
+    appearance: none;            /* OS のデフォルト矢印を無効化 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: #fff;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='30' viewBox='0 0 24 24' width='30' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+
+    padding-right: 40px;  /* 矢印用スペース */
+	color: gray;
+	font-size: 16px;
+    height: 42px;         /* input と高さを揃える（必要であれば調整） */
+	width: 410px;
+	border: 2px solid #ccc; /* 枠線 */
+	border-radius: 5px;
+    line-height: 24px;    /* テキストの高さ調整 */
+}
+
+.pull-down head {}
+
 /* 登録ボタン */
 .submit-btn {
     display: block; /* ブロック表示で中央寄せが有効に */
