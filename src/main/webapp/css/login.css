@@ -83,20 +83,9 @@ input[type="password"] {
 	background-color:#A997C6;  /* 少し薄い紫に変更 */
 }
 
-
-/* input:invalid による赤枠を無効化 */
-input:invalid {
-    border: 1px solid #ccc !important;  /* これにより赤枠を無効化 */
-}
-
 /* 入力欄がフォーカスされたときの枠線 */
 input:focus {
     border-color: #333;  /* フォーカス時の枠線の色 */
-}
-
-/* エラー時に赤枠を表示 */
-input.error {
-    border: 2px solid red;  /* エラー時に赤枠 */
 }
 
 /* エラーメッセージのスタイル */
