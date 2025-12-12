@@ -94,11 +94,6 @@ input:focus {
     border-color: #333;  /* フォーカス時の枠線の色 */
 }
 
-/* エラー時に赤枠を表示 */
-input.error {
-    border: 2px solid red;  /* エラー時に赤枠 */
-}
-
 /* エラーメッセージのスタイル */
 .error-message {
     color: red;
