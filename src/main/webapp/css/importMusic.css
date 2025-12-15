@@ -82,7 +82,20 @@ input[type="file"]{
     line-height: 24px;    /* テキストの高さ調整 */
 }
 
+/* 初期表示（未選択時）はグレー */
+.pull-down select {
+    color: gray;
+}
 
+/* 選択後は黒 */
+.pull-down select:valid {
+    color: black;
+}
+
+/* 選択肢（option）の文字色を黒にする */
+.pull-down select option {
+    color: black;
+}
 
 /* 登録ボタン */
 .submit-btn {

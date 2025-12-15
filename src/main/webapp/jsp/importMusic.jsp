@@ -36,7 +36,7 @@
 			<!--ジャンル：-->
 			<div class="form-item pull-down">
 				<select name="genre" required>
-					<option>ジャンルを選択（必須）</option>
+					<option class="" disabled selected>ジャンルを選択（必須）</option>
 					<option value="JPOP">　J-POP</option>
 					<option value="KPOP">　K-POP</option>
 					<option value="HPOP">　HIPHOP</option>
