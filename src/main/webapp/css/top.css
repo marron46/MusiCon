@@ -13,7 +13,8 @@
    =============================== */
 body {
     background-color: #A997C6; /* 背景色：薄紫 */
-    min-height: 100vh; /* 画面全体の高さ確保 */
+	background-image: url("../png/backGround.png"); /* ← 画像のパスを指定 */
+	min-height: 100vh; /* 画面全体の高さ確保 */
     margin: 0; /* 余白なし */
     font-family: Arial, sans-serif; /* フォント設定 */
     overflow-x: hidden;
