@@ -5,6 +5,29 @@ const progress = document.getElementById("progress");
 const currentLabel = document.getElementById("current");
 const durationLabel = document.getElementById("duration");
 
+// ▼ 横幅変更対応：ウィンドウ幅に応じて body にクラス付与
+function handleResize() {
+    if (window.innerWidth < 1200) {
+        document.body.classList.add("narrow");
+    } else {
+        document.body.classList.remove("narrow");
+    }
+}
+
+window.addEventListener("resize", handleResize);
+window.addEventListener("DOMContentLoaded", handleResize);
+/*function handleResize() {
+    if(window.innerWidth < 1200){
+        document.body.classList.add("narrow");
+    } else {
+        document.body.classList.remove("narrow");
+    }
+}
+
+window.addEventListener("resize", handleResize);
+// 初回読み込み時もチェック
+window.addEventListener("DOMContentLoaded", handleResize);*/
+
 // 再生/停止
 playBtn.addEventListener("click", () => {
 	if (audio.paused) {

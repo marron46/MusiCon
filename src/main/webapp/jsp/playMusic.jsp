@@ -99,8 +99,9 @@
 	</script>
 
 	<!-- ▼ 追加：中央配置用のラッパー ▼ -->
-	<div class="center-wrapper">
-		<div class="player">
+	<div id="player-container">
+	<!--<div class="center-wrapper">
+		<div class="player">-->
 
 			<!-- 左のジャケット（白無地） -->
 			<div class="album-art"></div>
