@@ -1,5 +1,4 @@
 /* ▼ 全体のbodyスタイル */
-body {/* ▼ 全体のbodyスタイル */
 body {
   background-color: #A997C6 !important; /* 背景色を薄紫に変更 */
   color: white; /* 文字色は白 */
@@ -22,6 +21,7 @@ body {
 .reverse {
     top: 10px;
 }
+
 /* ロゴ画像 */
 .reverse-img {
     width: 150px;
@@ -79,15 +79,16 @@ body {
 #player-container {
     display: flex;
     justify-content: center;  /* 水平方向中央寄せ */
-    align-items: flex-start;  /* 垂直方向の整列 */
+    align-items: center/*flex-start*/;  /* 垂直方向の整列 */
     gap: 40px;               /* ジャケットと情報の間隔 */
     width: 80%;              /* 画面幅に対する相対幅 */
     max-width: 1000px;       /* 最大幅 */
-    min-width: 500px;        /* 最小幅 */
+    min-width: unset;        /* 最小幅 */
     margin: 30px auto;       /* 上下余白 + 中央寄せ */
     padding: 20px;           /* 内側余白 */
 	min-height: calc(100vh - 250px); /* 画面中央に寄せる */
 }
+
 /* 狭い画面用 */
 body.narrow #player-container {
     width: 95%;
@@ -120,10 +121,13 @@ body.narrow #player-container {
   width: 25%;
   max-width: 250px;
   min-width: 150px;
+  height: 25%;
+  max-height: 250px;
+  min-height: 150px;
   aspect-ratio: 1 / 1; /* 正方形を維持 */
   background-color: #fff; /* 背景色は白 */
   border-radius: 10px; /* 角を10pxの半径で丸く */
-  border: 1px solid #ddd; /* 薄い灰色の枠線（必要なら） */
+  /*border: 1px solid #ddd; /* 薄い灰色の枠線（必要なら） */
 }
 
 /* 狭い画面用 */
@@ -137,7 +141,7 @@ body.narrow #player-container .album-art {
 /* タイトルスタイル */
 #player-container .info h2 {
   margin: 0; /*マージンを削除 */
-  font-size: 30px; /* フォントサイズは20px */
+  font-size: clamp(1rem, 3vw, 1.8rem);/* フォントサイズは20px */
   font-weight: bold; /* 太字に */
 }
 
@@ -159,7 +163,7 @@ body.narrow #player-container .center-block button {
 /* ▼ アーティスト名スタイル */
 .artist {
   margin: 3px 0 20px; /* 上6px、下20pxのマージン */
-  font-size: 31px; /* フォントサイズ */
+  font-size: clamp(1rem, 3vw, 1.95rem);/* フォントサイズ (最小値,可変値,最大値)*/
   opacity: 0.7; /* 少し透明に */
 }
 
@@ -175,13 +179,16 @@ body.narrow #player-container .center-block button {
 
 /* 再生ボタンスタイル */
 .controls button {
+width: clamp(1.25rem, 7vw, 3.4375rem);
+  height: clamp(1.25rem, 7vw, 3.4375rem);
+  font-size: clamp(1.375rem, 4vw, 1.875rem);
   background: transparent; /* 背景は透明 */
   border: 2px solid white; /* 白い枠線 */
   border-radius: 50%; /* ボタンを丸く */
-  width: 55px; /* 横幅55px */
-  height: 55px; /* 高さ55px */
+  /*width: 55px; /* 横幅55px */
+  /*height: 55px; /* 高さ55px */
   justify-content: center; /* 横方向中央揃え（重要） */
-  font-size: 30px; /* フォントサイズは20px */
+  /*font-size: 30px; /* フォントサイズは20px */
   color: white; /* 文字色は白 */
   cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
 }
@@ -279,13 +286,6 @@ body.narrow #player-container .center-block button {
 
 .like-bookmark-box form {
   margin: 0;        /* form の余白を消す */
-}
-
-  background-color: #A997C6 !important; /* 背景色を薄紫に変更 */
-  color: white; /* 文字色は白 */
-  font-family: "Arial", sans-serif; /* フォントはArial */
-  margin: 0; /* デフォルトのマージンを削除 */
-  padding: 30px; /* 全体に30pxのパディングを追加 */
 }
 
 
@@ -313,245 +313,4 @@ body.narrow .controls button {
   width: 45px;
   height: 45px;
   font-size: 24px;
-}
-
-
-/* ▼ ロゴ関連*/
-/* ロゴと文字全体の位置（左上に固定） */
-.reverse,
-.reverseStr {
-    position: fixed;
-    left: 10px;
-    text-align: center;
-}
-
-/* ロゴ（上側） */
-.reverse {
-    top: 10px;
-}
-/* ロゴ画像 */
-.reverse-img {
-    width: 150px;
-    height: auto;
-    display: block;
-}
-
-
-/* ▼ TOPに戻る（ロゴの下） */
-.reverseStr {
-    top: 140px;  /* ロゴの高さに応じて調整 */
-    width: 150px; /* ロゴ画像の幅に揃えて中央揃えに */
-	font: bold;
-	margin-top: 25px;
-	padding: 5px 12px;
-	margin-left: -10px;
-}
-
-.reverseStr a:hover{
-	background-color: #ededed;
-	color: #000000;
-}
-
-/* リンク文字 */
-.reverseStr a {
-    color: black;
-    text-decoration: none;
-    font-size: 20px;
-	padding: 5px 12px;
-	border: 1px solid black;
-	border-radius: 6px;
-	display: inline-block;
-	background-color: white;
-}
-
-.reverse a:hover {
-    opacity: 0.8;
-}
-
-.reverse-img:hover {
-	opacity: 0.8;
-	}
-
-	
-/* ▼ プレイヤーのコンテナ */
-.player {
-  margin-top: 30px; /* 上に30pxの余白を追加 */
-  display: flex; /* フレックスボックスレイアウト */
-  gap: 40px; /* 要素間に40pxの隙間を設定 */
-  align-items: center; /* 垂直方向に中央揃え */
-}
-
-
-/* ▼ 全体を中央に配置するためのラッパー */
-.center-wrapper {
-  display: flex;
-  justify-content: center;   /* 横方向の中央 */
-  align-items: center;       /* 縦方向の中央 */
-  min-height: calc(100vh - 250px); /* 100vh(画面の高さ)から250px分だけ上のスペースを確保した高さ*/
-}
-
-
-/* ▼ プレイヤー自身も中央寄せしやすく */
-.player {
-  display: flex;
-  gap: 40px;
-  align-items: center;
-}
-
-
-/* ▼ ジャケ写スタイル */
-.album-art {
-  margin:30px 60px 0 0;/*上 右 下 左のマージンをそれぞれ別に指定する*/
-  padding-right: 30px;
-  padding-top: 10px;
-  width: 20%;/*width: 250px; /* 横幅 */
-  max-width: 250px;/*最大横幅*/
-  min-width: 150px;/*最小横幅*/
-  height: auto;/*height: 265px; /* 高さ */
-  background-color: #fff; /* 背景色は白 */
-  border-radius: 10px; /* 角を10pxの半径で丸く */
-  border: 1px solid #ddd; /* 薄い灰色の枠線（必要なら） */
-}
-
-/* ▼ タイトル関連*/
-/* タイトルスタイル */
-.info h2 {
-  margin: 0; /*マージンを削除 */
-  font-size: 30px; /* フォントサイズは20px */
-  font-weight: bold; /* 太字に */
-}
-
-/* タイトルが長くても影響しない中央揃え用ブロック */
-.center-block {
-  width: 40%; /*width: 300px;               /* ← 中央揃えがブレないための固定幅 */
-  max-width: 400px;/*最大横幅*/
-  min-width: 250px;/*最小横幅*/
-  margin: 0 auto;             /* 真ん中に配置 */
-  text-align: center;
-}
-
-
-/* ▼ アーティスト名スタイル */
-.artist {
-  margin: 3px 0 20px; /* 上6px、下20pxのマージン */
-  font-size: 31px; /* フォントサイズ */
-  opacity: 0.7; /* 少し透明に */
-}
-
-
-/* ▼ 再生ボタン関連 */
-/* 再生ボタン コンテナ */
-.controls {
-  display: flex; /* フレックスボックスレイアウト */
-  justify-content: center;
-  gap: 20px; /* ボタン間に20pxの隙間を設定 */
-  margin-bottom: 20px; /* 下に20pxの余白を追加 */
-}
-
-/* 再生ボタンスタイル */
-.controls button {
-  background: transparent; /* 背景は透明 */
-  border: 2px solid white; /* 白い枠線 */
-  border-radius: 50%; /* ボタンを丸く */
-  width: 55px; /* 横幅55px */
-  height: 55px; /* 高さ55px */
-  justify-content: center; /* 横方向中央揃え（重要） */
-  font-size: 30px; /* フォントサイズは20px */
-  color: white; /* 文字色は白 */
-  cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
-}
-
-/* 再生ボタンのホバー効果 */
-.controls button:hover {
-  background: rgba(255, 255, 255, 0.15); /* ホバー時に背景色を少し透明に */
-}
-
-
-/* ▼ シークバー関連*/
-/* シークバー周りのエリア */
-.progress-area {
-  display: flex; /* フレックスボックスレイアウト */
-  justify-content: center;
-  align-items: center; /* 垂直方向に中央揃え */
-  gap: 10px; /* 要素間に10pxの隙間を設定 */
-  margin-bottom: 15px; /* 下に15pxの余白を追加 */
-}
-
-#progress {
-  width: 160px;   /* center-block内で収まるサイズ */
-}
-
-/* シークバーの幅 */
-#progress {
-  width: 220px; /* プログレスバーの横幅 */
-}
-
-
-/* ▼ 音量バー関連*/
-/* 音量バー全体（progress-area と統一） */
-.volume-area {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-  opacity: 0.9;
-}
-
-/* スピーカーアイコン */
-#volume-icon {
-  font-size: 20px;
-  color: white;
-}
-
-/* 音量スライダー */
-#volume {
-  width: 140px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  height: 6px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 5px;
-  outline: none;
-  cursor: pointer;
-}
-
-/* 丸いつまみ */
-#volume::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  background: white;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-/* カーソル合わせた際の丸つまみの色 */
-#volume::-webkit-slider-thumb:hover {
-  background: #ddd;
-}
-
-
-/* ▼ いいねボタンとブックマーク関連*/
-/* いいねボタンのスタイル */
-.like-btn {
-  margin-top: 10px; /* 上に10pxの余白を追加 */
-  padding: 8px 15px; /* ボタン内のパディング */
-  border-radius: 6px; /* 角を6pxの半径で丸く */
-  border: none; /* 枠線なし */
-  font-size: 17px; /* フォントサイズは14px */
-  cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
-}
-
-/* いいね と ブックマーク を横並びに */
-.like-bookmark-box {
-  display: flex;
-  gap: 15px;        /* ボタンの間隔 */
-  margin-top: 15px; /* 上の余白 */
-}
-
-.like-bookmark-box form {
-  margin: 0;        /* form の余白を消す */
 }
