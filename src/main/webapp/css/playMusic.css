@@ -138,18 +138,18 @@ body.narrow #player-container .album-art {
 
 
 /* ▼ タイトル関連*/
-/* タイトルスタイル */
-#player-container .info h2 {
-  margin: 0; /*マージンを削除 */
-  font-size: clamp(1rem, 3vw, 1.8rem);/* フォントサイズは20px */
-  font-weight: bold; /* 太字に */
-}
-
 /* タイトルが長くても影響しない中央揃え用ブロック */
 #player-container .center-block {
   width: 300px;               /* ← 中央揃えがブレないための固定幅 */
   margin: 0 auto;             /* 真ん中に配置 */
   text-align: center;
+}
+
+/* タイトルスタイル */
+#player-container .info h2 {
+  margin: 0; /*マージンを削除 */
+  font-size: clamp(1rem, 5vw, 1.8rem);/* フォントサイズは20px */
+  font-weight: bold; /* 太字に */
 }
 
 /* 狭い画面用 */
@@ -207,10 +207,6 @@ width: clamp(1.25rem, 7vw, 3.4375rem);
   align-items: center; /* 垂直方向に中央揃え */
   gap: 10px; /* 要素間に10pxの隙間を設定 */
   margin-bottom: 15px; /* 下に15pxの余白を追加 */
-}
-
-#progress {
-  width: 160px;   /* center-block内で収まるサイズ */
 }
 
 /* シークバーの幅 */
