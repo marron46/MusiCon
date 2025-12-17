@@ -80,7 +80,9 @@ public class MusicDAO {
 	public List<Music> getRanking() {
 		List<Music> musicList = new ArrayList<>();
 		try (Connection conn = DatabaseConnection.getConnection()) {
-			String sql = "SELECT ID, TITLE, ARTIST, LIKES FROM MUSICS ORDER BY LIKES DESC, ID ASC";
+			// LIKES が NULL の場合に備えて 0 扱いにし、URL も取得してランキング画面のリンク生成で落ちないようにする
+			String sql = "SELECT ID, TITLE, ARTIST, IFNULL(LIKES, 0) AS LIKES, URL FROM MUSICS "
+					+ "ORDER BY IFNULL(LIKES, 0) DESC, ID ASC";
 			try (PreparedStatement pStmt = conn.prepareStatement(sql);
 					ResultSet rs = pStmt.executeQuery()) {
 				while (rs.next()) {
@@ -88,7 +90,8 @@ public class MusicDAO {
 							rs.getInt("ID"),
 							rs.getString("TITLE"),
 							rs.getString("ARTIST"),
-							rs.getInt("LIKES")));
+							rs.getInt("LIKES"),
+							rs.getString("URL")));
 				}
 			}
 		} catch (SQLException e) {
@@ -136,7 +139,8 @@ public class MusicDAO {
 	 */
 	public boolean likeMusic(int id) {
 		try (Connection conn = DatabaseConnection.getConnection()) {
-			String sql = "UPDATE MUSICS SET LIKES = LIKES+1 WHERE ID=?";
+			// LIKES が NULL の場合、"NULL+1" は NULL のままになるため 0 扱いして加算する
+			String sql = "UPDATE MUSICS SET LIKES = IFNULL(LIKES, 0) + 1 WHERE ID=?";
 			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
 				pStmt.setInt(1, id);
 				return pStmt.executeUpdate() > 0;
