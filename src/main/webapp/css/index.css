@@ -25,7 +25,7 @@ body {
 .track {
   display: flex;
   width: max-content;
-  animation: scroll 20s linear infinite;
+  animation: scroll 30s linear infinite;
   will-change: transform;
 }
 
@@ -56,6 +56,10 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 80px;
+  
+  position: relative;
+  z-index: 1;
+
 }
 
 .left {
@@ -99,3 +103,35 @@ body {
   font-size: 20px;
   line-height: 1.8;
 }
+
+/* === 背景イコライザー === */
+#equalizer-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0; /* 最背面 */
+    display: flex;
+    align-items: flex-end;
+	justify-content: space-between; /* ← 端まで敷き詰める */
+	padding: 0 10px;               /* 端ギリギリを少し避ける */
+    pointer-events: none; /* クリック透過 */
+    opacity: 0.15; /* ← 薄さ調整 */
+}
+
+/* バー1本ずつ */
+.eq-bar {
+    width: 17px; /* バーの幅（jsと一致させる） */
+    height: 120px;
+	gap: 10px; /* バー同士の間隔（jsと一致させる） */
+	margin-bottom: 50px;
+    background: white;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.4s ease;
+}
+
+/* 画面サイズ対応 */
+@media (max-width: 768px) {
+    .eq-bar {
+        width: 6px;
+    }
+}
+

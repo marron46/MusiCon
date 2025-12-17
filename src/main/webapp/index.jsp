@@ -23,17 +23,20 @@
 </head>
 <body>
 
-  <!-- 上のマルキー -->
-  <div class="marquee top">
-    <div class="track" id="track-top">
-      <span class="item">MUSICON</span>
-    </div>
-  </div>
+	<!-- イコライザーの線 -->
+	<div id="equalizer-bg"></div>
 
-  <!-- メイン -->
+	<!-- 上のマルキー -->
+	<div class="marquee top">
+		<div class="track" id="track-top">
+			<span class="item">MUSICON</span>
+		</div>
+	</div>
+
+	<!-- メイン -->
   <main class="hero">
     <div class="left">
-      <p class="catch">日常を音楽と共に</p>
+      <p class="catch">日常を、音楽と共に。</p>
       <h1 class="logo">MUSICON</h1>
       <a href="${pageContext.request.contextPath}/jsp/login.jsp" button class="login-btn">ログイン</button></a>
       <a href="${pageContext.request.contextPath}/jsp/createUser.jsp" class="first-link">初めての方はこちら</a>
