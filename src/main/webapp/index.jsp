@@ -23,18 +23,18 @@
 </head>
 <body>
 
-	<!-- イコライザーの線 -->
-	<div id="equalizer-bg"></div>
+<!-- イコライザーの線 -->
+<div id="equalizer-bg"></div>
 
-	<!-- 上のマルキー -->
-	<div class="marquee top">
-		<div class="track" id="track-top">
-			<span class="item">MUSICON</span>
-		</div>
+<!-- 上のマルキー -->
+<div class="marquee top">
+	<div class="track" id="track-top">
+		<span class="item">MUSICON</span>
 	</div>
+</div>
 
-	<!-- メイン -->
-  <main class="hero">
+<!-- メイン -->
+<main class="hero">
     <div class="left">
       <p class="catch">日常を、音楽と共に。</p>
       <h1 class="logo">MUSICON</h1>
