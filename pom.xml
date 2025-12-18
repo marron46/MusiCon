@@ -78,33 +78,50 @@
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
                 </configuration>
             </plugin>
-
-            <!-- Cargo Maven Plugin (Tomcat 10対応) -->
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven3-plugin</artifactId>
-                <version>1.10.20</version>
-                <configuration>
-                    <container>
-                        <containerId>tomcat10x</containerId>
-                        <type>embedded</type>
-                    </container>
-                    <configuration>
-                        <properties>
-                            <cargo.servlet.port>8080</cargo.servlet.port>
-                            <cargo.protocol>http</cargo.protocol>
-                        </properties>
-                    </configuration>
-                    <deployables>
-                        <deployable>
-                            <type>war</type>
-                            <properties>
-                                <context>/MusiCon</context>
-                            </properties>
-                        </deployable>
-                    </deployables>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+
+    <!--
+      これ以降は外部Tomcatを `catalina` で起動する運用を想定（Cargoは使用しない）
+
+      例:
+        mvn clean package
+        cp target/MusiCon.war $TOMCAT_HOME/webapps/
+        $TOMCAT_HOME/bin/catalina run
+
+      任意: MavenでWARをTomcatへコピーしたい場合は profile を使用
+        mvn -Pdeploy-to-catalina -Dtomcat.home=/path/to/tomcat clean package
+    -->
+    <profiles>
+        <profile>
+            <id>deploy-to-catalina</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>copy-war-to-catalina</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <target>
+                                        <fail unless="tomcat.home"
+                                              message="tomcat.home が未指定です。例: -Dtomcat.home=/path/to/tomcat" />
+                                        <copy file="${project.build.directory}/${project.build.finalName}.war"
+                                              todir="${tomcat.home}/webapps"
+                                              overwrite="true" />
+                                    </target>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

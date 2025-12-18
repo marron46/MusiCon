@@ -1,0 +1,164 @@
+/* プレイリスト画面用スタイル（旧 myBookmark.css から移行） */
+@charset "UTF-8";
+
+body {
+    background-color: #A997C6;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* TOP へ戻るボタン */
+.reverse-img {
+	width: 12vw;
+	max-width: 180px;
+	min-width: 60px;
+	height: auto;
+}
+
+.reverse {
+	position: fixed;
+	top: -20px;
+	left: -20px;
+    margin: 20px;
+}
+
+.reverse-img:hover {
+	opacity: 0.8;
+}
+	
+/* フォームタイトル */
+.mBookmark-title {
+	font-size: 48px;
+	margin-bottom: 30px;
+	text-align: center;
+}
+	
+.result-count {
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #222;
+}
+
+.music-area {
+	  position: relative;
+	  font-family: Arial, sans-serif;
+	  font-size: 40px;
+	  background-color: #ffffff;
+	  padding: 10px 20px;
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	  width: 900px;
+	  max-width: 1200px;
+	  min-width: 600px;
+	  text-decoration: none;
+	  z-index: 1500;
+	  margin-bottom: 15px;
+	  transition: all 0.3s ease;
+	  align-items: center;
+	  justify-content: center;
+	  transition: background-color 0.3s ease, color 0.3s ease;
+	  display: grid;
+	  grid-template-columns: repeat(2, 1fr);
+	  gap: 20px;
+	  justify-content: center;
+	  }
+
+.music-area:hover {
+	  background-color: rgb(128, 128, 128);
+	  color: black;
+	  }
+
+.music-area:active {
+	  background-color: rgba(255, 0, 255, 0.3);
+	  border-right: 4px solid pink;
+	  box-shadow: 0 4px 8px rgba(255, 0, 255, 0.4);
+	  }
+
+.music-area .music-info {
+	  display: flex;
+	  flex-direction: column;
+	  padding: 10px;
+	  }
+
+.music-area .title {
+	  font-size: 22px;
+	  font-weight: bold;
+	  color: #5A2D82;
+	  }
+
+.music-area .artist,
+.music-area .like {
+	  font-size: 16px;
+	  color: #444;
+	  }
+
+.music-area.btn-flat:before {
+	  opacity: 0.5;
+	  content: '';
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 5px;
+	  height: 100%;
+	  background: rgb(255, 0, 255);
+	  transform-origin: left;
+	  transition: width 0.5s ease-in-out;
+	  z-index: 0;
+	  }
+
+.music-area.btn-flat:hover:before {
+	  width: 100%;
+	  }
+
+.music-area.btn-flat:hover:before {
+	  transform: translateX(0);
+	  }
+
+.music-area + .music-area {
+	  margin-top: 10px;
+	  }
+
+.music-area .artist,
+.music-area .id {
+	  font-size: 16px;
+	  color: #444;
+	  }
+				  
+.NoBookmark{
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #222;
+}
+
+.BookmarkResult{
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #222;
+}
+
+.container {
+	  margin: 40px auto;
+	  background-color: #000000;
+	  padding: 30px 60px;
+	  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	  width: 80%;
+	  height: auto;
+	  max-width: 900px;
+	  min-width: 600px;
+	  max-height: 1000px;
+	  min-height: 500px;
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  text-align: center;
+	  z-index: 1;
+	  border-radius: 10px; 
+	  }
+
+

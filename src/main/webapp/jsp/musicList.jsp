@@ -37,10 +37,10 @@
 			String playLink;
 			if (m.getUrl() != null && !m.getUrl().isEmpty()) {
 				playLink = pageContext.getRequest().getServletContext().getContextPath()
-				+ "/PlayMusic?url=" + java.net.URLEncoder.encode(m.getUrl(), "UTF-8");
+						+ "/PlayMusic?url=" + java.net.URLEncoder.encode(m.getUrl(), "UTF-8");
 			} else {
 				playLink = pageContext.getRequest().getServletContext().getContextPath()
-				+ "/PlayMusic?id=" + m.getId();
+						+ "/PlayMusic?id=" + m.getId();
 			}
 		%>
 
