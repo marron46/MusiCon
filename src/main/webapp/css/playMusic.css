@@ -113,11 +113,6 @@ body.narrow #player-container {
 
 /* ▼ ジャケ写スタイル */
 #player-container .album-art {
-  /*margin:30px 60px 0 0;/*上 右 下 左のマージンをそれぞれ別に指定する*/
-  /*padding-right: 30px;
-  padding-top: 10px;
-  width: 250px; /* 横幅 */
-  /*height: 265px; /* 高さ */
   width: 25%;
   max-width: 250px;
   min-width: 150px;
@@ -127,6 +122,12 @@ body.narrow #player-container {
   aspect-ratio: 1 / 1; /* 正方形を維持 */
   background-color: #fff; /* 背景色は白 */
   border-radius: 10px; /* 角を10pxの半径で丸く */
+  
+  /*margin:30px 60px 0 0;/*上 右 下 左のマージンをそれぞれ別に指定する*/
+    /*padding-right: 30px;
+    padding-top: 10px;
+    width: 250px; /* 横幅 */
+    /*height: 265px; /* 高さ */
   /*border: 1px solid #ddd; /* 薄い灰色の枠線（必要なら） */
 }
 
@@ -140,15 +141,16 @@ body.narrow #player-container .album-art {
 /* ▼ タイトル関連*/
 /* タイトルが長くても影響しない中央揃え用ブロック */
 #player-container .center-block {
-  width: 300px;               /* ← 中央揃えがブレないための固定幅 */
+  width: 100%;
+  max-width: 300px;
   margin: 0 auto;             /* 真ん中に配置 */
   text-align: center;
 }
 
 /* タイトルスタイル */
-#player-container .info h2 {
+#player-container .info title {
   margin: 0; /*マージンを削除 */
-  font-size: clamp(1rem, 5vw, 1.8rem);/* フォントサイズは20px */
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);/*フォントサイズ*/
   font-weight: bold; /* 太字に */
 }
 
@@ -310,3 +312,21 @@ body.narrow .controls button {
   height: 45px;
   font-size: 24px;
 }
+
+
+
+/* ▼ イコライザー（画面下部固定表示） */
+#equalizer {
+  position: fixed;          /* 画面に固定表示 */
+  left: 0;
+  bottom: 0;                /* 画面下部に配置 */
+  width: 100%;              /* 横幅いっぱい */
+  height: 180px;             /* お好みで調整可能 */
+  margin: 0;                /* fixedでは不要 */
+  border-radius: 20px;         /* 角丸 */
+
+  
+  z-index: 1000;            /* 他要素より前面に表示 */
+}
+
+
