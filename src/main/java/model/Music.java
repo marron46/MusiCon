@@ -65,7 +65,6 @@ public class Music {//Music情報格納
 	}
 
 	public int getId() {
-		System.out.println( "idは【"+id+"】でござんす");
 		return id;
 	}
 	public void setId(int id) { this.id = id; }

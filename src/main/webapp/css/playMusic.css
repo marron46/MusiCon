@@ -312,3 +312,21 @@ body.narrow .controls button {
   height: 45px;
   font-size: 24px;
 }
+
+
+
+/* ▼ イコライザー（画面下部固定表示） */
+#equalizer {
+  position: fixed;          /* 画面に固定表示 */
+  left: 0;
+  bottom: 0;                /* 画面下部に配置 */
+  width: 100%;              /* 横幅いっぱい */
+  height: 180px;             /* お好みで調整可能 */
+  margin: 0;                /* fixedでは不要 */
+  border-radius: 20px;         /* 角丸 */
+
+  
+  z-index: 1000;            /* 他要素より前面に表示 */
+}
+
+
