@@ -14,8 +14,8 @@
 </head>
 <body>
 	<div class="reverse">
-		<a href="${pageContext.request.contextPath}/PlayMusic"> 
-		<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
+		<a href="${pageContext.request.contextPath}/PlayMusic"> <img
+			src="${pageContext.request.contextPath}/png/MusiConLogo.png"
 			alt="TOPに戻る" class="reverse-img">
 		</a>
 	</div>
@@ -40,8 +40,17 @@
 			for (model.Music m : list) {
 			%>
 			<li>タイトル：<a
-				href="${pageContext.request.contextPath}/PlayMusic?url=<%=java.net.URLEncoder.encode(m.getUrl(), "UTF-8")%>">
-					<%=m.getTitle()%></a><br> アーティスト：<%=m.getArtist()%><br> いいね：<%=m.getLikes()%>
+				<%// URL が取得できない場合でもページが落ちないようにフォールバックする
+String playLink;
+if (m.getUrl() != null && !m.getUrl().isEmpty()) {
+	playLink = pageContext.getRequest().getServletContext().getContextPath()
+			+ "/PlayMusic?url=" + java.net.URLEncoder.encode(m.getUrl(), "UTF-8");
+} else {
+	playLink = pageContext.getRequest().getServletContext().getContextPath()
+			+ "/PlayMusic?id=" + m.getId();
+}%>
+				href="<%=playLink%>"> <%=m.getTitle()%></a><br> アーティスト：<%=m.getArtist()%><br>
+				いいね：<%=m.getLikes()%>
 			</li>
 			<hr>
 			<%
