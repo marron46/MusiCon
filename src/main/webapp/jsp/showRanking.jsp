@@ -40,17 +40,19 @@
 			for (model.Music m : list) {
 			%>
 			<li>タイトル：<a
-				<%// URL が取得できない場合でもページが落ちないようにフォールバックする
-String playLink;
-if (m.getUrl() != null && !m.getUrl().isEmpty()) {
-	playLink = pageContext.getRequest().getServletContext().getContextPath()
-			+ "/PlayMusic?url=" + java.net.URLEncoder.encode(m.getUrl(), "UTF-8");
-} else {
-	playLink = pageContext.getRequest().getServletContext().getContextPath()
-			+ "/PlayMusic?id=" + m.getId();
-}%>
-				href="<%=playLink%>"> <%=m.getTitle()%></a><br> アーティスト：<%=m.getArtist()%><br>
-				いいね：<%=m.getLikes()%>
+				<%
+				// URL が取得できない場合でもページが落ちないようにフォールバックする
+				String playLink;
+				if (m.getUrl() != null && !m.getUrl().isEmpty()) {
+					playLink = pageContext.getRequest().getServletContext().getContextPath()
+							+ "/PlayMusic?url=" + java.net.URLEncoder.encode(m.getUrl(), "UTF-8");
+				} else {
+					playLink = pageContext.getRequest().getServletContext().getContextPath()
+							+ "/PlayMusic?id=" + m.getId();
+				}
+				%>
+				href="<%=playLink%>">
+					<%=m.getTitle()%></a><br> アーティスト：<%=m.getArtist()%><br> いいね：<%=m.getLikes()%>
 			</li>
 			<hr>
 			<%
