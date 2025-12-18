@@ -110,14 +110,15 @@
 			<div class="info">
 
 				<!-- 曲タイトル -->
-				<h1><%=music.getTitle()%></h1>
+				<h2 class="title"><%=music.getTitle()%></h2>
 
 				<!-- アーティスト名 -->
 				<p class="artist"><%=music.getArtist()%></p>
 
 				<!-- 再生する audio -->
-				<audio id="audio" preload="metadata" crossorigin="anonymous">
-					<%
+				<audio id="audio" preload="metadata" <!-- crossorigin="anonymous" -->>
+
+				<%
 					String musicUrl = music.getUrl();
 					if (musicUrl != null) {
 						// 既にサーブレット経由のURL（MusicFile?file=）の場合はそのまま使用
@@ -154,13 +155,16 @@
 
 				<div class="center-block">
 					<!-- 再生ボタン -->
-					<div class="controls">
-						<button id="prev">⏮</button>
-						<button id="play" class="play">▶</button>
-						<button id="next">⏭</button>
-					</div>
+				<div class="controls">
+					<button id="prev">⏮</button>
+					<button id="play" class="play">▶</button>
+					<button id="next">⏭</button>
+				</div>
 
-					<!-- シークバー -->
+				<!-- イコライザー -->
+				<canvas id="equalizer"></canvas>
+
+				<!-- シークバー -->
 					<div class="progress-area">
 						<span id="current">0:00</span> <input type="range" id="progress"
 							min="0" value="0"> <span id="duration">0:00</span>

@@ -115,3 +115,160 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 });
+
+
+
+
+/* =====================================================
+   イコライザー
+===================================================== */
+window.addEventListener("DOMContentLoaded", () => {
+
+  const audio = document.getElementById("audio");
+  const canvas = document.getElementById("equalizer");
+  const ctx = canvas.getContext("2d");
+  
+  // CanvasサイズをCSSと一致させる
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+
+
+  /* ▼ Canvasの実サイズをCSSと一致させる */
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+
+  /* ▼ Web Audio API 初期化 */
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
+
+  let source; // MediaElementSourceは1回しか作れない
+
+  const analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 64;
+
+  analyser.connect(audioCtx.destination);
+
+  const bufferLength = analyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
+
+  /* ==========================================
+     描画処理
+  ========================================== */
+  function draw() {
+    analyser.getByteFrequencyData(dataArray);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const barWidth = canvas.width / bufferLength;
+
+    for (let i = 0; i < bufferLength; i++) {
+      const value = dataArray[i];
+      const barHeight = (value / 255) * canvas.height;
+
+      const x = i * barWidth;
+      const y = canvas.height - barHeight;
+
+	  ctx.fillStyle = "white";
+      ctx.fillRect(x, y, barWidth - 2, barHeight);
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  /* ==========================================
+     再生時にAudioContextを有効化
+  ========================================== */
+  audio.addEventListener("play", () => {
+
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+
+    /* ▼ sourceは1回だけ生成 */
+    if (!source) {
+      source = audioCtx.createMediaElementSource(audio);
+      source.connect(analyser);
+    }
+
+    draw();
+  });
+
+});
+
+/* =========================================
+   イコライザー
+========================================= */
+
+(() => {
+
+  const audio = document.getElementById("audio");
+  const playBtn = document.getElementById("play");
+  const canvas = document.getElementById("equalizer");
+  const ctx = canvas.getContext("2d");
+
+  // Canvasサイズを実サイズに合わせる（重要）
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
+
+  const analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 64;
+
+  let sourceCreated = false;
+
+  const bufferLength = analyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
+
+  function draw() {
+    analyser.getByteFrequencyData(dataArray);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+	const gap = 10; /* バーの隙間 */
+	const barWidth = (canvas.width - gap * (bufferLength - 1)) / bufferLength;
+
+
+	let x = 0;
+
+	for (let i = 0; i < bufferLength; i++) {
+	  const h = (dataArray[i] / 255) * canvas.height;
+
+	  ctx.fillRect(
+	    x,
+	    canvas.height - h,
+	    barWidth,
+	    h
+	  );
+
+	  x += barWidth + gap; /* ← 隙間を考慮 */
+	}
+
+    requestAnimationFrame(draw);
+  }
+
+  /* =====================================
+     再生ボタンから直接起動する
+  ===================================== */
+  playBtn.addEventListener("click", () => {
+
+    // AudioContext をユーザー操作で解除
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+
+    // MediaElementSource は1回だけ
+    if (!sourceCreated) {
+      const source = audioCtx.createMediaElementSource(audio);
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+      sourceCreated = true;
+    }
+
+    draw(); // ← 強制的に描画開始
+  });
+
+})();
+
+
+

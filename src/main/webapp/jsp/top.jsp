@@ -49,7 +49,7 @@ session.setAttribute("musicList", musicList);
 				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
 				class="menu">Add music / 曲追加</a></li>
 			<li><a
-				href="${pageContext.request.contextPath}/jsp/.jsp"
+				href="${pageContext.request.contextPath}/MusicList"
 				class="menu">Music list / 楽曲一覧</a></li>
 		</ul>
 		<ul class="menu-bottom">

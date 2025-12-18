@@ -72,6 +72,7 @@ public class PlayMusic extends HttpServlet {
 			Music music = null;
 			// BookmarkPlayからのリクエスト、またはbookmarkMode/bookmarkIndex/indexパラメータがある場合はブックマークモード
 			boolean isBookmarkMode = isBookmarkPlayRequest || "true".equals(bookmarkModeStr) || bookmarkIndexStr != null || indexStr != null;
+			System.out.println("isBookmarkMode:" + isBookmarkMode);
 
 			// ブックマーク再生モードの場合
 			if (isBookmarkMode) {
@@ -103,6 +104,7 @@ public class PlayMusic extends HttpServlet {
 						musicList.add(m);
 					}
 				}
+				System.out.println("PlayMusic時点でのbookmarkMusicList:" + musicList);
 
 				if (musicList.isEmpty()) {
 					// BookmarkPlay互換性: エラーメッセージを設定してmyBookmark.jspにフォワード

@@ -67,3 +67,11 @@ setInterval(() => {
         bar.style.height = `${randomHeight}px`;
     });
 }, 240); // 数値を小さくすると激しく動く
+
+// 横スクロールをホイールで実現するためのJavaScript
+document.querySelector('.hero').addEventListener('wheel', function(e) {
+  if (e.deltaY !== 0) {
+    this.scrollLeft += e.deltaY; // 横方向にスクロール
+    e.preventDefault(); // デフォルトの縦スクロールを無効にする
+  }
+});

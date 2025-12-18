@@ -38,25 +38,32 @@
     <div class="left">
       <p class="catch">日常を、音楽と共に。</p>
       <h1 class="logo">MUSICON</h1>
-      <a href="${pageContext.request.contextPath}/jsp/login.jsp" button class="login-btn">ログイン</button></a>
+      <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="login-btn">ログイン</a>
       <a href="${pageContext.request.contextPath}/jsp/createUser.jsp" class="first-link">初めての方はこちら</a>
     </div>
 
     <div class="right">
-      <p>
-        好きな音楽をプレイリストに追加して<br>
-        日常を豊かにしよう。
-      </p>
+      <div class="scroll-content">
+        <h1 class="info">About "MusiCon"</h1>
+        <p>　MusiConはあなたの生活の一部となり、毎日をさらに豊かなものにします。</p>
+        <p>　再生できる音楽は∞曲。追加すればするほど新しい音楽に出会えます。</p>
+        <br>
+        <h1 class="info">Why "MusiCon"</h1>
+        <p>　音楽である『Music』　×　音楽記号である『con』</p>
+        <p>　『con』はイタリア語で"～と共に"という意味になる。</p>
+        <p>　この2つをかけ合わせ「音楽と共に」というコンセプトを重視しています。</p>
+      </div>
     </div>
-  </main>
+</main>
 
-  <!-- 下のマルキー -->
-  <div class="marquee bottom">
-    <div class="track" id="track-bottom">
-      <span class="item">MUSICON</span>
-    </div>
+<!-- 下のマルキー -->
+<div class="marquee bottom">
+  <div class="track" id="track-bottom">
+    <span class="item">MUSICON</span>
   </div>
+</div>
 
-  <script defer src="${pageContext.request.contextPath}/js/index.js"></script>
+<script defer src="${pageContext.request.contextPath}/js/index.js"></script>
+
 </body>
 </html>

@@ -6,6 +6,9 @@
 }
 
 body {
+  overflow-x: hidden;  /* 横スクロールバーを完全に隠す */
+  overflow-y: hidden;  /* 縦スクロールを無効にする */
+  white-space: nowrap; /* 横並びにするために改行を無効にする */
   background-color: #6a006a;
   color: #fff;
   min-height: 100vh;
@@ -54,29 +57,43 @@ body {
 .hero {
   flex: 1;
   display: flex;
-  justify-content: space-between;
-  padding: 80px;
-  
+  justify-content: flex-start;
+  padding: 80px 40px; /* 横の余白を追加 */
   position: relative;
   z-index: 1;
+  width: 100vw;
+  overflow-x: scroll; /* 横スクロールを有効にする */
+  -webkit-overflow-scrolling: touch; /* スクロールの滑らかさを向上させる */
+  scrollbar-width: none;  /* Firefoxでスクロールバーを非表示に */
+  -ms-overflow-style: none; /* Internet Explorer, Edge用 */
+}
 
+.hero::-webkit-scrollbar {
+  display: none; /* Chrome, Safari でスクロールバーを非表示に */
 }
 
 .left {
   max-width: 50%;
+  margin-right: 1000px; /* 右側との間隔を追加 */
 }
 
 .catch {
-  font-size: 20px;
-  margin-bottom: 20px;
+  font-family: "MS Mincho", serif;
+  font-size: 25px;
+  margin-bottom: 20px; /* 大きなMUSICONと説明の間隔を広げる */
+}
+
+.info {
+  font-family: 'Alfa Slab One', cursive;
 }
 
 .logo {
   font-family: 'Alfa Slab One', cursive;
-  font-size: 96px;
-  margin-bottom: 40px;
+  font-size: 100px;
+  margin-bottom: 40px; /* ロゴと説明の間隔を広げる */
   letter-spacing: 2px;
 }
+
 
 .login-btn {
   background: #fff;
@@ -87,6 +104,7 @@ body {
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .first-link {
@@ -98,40 +116,44 @@ body {
   padding: 10px 0;
 }
 
+/* 右側コンテンツの修正 */
 .right {
-  max-width: 40%;
+  width: 100vw;  /* 右側のコンテンツも画面全体を使う */
+  max-width: none;  /* 幅制限を無くす */
   font-size: 20px;
   line-height: 1.8;
+  padding-right: 20px;
+}
+
+.scroll-content {
+  width: 200%;  /* 横に広がるコンテンツの幅を設定 */
+  padding-right: 40px;
+  font-family: "MS Mincho", serif;
+  overflow: hidden;  /* はみ出さないようにする */
 }
 
 /* === 背景イコライザー === */
 #equalizer-bg {
-    position: fixed;
-    inset: 0;
-    z-index: 0; /* 最背面 */
-    display: flex;
-    align-items: flex-end;
-	justify-content: space-between; /* ← 端まで敷き詰める */
-	padding: 0 10px;               /* 端ギリギリを少し避ける */
-    pointer-events: none; /* クリック透過 */
-    opacity: 0.15; /* ← 薄さ調整 */
+  position: fixed;
+  inset: 0;
+  z-index: 0; /* 最背面 */
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between; /* 端まで敷き詰める */
+  padding: 0 10px; /* 端ギリギリを少し避ける */
+  pointer-events: none; /* クリック透過 */
+  opacity: 0.15; /* 薄さ調整 */
 }
 
 /* バー1本ずつ */
 .eq-bar {
-    width: 17px; /* バーの幅（jsと一致させる） */
-    height: 120px;
-	gap: 10px; /* バー同士の間隔（jsと一致させる） */
-	margin-bottom: 50px;
-    background: white;
-    border-radius: 6px 6px 0 0;
-    transition: height 0.4s ease;
+  width: 17px; /* バーの幅（jsと一致させる） */
+  height: 120px;
+  gap: 10px; /* バー同士の間隔（jsと一致させる） */
+  margin-bottom: 50px;
+  background: white;
+  border-radius: 6px 6px 0 0;
+  transition: height 0.4s ease;
 }
 
-/* 画面サイズ対応 */
-@media (max-width: 768px) {
-    .eq-bar {
-        width: 6px;
-    }
-}
-
+/* 画面サイズ対応なし */
