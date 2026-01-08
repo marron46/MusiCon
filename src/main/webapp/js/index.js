@@ -29,6 +29,20 @@ window.addEventListener('resize', () => {
 });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+  const hero = document.querySelector('.hero');
+  const scrollHint = document.querySelector('.scroll-hint');
+
+  if (!hero || !scrollHint) return;
+
+  hero.addEventListener('scroll', () => {
+    if (hero.scrollLeft > 10) {
+      scrollHint.classList.add('hide');
+    }
+  });
+});
+
+
 
 /* 背景イコライザー制御 */
 

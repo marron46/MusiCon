@@ -33,6 +33,12 @@
 	</div>
 </div>
 
+<!-- Scroll＞を表示 -->
+<div class="scroll-hint">
+  Scroll down <span class="arrow">&gt;</span>
+</div>
+
+
 <!-- メイン -->
 <main class="hero">
     <div class="left">

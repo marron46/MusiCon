@@ -116,6 +116,58 @@ body {
   padding: 10px 0;
 }
 
+/* === Scrollヒント === */
+.scroll-hint {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 27px;          /* Scroll の文字サイズ */
+  color: #fff;
+  opacity: 0.7;
+  letter-spacing: 2px;
+  z-index: 2;
+  pointer-events: none;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: opacity 0.5s ease;
+}
+
+/* 消えるとき */
+.scroll-hint.hide {
+  opacity: 0;
+}
+
+/* > のみ大きく＆アニメーション */
+.scroll-hint .arrow {
+  font-family: monospace, 'Times New Roman', Times, serif;
+  font-size: 100px;     
+  font-weight: thin;
+  line-height: 1;
+  animation: arrow-move 1.2s infinite;
+}
+
+/* 矢印アニメーション */
+@keyframes arrow-move {
+  0% {
+    transform: translateX(0) scaleY(5.0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(6px) scaleY(5.0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0) scaleY(5.0);
+    opacity: 0.4;
+  }
+}
+
+
 /* 右側コンテンツの修正 */
 .right {
   width: 100vw;  /* 右側のコンテンツも画面全体を使う */

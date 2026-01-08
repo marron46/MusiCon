@@ -162,7 +162,7 @@
 				</div>
 
 				<!-- イコライザー -->
-				<canvas id="equalizer"></canvas>
+				<canvas id="equalizer" color="white"></canvas>
 
 				<!-- シークバー -->
 					<div class="progress-area">
