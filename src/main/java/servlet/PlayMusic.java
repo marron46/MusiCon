@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
@@ -12,14 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import dao.BookmarkDAO;
-import dao.MusicDAO;
-import model.Bookmark;
 import model.Music;
 import model.User;
+import dao.PlaylistDAO;
 import service.PlayMusicService;
 
-@WebServlet({"/PlayMusic", "/BookmarkPlay"})
+@WebServlet({"/PlayMusic"})
 public class PlayMusic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,14 +31,17 @@ public class PlayMusic extends HttpServlet {
 		String urlStr = request.getParameter("url");
 		String nextStr = request.getParameter("next");
 		String prevStr = request.getParameter("prev");
-		String bookmarkIndexStr = request.getParameter("bookmarkIndex");
-		String indexStr = request.getParameter("index"); // BookmarkPlay互換性のため
-		String bookmarkModeStr = request.getParameter("bookmarkMode");
-		// BookmarkPlayからのアクセスかどうかを判定
-		boolean isBookmarkPlayRequest = request.getServletPath().equals("/BookmarkPlay");
-		System.out.println("idStr: " + idStr + ", urlStr: " + urlStr + ", bookmarkIndex: " + bookmarkIndexStr + ", index: " + indexStr);
 
-		if (idStr == null && urlStr == null && nextStr == null && prevStr == null) {
+		// プレイリスト再生モード
+		String playlistModeStr = request.getParameter("playlistMode");
+		String posStr = request.getParameter("pos");
+		String actionStr = request.getParameter("action"); // next / prev
+
+		System.out.println("idStr: " + idStr + ", urlStr: " + urlStr + ", nextStr: " + nextStr + ", prevStr: " + prevStr
+				+ ", playlistMode: " + playlistModeStr + ", pos: " + posStr + ", action: " + actionStr);
+
+		if (idStr == null && urlStr == null && nextStr == null && prevStr == null
+				&& playlistModeStr == null && posStr == null && actionStr == null) {
 			// ログインチェック
 			HttpSession session = request.getSession();
 			String userName = (String) session.getAttribute("user_name");
@@ -70,101 +70,49 @@ public class PlayMusic extends HttpServlet {
 			}
 			
 			Music music = null;
-			// BookmarkPlayからのリクエスト、またはbookmarkMode/bookmarkIndex/indexパラメータがある場合はブックマークモード
-			boolean isBookmarkMode = isBookmarkPlayRequest || "true".equals(bookmarkModeStr) || bookmarkIndexStr != null || indexStr != null;
-			System.out.println("isBookmarkMode:" + isBookmarkMode);
 
-			// ブックマーク再生モードの場合
-			if (isBookmarkMode) {
-				List<Bookmark> bookmarkList = (List<Bookmark>) session.getAttribute("bookmarkList");
-				if (bookmarkList == null || bookmarkList.isEmpty()) {
-					// BookmarkPlay互換性: エラーメッセージを設定してmyBookmark.jspにフォワード
-					if (isBookmarkPlayRequest) {
-						request.setAttribute("message", "ブックマークがありません");
-						RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/myBookmark.jsp");
-						dispatcher.forward(request, response);
-						return;
-					}
-					response.sendRedirect(request.getContextPath() + "/MyBookmark");
+			boolean isPlaylistMode = "true".equals(playlistModeStr);
+			System.out.println("isPlaylistMode:" + isPlaylistMode);
+
+			// プレイリスト再生モード
+			if (isPlaylistMode) {
+				User user = new User(userName, "");
+				PlaylistDAO playlistDAO = new PlaylistDAO();
+				int size = playlistDAO.getPlaylistSize(user);
+				if (size <= 0) {
+					response.sendRedirect(request.getContextPath() + "/MyPlaylist");
 					return;
 				}
 
-				// ブックマークに入っている Music をリスト化
-				List<Music> musicList = new ArrayList<>();
-				MusicDAO dao = new MusicDAO();
+				Integer currentPos = (Integer) session.getAttribute("currentPlaylistPos");
+				if (currentPos == null) currentPos = 0;
 
-				for (Bookmark b : bookmarkList) {
-					Music m = null;
-					if (b.getMusic_url() != null && !b.getMusic_url().isEmpty()) {
-						m = dao.findByUrl(b.getMusic_url());
-					} else {
-						m = dao.playMusicById(b.getMusic_id());
-					}
-					if (m != null) {
-						musicList.add(m);
-					}
+				// 直接位置指定（一覧から再生/URL共有など）
+				if (posStr != null && !posStr.isEmpty()) {
+					currentPos = Integer.parseInt(posStr);
 				}
-				System.out.println("PlayMusic時点でのbookmarkMusicList:" + musicList);
 
-				if (musicList.isEmpty()) {
-					// BookmarkPlay互換性: エラーメッセージを設定してmyBookmark.jspにフォワード
-					if (isBookmarkPlayRequest) {
-						request.setAttribute("message", "ブックマークに曲が存在しません");
-						RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/myBookmark.jsp");
-						dispatcher.forward(request, response);
-						return;
-					}
-					response.sendRedirect(request.getContextPath() + "/MyBookmark");
+				// action=next/prev の場合はセッションの現在位置を基準に進める
+				if ("next".equals(actionStr)) {
+					currentPos = currentPos + 1;
+				} else if ("prev".equals(actionStr)) {
+					currentPos = currentPos - 1;
+				}
+
+				// 範囲を循環
+				int safePos = (currentPos % size + size) % size;
+				session.setAttribute("currentPlaylistPos", safePos);
+
+				music = playlistDAO.getMusicByPos(user, safePos);
+				if (music == null) {
+					response.sendRedirect(request.getContextPath() + "/MyPlaylist");
 					return;
 				}
 
-				int index = 0;
-
-				// index が指定されている場合（BookmarkPlay互換性: indexパラメータを優先）
-				if (indexStr != null && !indexStr.isEmpty()) {
-					index = Integer.parseInt(indexStr);
-				}
-				// bookmarkIndex が指定されている場合（前へ/次へ/自動再生）
-				else if (bookmarkIndexStr != null && !bookmarkIndexStr.isEmpty()) {
-					index = Integer.parseInt(bookmarkIndexStr);
-				}
-				// 最初のアクセス時（url から index を自動算出）
-				else if (urlStr != null && !urlStr.isEmpty()) {
-					for (int i = 0; i < bookmarkList.size(); i++) {
-						Bookmark b = bookmarkList.get(i);
-						if (b.getMusic_url() != null && b.getMusic_url().equals(urlStr)) {
-							index = i;
-							break;
-						}
-					}
-				}
-				// next/prev パラメータがある場合
-				else if (nextStr != null || prevStr != null) {
-					// 現在のindexをセッションから取得
-					Integer currentIndex = (Integer) session.getAttribute("currentBookmarkIndex");
-					if (currentIndex == null) {
-						currentIndex = 0;
-					}
-
-					if (nextStr != null) {
-						index = (currentIndex + 1) % musicList.size();
-					} else {
-						index = (currentIndex - 1 + musicList.size()) % musicList.size();
-					}
-				}
-
-				// index の範囲を循環させる
-				index = (index + musicList.size()) % musicList.size();
-				session.setAttribute("currentBookmarkIndex", index);
-
-				// 現在の曲
-				music = musicList.get(index);
-				request.setAttribute("musicList", musicList);
-				request.setAttribute("index", index);
-				request.setAttribute("isBookmarkMode", true);
-			}
-			// 通常再生モードの場合
-			else {
+				request.setAttribute("isPlaylistMode", true);
+				request.setAttribute("playlistPos", safePos);
+				request.setAttribute("playlistSize", size);
+			} else {
 				// 次の曲ボタンが押された場合（ID順で次の曲を取得）
 				if (nextStr != null && !nextStr.isEmpty()) {
 					int currentId = Integer.parseInt(nextStr);
@@ -188,7 +136,7 @@ public class PlayMusic extends HttpServlet {
 				// ID順のリストをセッションに保存（次の曲ボタン用）
 				List<Music> musicListByIdOrder = service.getMusicListByIdOrder();
 				session.setAttribute("musicListByIdOrder", musicListByIdOrder);
-				request.setAttribute("isBookmarkMode", false);
+				request.setAttribute("isPlaylistMode", false);
 			}
 
 			if (music == null) {
@@ -198,11 +146,11 @@ public class PlayMusic extends HttpServlet {
 			}
 			request.setAttribute("music", music);
 
-			// ブックマーク状態を取得
+			// プレイリスト登録状態を取得（ボタン表示用）
 			User user = new User(userName, "");
-			BookmarkDAO bookmarkDAO = new BookmarkDAO();
-			boolean isBookmarked = bookmarkDAO.isBookmarked(user, music);
-			request.setAttribute("isBookmarked", isBookmarked);
+			PlaylistDAO playlistDAO = new PlaylistDAO();
+			boolean isInPlaylist = playlistDAO.isInPlaylist(user, music.getId());
+			request.setAttribute("isInPlaylist", isInPlaylist);
 
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playMusic.jsp");
