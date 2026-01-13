@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded", handleResize);
 }
 
 window.addEventListener("resize", handleResize);
-// 初回読み込み時もチェック
+// 初回読み込み時もチェックA
 window.addEventListener("DOMContentLoaded", handleResize);*/
 
 // 再生/停止
@@ -165,51 +165,48 @@ window.addEventListener("DOMContentLoaded", () => {
   // MediaElementSource は1回しか作れないのでフラグ管理
   let sourceCreated = false;
 
+  /* ==============================
+  	Web Audio の接続処理 
+   =============================== */
+  function setupAudio() {
+    if (!sourceCreated) {
+      const source = audioCtx.createMediaElementSource(audio);
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+      sourceCreated = true;
+    }
+  }
+
   /* ===============================
      描画処理
   =============================== */
+  let isDrawing = false;
+
   function draw() {
+    if (!isDrawing) return;
 
-    // 周波数データ取得
     analyser.getByteFrequencyData(dataArray);
-
-    // 前フレームをクリア
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // ▼ 半透明の白 (RED, BLUE, GREEN, 透明度)
     ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
 
     const unit = BAR_WIDTH + GAP;
     const maxBars = Math.floor(canvas.width / unit);
     const barCount = Math.min(maxBars, dataArray.length);
-
     const totalWidth = barCount * unit - GAP;
     const offsetX = (canvas.width - totalWidth) / 2;
 
     for (let i = 0; i < barCount; i++) {
-
       const raw = dataArray[i];
+      const centerBoost = Math.sin((i / (barCount - 1)) * Math.PI);
+      const h = (raw / 255) * canvas.height * (0.3 + centerBoost * 0.9) * 0.9;
 
-      // 中央が高くなる補正
-      const centerBoost =
-        Math.sin((i / (barCount - 1)) * Math.PI);
-
-      const h =
-        (raw / 255) *
-        canvas.height *
-        (0.3 + centerBoost * 0.9) * 0.9;
-
-      const x = offsetX + i * unit;
-      const y = canvas.height - h;
-
-      // ▼ 角丸バー描画
       ctx.beginPath();
       ctx.roundRect(
-        x,              // X
-        y,              // Y
-        BAR_WIDTH,      // 幅
-        h,              // 高さ
-        6               // 角丸半径
+        offsetX + i * unit,
+        canvas.height - h,
+        BAR_WIDTH,
+        h,
+        6
       );
       ctx.fill();
     }
@@ -219,26 +216,19 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
   /* ===============================
-     再生ボタン押下時
-  =============================== */
-  playBtn.addEventListener("click", () => {
+       再生開始時
+    =============================== */
+	
+	audio.addEventListener("play", () => {
+	  audioCtx.resume();
+	  setupAudio();
+	  isDrawing = true;
+	  draw();
+	});
 
-    // ユーザー操作で AudioContext を有効化
-    if (audioCtx.state === "suspended") {
-      audioCtx.resume();
-    }
-
-    // MediaElementSource は1回だけ生成
-    if (!sourceCreated) {
-      const source = audioCtx.createMediaElementSource(audio);
-      source.connect(analyser);
-      analyser.connect(audioCtx.destination);
-      sourceCreated = true;
-    }
-
-    // 描画開始
-    draw();
-  });
+	audio.addEventListener("pause", () => {
+	  isDrawing = false;
+	});
 
 });
 
