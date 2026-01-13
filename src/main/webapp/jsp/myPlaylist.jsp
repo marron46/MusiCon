@@ -10,7 +10,7 @@
 <title>プレイリスト</title>
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/myPlaylist.css">
+	href="${pageContext.request.contextPath}/css/myBookmark.css">
 </head>
 <body>
 	<div class="reverse">
