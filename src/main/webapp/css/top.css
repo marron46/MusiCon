@@ -302,7 +302,7 @@ body {
 
 	  /* 音楽ボタンのホバー時のスタイル */
 .music-area:hover {
-	  background-color: rgb(128, 128, 128); /* ホバー時の背景色変更 */
+	  background-color: rgb(100, 100, 100); /* ホバー時の背景色変更 */
 	  color: black;
 	  }
 
@@ -320,6 +320,7 @@ body {
 	  }
 
 .music-area .title {
+	  z-index: 1;
 	  font-size: 22px;
 	  font-weight: bold;
 	  color: #5A2D82;
@@ -327,6 +328,7 @@ body {
 
 .music-area .artist,
 .music-area .time {
+	  z-index: 1;
 	  font-size: 16px;
 	  color: #444;
 	  }
