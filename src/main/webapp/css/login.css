@@ -25,9 +25,10 @@ body{
 
 /* ロゴのサイズ調整 */
 .logo img {
-    width: 200px;   /* おおきさ */
+    width: 160px;   /* おおきさ */
     height: auto;
-    margin-bottom: 20px; /* ログイン枠との間隔 */
+	margin-top: 50px;
+    margin-bottom: 5px; /* ログイン枠との間隔 */
 	filter: drop-shadow(0 0 12px rgba(160, 120, 255, 0.6));
 }
 
@@ -36,9 +37,9 @@ body{
 	/*background-color: #ffffff;  /* 背景を白に */
 	padding: 40px;  /* 内側余白 */
 	box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
-	width: 400px;  /* ボックス幅 */
+	width: 320px;  /* ボックス幅 */
 	text-align: center;  /* 中の文字を中央揃え */
-	min-height: 550px;
+	min-height: 440px;
 	
 	background: rgba(255, 255, 255, 0.35); /* 半透明 */
 	backdrop-filter: blur(22px) saturate(140%);
