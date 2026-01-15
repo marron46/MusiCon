@@ -170,7 +170,7 @@ body.narrow #player-container .center-block button {
 }
 
 
-/* ▼ 再生ボタン関連 */
+/* ▼ 再生ボタン・ループ再生ボタン関連 */
 /* 再生ボタン コンテナ */
 .controls {
   display: flex; /* フレックスボックスレイアウト */
@@ -181,18 +181,30 @@ body.narrow #player-container .center-block button {
 
 /* 再生ボタンスタイル */
 .controls button {
-width: clamp(1.25rem, 7vw, 3.4375rem);
+  width: clamp(1.25rem, 7vw, 3.4375rem);
   height: clamp(1.25rem, 7vw, 3.4375rem);
   font-size: clamp(1.375rem, 4vw, 1.875rem);
   background: transparent; /* 背景は透明 */
   border: 2px solid white; /* 白い枠線 */
   border-radius: 50%; /* ボタンを丸く */
-  /*width: 55px; /* 横幅55px */
-  /*height: 55px; /* 高さ55px */
   justify-content: center; /* 横方向中央揃え（重要） */
-  /*font-size: 30px; /* フォントサイズは20px */
   color: white; /* 文字色は白 */
   cursor: pointer; /* ホバー時にカーソルをポインターに変更 */
+}
+
+/*ループ再生ボタンスタイル（丸を四角に）*/
+.controls button.toggle {
+  margin-top: 10px;
+  width: clamp(0.8rem, 5vw, 2.0rem);
+  height: clamp(0.8rem, 5vw, 2.0rem);
+  font-size: clamp(0.3rem, 3vw, 1.0rem);
+  border-radius: 0;
+}
+/* ループ再生 ON 時（toggle-active が付いたとき） */
+.controls button.toggle.toggle-active {
+  background-color: white;   /* 背景色 */
+  color: #6a4fa3;            /* アイコン色（紫系） */
+  border-color: white;       /* 枠線も白に */
 }
 
 /* 再生ボタンのホバー効果 */

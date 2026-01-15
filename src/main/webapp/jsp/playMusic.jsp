@@ -177,12 +177,15 @@
 				</audio>
 
 				<div class="center-block">
-					<!-- 再生ボタン -->
+				<!-- 再生ボタン -->
 				<div class="controls">
 					<button id="prev">⏮</button>
 					<button id="play" class="play">▶</button>
 					<button id="next">⏭</button>
 					<button id="loop" class="toggle" aria-pressed="false" title="ループ（1曲リピート）">↩</button>
+				</div>
+				<div class="controls2">
+				
 				</div>
 
 				<!-- イコライザー -->
