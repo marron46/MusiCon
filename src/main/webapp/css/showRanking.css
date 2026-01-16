@@ -18,6 +18,79 @@ body {
 	height: auto;
 }
 
+.music-area {
+	  position: relative;
+	  font-family: Arial, sans-serif;
+	  font-size: 30px;
+	  background-color: #ffffff;
+	  padding: 5px 10px;  /* 十分な内側余白を確保 */
+	  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	  width: 1000px;  /* ボタンの幅を調整 */
+	  max-width: 700px;  /* 最大幅を1200pxに設定 */
+	  min-width: 400px;  /* 最小幅を600pxに設定 */
+	  text-decoration: none; /* 下線を消す */
+	  height: 40px;  /* 固定の高さ */
+	  z-index: 1500; /* 他の要素よりも前面に表示 */
+	  margin-bottom: 5px; /* ボタン同士の間にスペースを作る */
+	  transition: all 0.3s ease; /* スムーズなトランジション */
+	  display: flex;
+	  align-items: center; /* ボタン内のテキストを中央揃え */
+	  justify-content: center; /* ボタン内のテキストを中央揃え */
+	  transition: background-color 0.3s ease, color 0.3s ease;
+	  padding-top: 5px;
+	  padding-bottom: 5px;
+	  margin-left: -30px;
+	  display: grid;               /* Gridレイアウトを使用 */
+	  grid-template-columns: repeat(2, 1fr);  /* 2列に分ける */
+	  gap: 1px;                   /* アイテム間の間隔 */
+	  padding: 10px;               /* 周囲の余白 */
+	  justify-content: center;     /* アイテムを中央に配置 */
+	  border-radius: 5px;  /* 角を丸くする */
+  	  }
+
+	  /* 音楽ボタンのホバー時のスタイル */
+.music-area:hover { 
+	  transition: box-shadow 0.5s;
+	  box-shadow:
+	      0 0 10px rgba(180, 140, 255, 0.6),
+	      0 0 30px rgba(150, 110, 255, 0.5),
+	      0 0 40px rgba(120, 90, 255, 0.4),
+	      0 10px 35px rgba(0, 0, 0, 0.45);
+	  }
+	  
+
+	  /* 音楽ボタンが押されたとき（ホールド時）*/ 
+.music-area:active {
+	  background-color: rgba(255, 0, 255, 0.3); /* ピンク色の四角が現れる */
+	  border-right: 4px solid pink; /* ボタンの右端にピンクの枠線 */
+	  box-shadow: 0 4px 8px rgba(255, 0, 255, 0.4); /* 少し浮き上がる効果 */
+	  }
+
+.music-area .music-info {
+	  display: flex;
+	  flex-direction: column;
+	  padding: 10px;
+	  }
+
+.music-area .title {
+	  z-index: 1;
+	  font-size: 20px;
+	  font-weight: bold;
+	  color: #5A2D82;
+	  }
+
+.music-area .artist,
+.music-area .time {
+	  z-index: 1;
+	  font-size: 15px;
+	  color: #444;
+	  }
+
+	  /* ボタン間のスペース */
+.music-area + .music-area {
+	  margin-top: 10px; /* ボタン間の縦の間隔 */
+	  }
+
 /* 中央の白いフォーム枠*/ 
 .container {
 	  position: fixed;  /* 固定位置 */
@@ -53,6 +126,11 @@ body {
 	top: -5px; /* 上から10px */
     font-size: 48px; /* 大きめのタイトル文字 */
     margin-top: 5px; /* 上の余白 */
+}
+
+/* ランキング～位のフォント */
+.rankcount {
+    font-size: 20px; /* 大きめのタイトル文字 */
 }
 
 /* TOP へ戻るボタン */

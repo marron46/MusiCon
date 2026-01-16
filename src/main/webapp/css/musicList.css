@@ -13,7 +13,7 @@
    =============================== */
 body {
     background-color: #A997C6; /* 背景色：薄紫 */
-    min-height: 100vh; /* 画面全体の高さ確保 */
+    min-height: 90vh; /* 画面全体の高さ確保 */
     margin: 0; /* 余白なし */
     font-family: Arial, sans-serif; /* フォント設定 */
     overflow-x: hidden;
@@ -55,39 +55,48 @@ body {
 	color: #222;
 	}
 
-.music-area {
+	.music-area {
 		  position: relative;
 		  font-family: Arial, sans-serif;
-		  font-size: 40px;
+		  font-size: 10px;
 		  background-color: #ffffff;
-		  padding: 10px 20px;  /* 十分な内側余白を確保 */
+		  padding: 5px 5px;  /* 十分な内側余白を確保 */
 		  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-		  width: 900px;  /* ボタンの幅を調整 */
-		  max-width: 1200px;  /* 最大幅を1200pxに設定 */
-		  min-width: 600px;  /* 最小幅を600pxに設定 */
+		  width: 1000px;  /* ボタンの幅を調整 */
+		  max-width: 700px;  /* 最大幅を1200pxに設定 */
+		  min-width: 400px;  /* 最小幅を600pxに設定 */
 		  text-decoration: none; /* 下線を消す */
-		  /*height: 70px;  /* 固定の高さ */
+		  height: 40px;  /* 固定の高さ */
 		  z-index: 1500; /* 他の要素よりも前面に表示 */
-		  margin-bottom: 15px; /* ボタン同士の間にスペースを作る */
+		  margin-bottom: 5px; /* ボタン同士の間にスペースを作る */
 		  transition: all 0.3s ease; /* スムーズなトランジション */
 		  display: flex;
 		  align-items: center; /* ボタン内のテキストを中央揃え */
 		  justify-content: center; /* ボタン内のテキストを中央揃え */
 		  transition: background-color 0.3s ease, color 0.3s ease;
-		  /* margin-left: -30px; */
+		  padding-top: 5px;
+		  padding-bottom: 5px;
+		  margin-left: -30px;
 		  display: grid;               /* Gridレイアウトを使用 */
 		  grid-template-columns: repeat(2, 1fr);  /* 2列に分ける */
-		  gap: 20px;                   /* アイテム間の間隔 */
+		  gap: 1px;                   /* アイテム間の間隔 */
+		  padding: 10px;               /* 周囲の余白 */
 		  justify-content: center;     /* アイテムを中央に配置 */
+		  border-radius: 5px;  /* 角を丸くする */
 	  	  }
 
 		  /* 音楽ボタンのホバー時のスタイル */
-	.music-area:hover {
-		  background-color: rgb(128, 128, 128); /* ホバー時の背景色変更 */
-		  color: black;
+	.music-area:hover { 
+		  transition: box-shadow 0.5s;
+		  box-shadow:
+		      0 0 10px rgba(180, 140, 255, 0.6),
+		      0 0 30px rgba(150, 110, 255, 0.5),
+		      0 0 40px rgba(120, 90, 255, 0.4),
+		      0 10px 35px rgba(0, 0, 0, 0.45);
 		  }
+		  
 
-		  /* 音楽ボタンが押されたとき（ホールド時） */
+		  /* 音楽ボタンが押されたとき（ホールド時）*/ 
 	.music-area:active {
 		  background-color: rgba(255, 0, 255, 0.3); /* ピンク色の四角が現れる */
 		  border-right: 4px solid pink; /* ボタンの右端にピンクの枠線 */
@@ -101,41 +110,17 @@ body {
 		  }
 
 	.music-area .title {
-		  font-size: 22px;
+		  z-index: 1;
+		  font-size: 16px;
 		  font-weight: bold;
 		  color: #5A2D82;
 		  }
 
 	.music-area .artist,
-	.music-area .like {
-		  font-size: 16px;
+	.music-area .time {
+		  z-index: 1;
+		  font-size: 12px;
 		  color: #444;
-		  }
-
-
-		  /* ピンクのライン（hover時にスライドイン） */
-		  /* 左側のピンクライン（初期は5px） */
-	.music-area.btn-flat:before {
-		  opacity: 0.5; /* 透明度50% */
-		  content: '';
-		  position: absolute;
-		  top: 0;
-		  left: 0;
-		  width: 5px;                 /* 初期は細いライン */
-		  height: 100%;
-		  background: rgb(255, 0, 255);
-		  transform-origin: left;     /* 左から右へ広がる */
-		  transition: width 0.5s ease-in-out;
-		  z-index: 0;
-		  }
-
-		  /* ホバーで左のラインが全体を覆う */
-	.music-area.btn-flat:hover:before {
-		  width: 100%;                /* ボタン全体に広げる */
-		  }
-
-	.music-area.btn-flat:hover:before {
-		  transform: translateX(0); /* ホバー時にスライドイン */
 		  }
 
 		  /* ボタン間のスペース */
@@ -149,13 +134,6 @@ body {
 		  padding: 10px;
 		  }
 
-.music-area .title {
-		  font-size: 22px;
-		  font-weight: bold;
-		  		  color: #5A2D82;
-		  		  }
-
-.music-area .artist,
 .music-area .id {
 		  		  font-size: 16px;
 		  		  color: #444;
@@ -175,12 +153,6 @@ body {
 		margin-bottom: 20px;
 		color: #222;
 }
-
-.music-area .title {
-	  font-size: 22px;
-	  font-weight: bold;
-	  color: #5A2D82;
-	  }
 	  
 .music-area .artist,
 .music-area .time {

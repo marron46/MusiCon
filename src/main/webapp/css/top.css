@@ -100,7 +100,7 @@ body {
     position: fixed;
     top: 0;
     right: -300px; /* 初期位置：画面外 */
-    width: 250px;
+    width: 300px;
     height: 100%;
     background: #ffffff; /* 白背景 */
     transition: 0.4s; /* スライドアニメーション */
@@ -186,9 +186,9 @@ body {
     padding: 12px 15px;
     margin: 20px;
 	margin-right: 23px;
-    width: 250px;
+    width: 300px;
     height: 50px;
-	font-size: 12px;
+	font-size: 14px;
     font-weight: bold;
     align-items: center;
     justify-content: center;

@@ -36,11 +36,14 @@
 		<%
 		} else {
 		%>
-		<ul>
+		<ul style="list-style: none;">
 			<%
+			int rankcount = 0;
 			for (model.Music m : list) {
+				rankcount++;
 			%>
-			<li>タイトル：<a
+			
+			<li><div class="rankcount"><%=rankcount+"位"%> / いいね：<%=m.getLikes()%>回</div><a
 				<%
 				// URL が取得できない場合でもページが落ちないようにフォールバックする
 				String playLink;
@@ -52,8 +55,17 @@
 							+ "/PlayMusic?id=" + m.getId();
 				}
 				%>
+				
 				href="<%=playLink%>">
-					<%=m.getTitle()%></a><br> アーティスト：<%=m.getArtist()%><br> いいね：<%=m.getLikes()%>
+				
+								<a
+					href="${pageContext.request.contextPath}/PlayMusic?url=<%=java.net.URLEncoder.encode(m.getUrl(), "UTF-8")%>"
+					class="music-area btn-flat">
+					<div class="title"><%=m.getTitle()%></div>
+					<div class="artist"><%=m.getArtist()%></div>
+					<div class="time"><%= m.getMusicTime() / 100 %>:<%= String.format("%02d", m.getMusicTime() % 100) %></div>
+
+				</a>
 			</li>
 			<hr>
 			<%

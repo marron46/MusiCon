@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page
-	import="java.util.List, model.Music, service.PlayMusicService"%>
+<%@ page import="java.util.List, model.Music, service.PlayMusicService"%>
 <%
 // ログインチェック
 String userName = (String) session.getAttribute("user_name");
@@ -25,9 +24,9 @@ session.setAttribute("musicList", musicList);
 	href="${pageContext.request.contextPath}/css/top.css">
 </head>
 <body>
-<canvas id="canvas"></canvas>
-<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
-						class="icon" width="180" alt="ロゴアイコン">
+	<canvas id="canvas"></canvas>
+	<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
+		class="icon" width="180" alt="ロゴアイコン">
 	<%-- チェックボックス(非表示) --%>
 	<input type="checkbox" id="menu-check" class="menu-check">
 
@@ -49,8 +48,7 @@ session.setAttribute("musicList", musicList);
 			<li><a
 				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
 				class="menu">Add music / 曲追加</a></li>
-			<li><a
-				href="${pageContext.request.contextPath}/MusicList"
+			<li><a href="${pageContext.request.contextPath}/MusicList"
 				class="menu">Music list / 楽曲一覧</a></li>
 		</ul>
 		<ul class="menu-bottom">
@@ -95,7 +93,7 @@ session.setAttribute("musicList", musicList);
 				<!-- クリックすると URLベースで再生画面へ -->
 				<a
 					href="${pageContext.request.contextPath}/PlayMusic?url=<%=java.net.URLEncoder.encode(m.getUrl(), "UTF-8")%>"
-					class="music-area btn-flat"> 
+					class="music-area btn-flat">
 					<div class="title"><%=m.getTitle()%></div>
 					<div class="artist"><%=m.getArtist()%></div>
 					<div class="time"><%= m.getMusicTime() / 100 %>:<%= String.format("%02d", m.getMusicTime() % 100) %></div>
@@ -113,7 +111,7 @@ session.setAttribute("musicList", musicList);
 			</ul>
 		</div>
 	</div>
-			<script>
+	<script>
 		const rand = function(min, max) {
 			  return Math.random() * ( max - min ) + min;
 			}
