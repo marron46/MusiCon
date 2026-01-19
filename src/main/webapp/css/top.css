@@ -315,9 +315,9 @@ body {
 
 	  /* 音楽ボタンが押されたとき（ホールド時）*/ 
 .music-area:active {
-	  background-color: rgba(255, 0, 255, 0.3); /* ピンク色の四角が現れる */
+	  background-color: rgba(246, 173, 198, 0.3); /* ピンク色の四角が現れる */
 	  border-right: 4px solid pink; /* ボタンの右端にピンクの枠線 */
-	  box-shadow: 0 4px 8px rgba(255, 0, 255, 0.4); /* 少し浮き上がる効果 */
+	  box-shadow: 0 4px 8px rgba(246, 173, 198, 0.4); /* 少し浮き上がる効果 */
 	  }
 
 .music-area .music-info {
