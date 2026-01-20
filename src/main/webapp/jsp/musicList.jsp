@@ -13,14 +13,51 @@
 	href="${pageContext.request.contextPath}/css/musicList.css">
 </head>
 <body>
-<canvas id="canvas"></canvas>
+	<canvas id="canvas"></canvas>
 	<div class="reverse">
 		<a href="${pageContext.request.contextPath}/PlayMusic"> <img
 			src="${pageContext.request.contextPath}/png/MusiConLogo.png"
 			alt="TOPに戻る" class="reverse-img">
 		</a>
 	</div>
+	<%-- チェックボックス(非表示) --%>
+	<input type="checkbox" id="menu-check" class="menu-check">
+	<%-- ハンバーガーアイコン --%>
+	<label for="menu-check" class="hamburger">
+		<div class="line"></div>
+		<div class="line"></div>
+		<div class="line"></div>
+	</label>
+	<!-- 半透明オーバーレイ -->
+	<div class="overlay"></div>
+	<%-- メニュー --%>
+	<nav class="side-menu">
+		<ul class="menu-list">
+			<li><a href="${pageContext.request.contextPath}/MyPlaylist"
+				class="menu">Playlist / プレイリスト</a></li>
+			<li><a href="${pageContext.request.contextPath}/ShowRanking"
+				class="menu">Ranking / ランキング</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
+				class="menu">Add music / 曲アップロード</a></li>
+			<li><a href="${pageContext.request.contextPath}/MusicList"
+				class="menu">Music list / 楽曲一覧</a></li>
+		</ul>
+		<ul class="menu-bottom">
+			<li><a href="${pageContext.request.contextPath}/Logout"
+				class="menu logout">Log out / ログアウト</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/jsp/deleteUser.jsp"
+				class="menu delete">Delete account / アカウント削除</a></li>
+		</ul>
+	</nav>
 
+	<!-- ▼ オーバーレイクリックで閉じるスクリプト -->
+	<script>
+    document.querySelector(".overlay").addEventListener("click", () => {
+        document.getElementById("menu-check").checked = false;
+    });
+</script>
 	<h1 class="page-title">楽曲一覧</h1>
 
 	<%
@@ -58,12 +95,12 @@
 		<%
 		}
 		%>
-		
+
 	</div>
 	<%
 	}
 	%>
-		<script>
+	<script>
 		const rand = function(min, max) {
 			  return Math.random() * ( max - min ) + min;
 			}

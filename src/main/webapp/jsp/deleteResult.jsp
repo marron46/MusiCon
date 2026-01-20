@@ -12,10 +12,10 @@
 </head>
 <body>
 	<canvas id="canvas"></canvas>
-<div class="reverse">
-	<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
-		alt="MusiConのロゴ" width="180" class="icon">
-</div>
+	<div class="reverse">
+		<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
+			alt="MusiConのロゴ" width="180" class="icon">
+	</div>
 	<div class="container">
 		<div class="message">
 			<h1>
@@ -25,7 +25,8 @@
 				<%=(String) session.getAttribute("user_name")%>さん<br>グッバイ!!
 			</h2>
 			<div class="toLoginBtn">
-				<a href="${pageContext.request.contextPath}/jsp/login.jsp"> ←ログインへ </a>
+				<a href="${pageContext.request.contextPath}/jsp/login.jsp">
+					←ログインへ </a>
 			</div>
 		</div>
 	</div>

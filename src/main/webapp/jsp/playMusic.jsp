@@ -123,23 +123,25 @@
 
 	<!-- ▼ 追加：中央配置用のラッパー ▼ -->
 	<div id="player-container">
-	<!--<div class="center-wrapper">
+		<!--<div class="center-wrapper">
 		<div class="player">-->
 
-			<!-- 左のジャケット（白無地） -->
-			<div class="album-art"></div>
+		<!-- 左のジャケット（白無地） -->
+		<div class="album-art"></div>
 
-			<!-- 右側情報 -->
-			<div class="info">
+		<!-- 右側情報 -->
+		<div class="info">
 
-				<!-- 曲タイトル -->
-				<h2 class="title"><%=music.getTitle()%></h2>
+			<!-- 曲タイトル -->
+			<h2 class="title"><%=music.getTitle()%></h2>
 
-				<!-- アーティスト名 -->
-				<p class="artist"><%=music.getArtist()%></p>
+			<!-- アーティスト名 -->
+			<p class="artist"><%=music.getArtist()%></p>
 
-				<!-- 再生する audio -->
-				<audio id="audio" preload="metadata" <!-- crossorigin="anonymous" -->>
+			<!-- 再生する audio -->
+			<audio id="audio" preload="metadata"
+				<!-- crossorigin="anonymous" -->
+				>
 
 				<%
 					String musicUrl = music.getUrl();
@@ -172,83 +174,83 @@
 						}
 					}
 					%>
-					<source src="<%=musicUrl%>" type="audio/mpeg">
-					<p>お使いのブラウザは音声再生に対応していません。</p>
-				</audio>
+				<source src="<%=musicUrl%>" type="audio/mpeg">
+				<p>お使いのブラウザは音声再生に対応していません。</p>
+			</audio>
 
-				<div class="center-block">
+			<div class="center-block">
 				<!-- 再生ボタン -->
 				<div class="controls">
 					<button id="prev">⏮</button>
 					<button id="play" class="play">▶</button>
 					<button id="next">⏭</button>
-					<button id="loop" class="toggle" aria-pressed="false" title="ループ（1曲リピート）">↩</button>
+					<button id="loop" class="toggle" aria-pressed="false"
+						title="ループ（1曲リピート）">↩</button>
 				</div>
-				<div class="controls2">
-				
-				</div>
+				<div class="controls2"></div>
 
 				<!-- イコライザー -->
 				<canvas id="equalizer" color="white"></canvas>
 
 				<!-- シークバー -->
-					<div class="progress-area">
-						<span id="current">0:00</span> <input type="range" id="progress"
-							min="0" value="0"> <span id="duration">0:00</span>
-					</div>
-
-
-					<!--  音量バー  -->
-					<div class="volume-area">
-						<span id="volume-icon">🔊</span> <input type="range" id="volume"
-							min="0" max="0.7" step="0.02" value="0.7">
-					</div>
-
+				<div class="progress-area">
+					<span id="current">0:00</span> <input type="range" id="progress"
+						min="0" value="0"> <span id="duration">0:00</span>
 				</div>
 
-				<div class="like-bookmark-box">
-					<!-- いいね -->
-					<form id="likeForm" action="${pageContext.request.contextPath}/LikeMusic"
-						method="post">
-						<input type="hidden" name="id" value="<%=music.getId()%>">
-						<input type="hidden" name="ajax" value="true">
-						<button id="likeBtn" type="submit" class="like-btn">
-							いいね！ (<span id="likeCount"><%=music.getLikes()%></span>)
-						</button>
-					</form>
 
-					<!-- ブックマーク -->
-					<form id="playlistForm" action="${pageContext.request.contextPath}/MyPlaylist"
-						method="post">
-						<input type="hidden" name="id" value="<%=music.getId()%>">
-						<input type="hidden" name="ajax" value="true">
-						<%
+				<!--  音量バー  -->
+				<div class="volume-area">
+					<span id="volume-icon">🔊</span> <input type="range" id="volume"
+						min="0" max="0.7" step="0.02" value="0.7">
+				</div>
+
+			</div>
+
+			<div class="like-bookmark-box">
+				<!-- いいね -->
+				<form id="likeForm"
+					action="${pageContext.request.contextPath}/LikeMusic" method="post">
+					<input type="hidden" name="id" value="<%=music.getId()%>">
+					<input type="hidden" name="ajax" value="true">
+					<button id="likeBtn" type="submit" class="like-btn">
+						いいね！ (<span id="likeCount"><%=music.getLikes()%></span>)
+					</button>
+				</form>
+
+				<!-- ブックマーク -->
+				<form id="playlistForm"
+					action="${pageContext.request.contextPath}/MyPlaylist"
+					method="post">
+					<input type="hidden" name="id" value="<%=music.getId()%>">
+					<input type="hidden" name="ajax" value="true">
+					<%
 					if (isPlaylistMode) {
 					%>
-						<input type="hidden" name="playlistMode" value="true">
-						<input type="hidden" name="playlistPos" value="<%=playlistPos%>">
-						<%
+					<input type="hidden" name="playlistMode" value="true"> <input
+						type="hidden" name="playlistPos" value="<%=playlistPos%>">
+					<%
 					}
 					%>
-						<%
+					<%
 					if (isInPlaylist) {
 					%>
-						<button id="playlistBtn" type="submit" class="like-btn"
-							data-in-playlist="true"
-							style="background-color: #f7d358;">★ プレイリストから外す</button>
-						<%
+					<button id="playlistBtn" type="submit" class="like-btn"
+						data-in-playlist="true" style="background-color: #f7d358;">★
+						プレイリストから外す</button>
+					<%
 					} else {
 					%>
-						<button id="playlistBtn" type="submit" class="like-btn"
-							data-in-playlist="false"
-							style="background-color: #dddddd;">☆ プレイリストに追加</button>
-						<%
+					<button id="playlistBtn" type="submit" class="like-btn"
+						data-in-playlist="false" style="background-color: #dddddd;">☆
+						プレイリストに追加</button>
+					<%
 					}
 					%>
-					</form>
-				</div>
+				</form>
+			</div>
 
-				<script>
+			<script>
 				// いいね：画面遷移させずに DB だけ更新（AJAX）
 				window.addEventListener("DOMContentLoaded", () => {
 					const likeForm = document.getElementById("likeForm");
@@ -344,9 +346,9 @@
 				});
 				</script>
 
-			</div>
-
 		</div>
+
+	</div>
 
 	</div>
 

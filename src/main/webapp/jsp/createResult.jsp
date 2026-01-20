@@ -8,20 +8,22 @@
 <meta charset="UTF-8">
 <title>ユーザー登録結果</title>
 <!-- cssの連携 -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/createResult.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/createResult.css">
 </head>
 <body>
-<canvas id="canvas"></canvas>
+	<canvas id="canvas"></canvas>
 	<div class="container">
 		<div class="message">
 			<div class="greeting">
 				<h1>登録に成功しました</h1>
-				
-				<h2><%= (String) session.getAttribute("user_name") %>さん<br>
+
+				<h2><%=(String) session.getAttribute("user_name")%>さん<br>
 					はじめまして
 				</h2>
 			</div>
-			<a href="${pageContext.request.contextPath}/jsp/login.jsp" class="log-btn">ログイン画面へ</a>
+			<a href="${pageContext.request.contextPath}/jsp/login.jsp"
+				class="log-btn">ログイン画面へ</a>
 		</div>
 	</div>
 	<script>

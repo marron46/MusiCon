@@ -12,8 +12,8 @@
 <body>
 	<canvas id="canvas"></canvas>
 	<div class="reverse">
-		<a href="${pageContext.request.contextPath}/PlayMusic"> 
-		<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
+		<a href="${pageContext.request.contextPath}/PlayMusic"> <img
+			src="${pageContext.request.contextPath}/png/MusiConLogo.png"
 			alt="TOPに戻る" class="reverse-img">
 		</a>
 	</div>

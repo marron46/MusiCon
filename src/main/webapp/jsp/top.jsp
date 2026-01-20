@@ -47,7 +47,7 @@ session.setAttribute("musicList", musicList);
 				class="menu">Ranking / ランキング</a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
-				class="menu">Add music / 曲追加</a></li>
+				class="menu">Add music / 曲アップロード</a></li>
 			<li><a href="${pageContext.request.contextPath}/MusicList"
 				class="menu">Music list / 楽曲一覧</a></li>
 		</ul>
@@ -96,7 +96,7 @@ session.setAttribute("musicList", musicList);
 					class="music-area btn-flat">
 					<div class="title"><%=m.getTitle()%></div>
 					<div class="artist"><%=m.getArtist()%></div>
-					<div class="time"><%= m.getMusicTime() / 100 %>:<%= String.format("%02d", m.getMusicTime() % 100) %></div>
+					<div class="time"><%=m.getMusicTime() / 100%>:<%=String.format("%02d", m.getMusicTime() % 100)%></div>
 
 				</a>
 				<br>

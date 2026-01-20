@@ -3,37 +3,35 @@
 /* ページ全体の基本設定 */
 body {
 	/*background-image: url("../png/backGround.png"); /* ← 画像のパスを指定 */
-		background-size: cover;        /* 画面いっぱいに拡大縮小 */
-		background-position: center;   /* 中央に配置 */
-		background-repeat: no-repeat;  /* 繰り返しなし */
-		min-height: 100vh;  /* 画面全体の高さを確保 */
-		margin: 0;  /* ブラウザのデフォルト余白を削除 */
-		/*font-family: Arial, sans-serif;  /* 使用フォント */
-		display: flex;  /* 中央寄せに使うflexbox */
-		justify-content: center;  /* 水平方向の中央寄せ */
-		align-items: center;  /* 垂直方向の中央寄せ */
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-		padding: 0;
-		background: #A997C6;
+	background-size: cover;        /* 画面いっぱいに拡大縮小 */
+	background-position: center;   /* 中央に配置 */
+	background-repeat: no-repeat;  /* 繰り返しなし */
+	min-height: 100vh;  /* 画面全体の高さを確保 */
+	margin: 0;  /* ブラウザのデフォルト余白を削除 */
+	/*font-family: Arial, sans-serif;  /* 使用フォント */
+	display: flex;  /* 中央寄せに使うflexbox */
+	justify-content: center;  /* 水平方向の中央寄せ */
+	align-items: center;  /* 垂直方向の中央寄せ */
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	padding: 0;
+	background: #A997C6;
 }
 
 /* 中央の白いフォーム枠 */
 .container {
 	/*background-color: #ffffff;  /* 背景を白に */
-		padding: 40px;  /* 内側余白 */
-		box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
-		width: 320px;  /* ボックス幅 */
-		text-align: center;  /* 中の文字を中央揃え */
-		min-height: 440px;
-		
-		background: rgba(255, 255, 255, 0.35); /* 半透明 */
-		backdrop-filter: blur(22px) saturate(140%);
-		-webkit-backdrop-filter: blur(25px); /* Safari対策 */
-		border-radius: 10px;
-		position: relative;
-		transition: box-shadow 0.3s ease;
-		
-		border: 1px solid rgba(180, 140, 255, 0.5);
+	padding: 40px;  /* 内側余白 */
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
+	width: 320px;  /* ボックス幅 */
+	text-align: center;  /* 中の文字を中央揃え */
+	min-height: 440px;
+	background: rgba(255, 255, 255, 0.35); /* 半透明 */
+	backdrop-filter: blur(22px) saturate(140%);
+	-webkit-backdrop-filter: blur(25px); /* Safari対策 */
+	border-radius: 10px;
+	position: relative;
+	transition: box-shadow 0.3s ease;
+	border: 1px solid rgba(180, 140, 255, 0.5);
 }
 
 .container:hover {
@@ -46,13 +44,14 @@ body {
 
 form-area{
 	margin-top: 60px;
-	}
+}
 	
 /* 見出し（新規登録） */
 .cUser-title {
     font-size: 48px; /* 大きめのタイトル文字 */
     margin-bottom: 30px; /* 下の余白 */
 }
+
 /* テキスト入力欄（ユーザ名・パスワード） */
 input[type="text"],
 input[type="password"] {
@@ -68,37 +67,37 @@ input[type="password"] {
 
 /* 登録ボタン */
 .submit-btn {
-    display: block;
-    margin: 0 auto; /* 中央寄せ */
-    width: 200px; /* ボタン幅 */
-    padding: 15px 0; /* ボタンの高さ */
-    margin-top: 30px; /* 上の余白 */
-    background-color: #8848A8; /* ボタン背景色 */
-    color: white; /* 文字色 */
-    border: none; /* 枠線なし */
-    border-radius: 5px; /* 角丸 */
-    font-size: 20px; /* 文字サイズ */
-    cursor: pointer; /* カーソルを指マークに */
+	display: block;
+	margin: 0 auto; /* 中央寄せ */
+	width: 200px; /* ボタン幅 */
+	padding: 15px 0; /* ボタンの高さ */
+	margin-top: 30px; /* 上の余白 */
+	background-color: #8848A8; /* ボタン背景色 */
+	color: white; /* 文字色 */
+	border: none; /* 枠線なし */
+	border-radius: 5px; /* 角丸 */
+	font-size: 20px; /* 文字サイズ */
+	cursor: pointer; /* カーソルを指マークに */
 }
+
 .submit-btn:hover {
-    background-color: #A997C6; /* ホバー時の薄い紫 */
+	background-color: #A997C6; /* ホバー時の薄い紫 */
 }
 
 /* TOP へ戻るボタン */
 .reverse {
-    position: fixed; /* 画面固定位置 */
-    top: 10px; /* 上から10px */
-    left: 10px; /* 左から10px */
+	position: fixed; /* 画面固定位置 */
+	top: 10px; /* 上から10px */
+	left: 10px; /* 左から10px */
 	background: rgba(255, 255, 255, 0.35); /* 半透明 */
-    padding: 12px 28px; /* 内側余白 */
-    border-radius: 4px; /* 角丸 */
-    box-shadow: 0 0 5px rgba(0,0,0,0.1); /* ほんのり影 */
-    font-weight: bold; /* 太字 */
+	padding: 12px 28px; /* 内側余白 */
+	border-radius: 4px; /* 角丸 */
+	box-shadow: 0 0 5px rgba(0,0,0,0.1); /* ほんのり影 */
+	font-weight: bold; /* 太字 */
 	backdrop-filter: blur(22px) saturate(140%);
 	-webkit-backdrop-filter: blur(25px); /* Safari対策 */
 	border-radius: 10px;
 	transition: box-shadow 0.3s ease;
-	
 	border: 1px solid rgba(180, 140, 255, 0.5);
 }
 
@@ -109,17 +108,19 @@ input[type="password"] {
         0 0 80px rgba(120, 90, 255, 0.4),
         0 15px 50px rgba(0, 0, 0, 0.45);
 }
+
 /* 「TOPへ戻る」リンク */
 .reverse a {
-    color: black; /* 文字色 */
-    text-decoration: none; /* 下線なし */
-    font-size: 24px; /* 文字サイズ */
+	color: black; /* 文字色 */
+	text-decoration: none; /* 下線なし */
+	font-size: 24px; /* 文字サイズ */
 }
 
+/* 背景 */
 canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  filter: blur(20px);
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	filter: blur(20px);
 }

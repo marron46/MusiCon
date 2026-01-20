@@ -65,9 +65,9 @@ body {
 	/* 標準の太さ */
 }
 .reverse {
-    position: fixed; /* 画面固定位置 */
-    top: 10px; /* 上から10px */
-    left: 10px; /* 左から10px */
+	position: fixed; /* 画面固定位置 */
+	top: 10px; /* 上から10px */
+	left: 10px; /* 左から10px */
 }
 
 .icon {
@@ -78,40 +78,41 @@ body {
 }
 
 .toLoginBtn a {
-    display: block;
-    width: 70%;               /* ← 追加：幅を指定 */
-    margin: 0 auto;           /* ← 中央寄せ */
-    padding: 15px 0;
-    background-color: #ffffff;
-    color: #000000;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 12px;
-    text-decoration: none;
-    border: 1px solid #000000; 
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    transition: 0.25s;
+	display: block;
+	width: 70%;               /* ← 追加：幅を指定 */
+	margin: 0 auto;           /* ← 中央寄せ */
+	padding: 15px 0;
+	background-color: #ffffff;
+	color: #000000;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 12px;
+	text-decoration: none;
+	border: 1px solid #000000; 
+	box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+	transition: 0.25s;
 }
 
 /* ホバー時 */
 .toLoginBtn a:hover {
-    background-color: lightgray;
-    color: #000;
-    transform: translateY(3px);
-    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+	background-color: lightgray;
+	color: #000;
+	transform: translateY(3px);
+	box-shadow: 0 5px 10px rgba(0,0,0,0.25);
 }
 
 /* 押した時 */
 .toLoginBtn a:active {
-    transform: translateY(0);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+	transform: translateY(0);
+	box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
+/* 背景 */
 canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  filter: blur(20px);
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	filter: blur(20px);
 }
 

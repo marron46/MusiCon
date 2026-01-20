@@ -14,22 +14,22 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	padding: 0;
 	background: #A997C6;
-	}
+}
 
 .reverse-img {
 	width: 12vw;
 	max-width: 180px;  /*最大の幅 */
 	min-width: 60px;  /*最小の幅 */
 	height: auto;
-	}
+}
 	
 /* 中央の白いフォーム枠 */
 .container {
-    background-color: #ffffff; /* 白背景 */
-    width: 400px; /* 横幅 */
-    padding: 40px; /* 内側余白 上・左右・下 */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* ふわっとした影 */
-    text-align: center; /* 文字中央寄せ */
+	background-color: #ffffff; /* 白背景 */
+	width: 400px; /* 横幅 */
+	padding: 40px; /* 内側余白 上・左右・下 */
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* ふわっとした影 */
+	text-align: center; /* 文字中央寄せ */
 	min-height: 550px;
 	
 	background: rgba(255, 255, 255, 0.35); /* 半透明 */
@@ -38,9 +38,8 @@ body {
 	border-radius: 10px;
 	position: relative;
 	transition: box-shadow 0.3s ease;
-		
 	border: 1px solid rgba(180, 140, 255, 0.5);
-	}
+}
 	
 .container:hover {
  	box-shadow:
@@ -52,57 +51,59 @@ body {
 
 .form-area{
 	margin-top: 60px;
-	}
+}
 	
 /* 見出し（削除）*/
 .dUser-title {
 	font-size: 48px;  /* 大きめのタイトル文字 */
-		margin-bottom: 30px;  /* タイトル下の余白 */
-	}
+	margin-bottom: 30px;  /* タイトル下の余白 */
+}
+
 /* 説明文 */
 .description {
 	font-size: 16px;
 	color: #ff0000;
 	margin-bottom: 30px;
 }
+
 /* テキスト入力欄（ユーザ名・パスワード） */
 input[type="text"],
 input[type="password"] {
-    width: 100%; /* 幅いっぱい */
-    height: 45px; /* 高さ */
-    font-size: 18px; /* 文字サイズ */
-    margin: 10px -10px 25px; /* 上・左右・下の余白 */
-    padding: 5px 10px; /* 内側余白 */
-    border: 2px solid #333; /* 黒い枠線 */
-    border-radius: 4px; /* 角丸 */
+	width: 100%; /* 幅いっぱい */
+	height: 45px; /* 高さ */
+	font-size: 18px; /* 文字サイズ */
+	margin: 10px -10px 25px; /* 上・左右・下の余白 */
+	padding: 5px 10px; /* 内側余白 */
+	border: 2px solid #333; /* 黒い枠線 */
+	border-radius: 4px; /* 角丸 */
 	margin-bottom: 25px;  /* 下の余白 */
-	}
+}
 
 /* 削除ボタン */
 .submit-btn {
-    display: block;
-    margin: 0 auto; /* 中央寄せ */
-    width: 200px; /* ボタン幅 */
-    padding: 15px 0; /* ボタンの高さ */
-    margin-top: 30px; /* 上の余白 */
-    /* background-color: #8848A8; /* ボタン背景色（紫）*/
+	display: block;
+	margin: 0 auto; /* 中央寄せ */
+	width: 200px; /* ボタン幅 */
+	padding: 15px 0; /* ボタンの高さ */
+	margin-top: 30px; /* 上の余白 */
+	/* background-color: #8848A8; /* ボタン背景色（紫）*/
 	background-color: #DC143C; /* ボタン背景色（赤）*/
-    color: white; /* 文字色 */
-    border: none; /* 枠線なし */
-    border-radius: 5px; /* 角丸 */
-    font-size: 20px; /* 文字サイズ */
-    cursor: pointer; /* カーソルを指マークに */
-	}
+	color: white; /* 文字色 */
+	border: none; /* 枠線なし */
+	border-radius: 5px; /* 角丸 */
+	font-size: 20px; /* 文字サイズ */
+	cursor: pointer; /* カーソルを指マークに */
+}
+	
 .submit-btn:hover {
-    /* background-color: #A997C6; /* ホバー時の薄い紫 */
 	background-color: #F08080; /* ホバー時の薄い赤 */
-	}
+}
 
 /* TOP へ戻るボタン */
 .reverse {
-    position: fixed; /* 画面固定位置 */
-    top: 10px; /* 上から10px */
-    left: 10px; /* 左から10px */
+	position: fixed; /* 画面固定位置 */
+	top: 10px; /* 上から10px */
+	left: 10px; /* 左から10px */
 }
 
 .reverse-img {
@@ -110,16 +111,17 @@ input[type="password"] {
 	height: auto;
 	cursor: pointer;
 	transition: 0.2s;
-	}
+}
 
 .reverse-img:hover {
 	opacity: 0.8;
-	}
-	
+}
+
+/* 背景 */
 canvas {
-	  position: fixed;
-	  inset: 0;
-	  z-index: -1;
-	  pointer-events: none;
-	  filter: blur(20px);
-	}
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	filter: blur(20px);
+}
