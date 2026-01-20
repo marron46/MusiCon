@@ -59,7 +59,7 @@
     });
 </script>
 	<h2 class="mBookmark-title">▶ プレイリスト</h2>
-
+<ul class="container">
 	<p style="color: green;">
 		<%=request.getAttribute("message") != null ? request.getAttribute("message") : ""%>
 	</p>
@@ -72,7 +72,6 @@
 	<%
 	} else {
 	%>
-	<ul class="container">
 		<%
 		for (PlaylistItem item : list) {
 			Music m = item.getMusic();

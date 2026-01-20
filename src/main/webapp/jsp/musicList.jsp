@@ -59,16 +59,15 @@
     });
 </script>
 	<h1 class="page-title">楽曲一覧</h1>
-
+	<div class="container">
 	<%
 	List<Music> list = (List<Music>) request.getAttribute("musicList");
 	if (list == null || list.isEmpty()) {
 	%>
-	<p class="empty">曲がありません。</p>
+	<p class="empty">曲がありません</p>
 	<%
 	} else {
 	%>
-	<div class="container">
 		<%
 		for (Music m : list) {
 			String playLink;

@@ -127,9 +127,11 @@ input[type="file"]{
 	
 .reverse-img {
 	width: 12vw;
-	max-width: 180px;  /*最大の幅 */
+	max-width: 150px;  /*最大の幅 */
 	min-width: 60px;  /*最小の幅 */
 	height: auto;
+	margin-top: 20px; /* 上からの余白 */
+	margin-left: 15px; /* 左からの余白 */
 }
 	
 .reverse-img:hover {

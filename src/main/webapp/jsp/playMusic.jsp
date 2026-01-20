@@ -216,6 +216,7 @@
 					<button id="likeBtn" type="submit" class="like-btn">
 						いいね！ (<span id="likeCount"><%=music.getLikes()%></span>)
 					</button>
+					
 				</form>
 
 				<!-- ブックマーク -->

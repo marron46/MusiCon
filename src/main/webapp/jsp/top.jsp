@@ -26,7 +26,7 @@ session.setAttribute("musicList", musicList);
 <body>
 	<canvas id="canvas"></canvas>
 	<img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
-		class="icon" width="180" alt="ロゴアイコン">
+		class="icon" width="100" alt="ロゴアイコン">
 	<%-- チェックボックス(非表示) --%>
 	<input type="checkbox" id="menu-check" class="menu-check">
 
@@ -104,7 +104,7 @@ session.setAttribute("musicList", musicList);
 				} // for の終わり
 				} else {
 				%>
-				<p>曲がありません。</p>
+				<p>曲がありません</p>
 				<%
 				}
 				%>

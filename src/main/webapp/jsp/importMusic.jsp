@@ -32,24 +32,6 @@
 			<div class="form-item">
 				<input type="text" name="artist" placeholder="アーティスト（必須）" required>
 			</div>
-			<!-- ジャンル入力欄（DBのgenreに入る） -->
-			<!--ジャンル：-->
-			<div class="form-item pull-down">
-				<select name="genre" required>
-					<option class="" disabled selected>ジャンルを選択（必須）</option>
-					<option value="JPOP">J-POP</option>
-					<option value="KPOP">K-POP</option>
-					<option value="HPOP">HIPHOP</option>
-					<option value="CLSC">クラシック</option>
-					<option value="ROCK">ロック</option>
-					<option value="JAZZ">ジャズ</option>
-					<option value="RYBL">R&B</option>
-					<option value="EDMS">EDM</option>
-					<option value="ENKA">演歌</option>
-					<option value="OTHR">その他</option>
-				</select>
-			</div>
-
 			<!-- 作詞家入力欄（DBのlyricistに入る） -->
 			<!--作詞家：-->
 			<div class="form-item">
@@ -68,14 +50,25 @@
 				<input type="text" name="releaseYMD"
 					placeholder="発売年月日（半角8桁：YYYYMMDD）">
 			</div>
-
-			<!-- 再生時間入力欄（DBのmusic_timeに入る） -->
-			<!--再生時間：-->
-			<div class="form-item">
-				<input type="text" name="music_time"
-					placeholder="再生時間（半角4桁：mmss）（必須）" required>
+			
+			<!-- ジャンル入力欄（DBのgenreに入る） -->
+			<!--ジャンル：-->
+			<div class="form-item pull-down">
+				<select name="genre" required>
+					<option class="" disabled selected>ジャンルを選択（必須）</option>
+					<option value="JPOP">J-POP</option>
+					<option value="KPOP">K-POP</option>
+					<option value="HPOP">HIPHOP</option>
+					<option value="CLSC">クラシック</option>
+					<option value="ROCK">ロック</option>
+					<option value="JAZZ">ジャズ</option>
+					<option value="RYBL">R&B</option>
+					<option value="EDMS">EDM</option>
+					<option value="ENKA">演歌</option>
+					<option value="OTHR">その他</option>
+				</select>
 			</div>
-
+			
 			<!-- 音楽ファイル選択欄（mp3などの音声ファイル） -->
 			<div class="form-item">
 				<!-- accept="audio/*" は音声ファイルだけ選べるようにする -->
@@ -85,6 +78,10 @@
 			<div class="form-item"
 				style="grid-column: span 2; text-align: center;">
 				<input type="submit" value="アップロード" class="submit-btn">
+			</div>
+			<!--26/01/20 再生時間をmetadataで取る作業の途中-->
+			<div class="form-item">
+				<input type="text" name="music_time" placeholder="1234" required>
 			</div>
 		</form>
 	</div>

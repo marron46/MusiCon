@@ -29,9 +29,12 @@ body {
 
 /* ロゴ画像 */
 .reverse-img {
-    width: 150px;
-    height: auto;
-    display: block;
+	width: 12vw;
+	max-width: 150px;  /*最大の幅 */
+	min-width: 60px;  /*最小の幅 */
+	height: auto;
+	margin-top: 20px; /* 上からの余白 */
+	margin-left: 15px; /* 左からの余白 */
 }
 
 

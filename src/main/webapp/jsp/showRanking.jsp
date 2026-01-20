@@ -59,7 +59,7 @@
     });
 </script>
 	<%-- ページタイトル --%>
-	<div class="rank-title">人気曲ランキングTOP10</div>
+	<h1 class="rank-title">人気曲ランキングTOP10</h1>
 	</div>
 	<div class="container">
 
