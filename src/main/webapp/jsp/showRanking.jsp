@@ -49,7 +49,7 @@ if(userName == null){
 			<li><a href="${pageContext.request.contextPath}/MyPlaylist"
 				class="menu">Playlist / プレイリスト</a></li>
 			<li><a href="${pageContext.request.contextPath}/ShowRanking"
-				class="menu">Ranking / ランキング</a></li>
+				class="menu"><div class=now>Ranking / ランキング</div></a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
 				class="menu">Add music / 曲アップロード</a></li>

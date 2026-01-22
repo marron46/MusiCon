@@ -292,6 +292,10 @@ body {
 .side-menu li:nth-child(5){ transition-delay: 1.5s; }
 .side-menu li:nth-child(6){ transition-delay: 1.6s; }
 
+.now {
+	border-bottom: 2px solid #8848A8;
+}
+
 /* 中央の白いフォーム枠*/ 
 .container {
 	position: fixed;  /* 固定位置 */

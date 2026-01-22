@@ -47,7 +47,7 @@ if(userName == null){
 			<li><a href="${pageContext.request.contextPath}/PlayMusic"
 				class="menu">TOP / TOPに戻る</a></li>
 			<li><a href="${pageContext.request.contextPath}/MyPlaylist"
-				class="menu">Playlist / プレイリスト</a></li>
+				class="menu"><div class=now>Playlist / プレイリスト</div></a></li>
 			<li><a href="${pageContext.request.contextPath}/ShowRanking"
 				class="menu">Ranking / ランキング</a></li>
 			<li><a

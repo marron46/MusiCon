@@ -54,7 +54,7 @@ if(userName == null){
 				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
 				class="menu">Add music / 曲アップロード</a></li>
 			<li><a href="${pageContext.request.contextPath}/MusicList"
-				class="menu">Music list / 楽曲一覧</a></li>
+				class="menu"><div class=now>Music list / 楽曲一覧</div></a></li>
 		</ul>
 		<ul class="menu-bottom">
 			<li><a href="${pageContext.request.contextPath}/Logout"

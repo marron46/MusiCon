@@ -51,7 +51,7 @@ if (userName == null) {
 				class="menu">Ranking / ランキング</a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/jsp/importMusic.jsp"
-				class="menu">Add music / 曲アップロード</a></li>
+				class="menu"><div class=now>Add music / 曲アップロード</div></a></li>
 			<li><a href="${pageContext.request.contextPath}/MusicList"
 				class="menu">Music list / 楽曲一覧</a></li>
 		</ul>
