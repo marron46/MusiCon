@@ -159,20 +159,7 @@ body.narrow #player-container .album-art {
 #player-container .info title {
   margin: 0; /*マージンを削除 */
   font-size: clamp(1.6rem, 3.5vw, 2.6rem);/*フォントサイズ*/
-  overflow: hidden;/*はみ出した文字を隠す*/
   font-weight: bold; /* 太字に */
-}
-
-.title-text {
-  display: inline-block;
-  padding-right: 100%;/*文字を最初、左端の外に配置*/
-  white-space: nowrap;/*改行させない（1行で流す）*/
-  animation: title 10s linear infinite;/*タイトルを10秒で１周一定速度で無限ループする*/
-}
-
-@keyframes title {
-  0% { transform: translate(0); }/*【開始時】要素を移動せず元の位置に表示*/
-  100% { transform: translate(+100%); }/*【終了時】右方向に自分の幅100％移動*/
 }
 
 /* 狭い画面用 */

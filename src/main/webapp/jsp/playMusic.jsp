@@ -133,7 +133,10 @@
 		<div class="info">
 
 			<!-- 曲タイトル -->
-			<h2 class="title"><%=music.getTitle()%></h2>
+			<h2 class="title">
+  			<span class="title-text"><%=music.getTitle()%></span>
+  			</h2>
+
 
 			<!-- アーティスト名 -->
 			<p class="artist"><%=music.getArtist()%></p>
