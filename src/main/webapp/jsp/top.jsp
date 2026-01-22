@@ -43,7 +43,7 @@ session.setAttribute("musicList", musicList);
 		<ul class="user-profile">
 		<img src="${pageContext.request.contextPath}/png/musi_usericon.png"
 						class="useri" width="36" alt="ユーザーアイコン">
-		<li><%=userName%><hr></li>
+		<li><%=userName%>さん</li>
 		</ul>
 		<ul class="menu-list">
 			<li><a href="${pageContext.request.contextPath}/PlayMusic"
