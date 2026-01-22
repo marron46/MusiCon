@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.Music"%>
+<% String userName = (String) session.getAttribute("user_name");
+if(userName == null){
+	response.sendRedirect(request.getContextPath() + "/index.jsp");
+	return;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +38,11 @@
 	<div class="overlay"></div>
 	<%-- メニュー --%>
 	<nav class="side-menu">
+	<ul class="user-profile">
+		<img src="${pageContext.request.contextPath}/png/musi_usericon.png"
+						class="useri" width="36" alt="ユーザーアイコン">
+		<li><%=userName%>さん</li>
+		</ul>
 		<ul class="menu-list">
 			<li><a href="${pageContext.request.contextPath}/PlayMusic"
 				class="menu">TOP / TOPに戻る</a></li>
