@@ -41,6 +41,8 @@ session.setAttribute("musicList", musicList);
 	<%-- メニュー --%>
 	<nav class="side-menu">
 		<ul class="user-profile">
+		<img src="${pageContext.request.contextPath}/png/musi_usericon.png"
+						class="useri" width="36" alt="ユーザーアイコン">
 		<li><%=userName%><hr></li>
 		</ul>
 		<ul class="menu-list">
@@ -99,7 +101,8 @@ session.setAttribute("musicList", musicList);
 				<a
 					href="${pageContext.request.contextPath}/PlayMusic?url=<%=java.net.URLEncoder.encode(m.getUrl(), "UTF-8")%>"
 					class="music-area btn-flat">
-					<div class="title"><%=m.getTitle()%></div>
+					<div class="marquee">
+                    <div class="title"><%=m.getTitle()%></div></div>
 					<div class="artist"><%=m.getArtist()%></div>
 					<div class="time"><%=m.getMusicTime() / 100%>:<%=String.format("%02d", m.getMusicTime() % 100)%></div>
 

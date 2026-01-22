@@ -127,6 +127,7 @@ public class MusicDAO {
 				pStmt.setInt(7, musicTime);
 				pStmt.setString(8, url);
 				pStmt.executeUpdate();
+				System.out.println(sql);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

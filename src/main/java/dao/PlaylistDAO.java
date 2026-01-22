@@ -34,6 +34,7 @@ public class PlaylistDAO {
 					"JOIN MUSICS m ON pi.P_MUSIC = m.ID " +
 					"WHERE pi.P_USER = ? " +
 					"ORDER BY pi.P_POS ASC, pi.PLAYLIST_ITEM_ID ASC";
+			System.out.println(sql);
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
 				ps.setInt(1, userId);
 				try (ResultSet rs = ps.executeQuery()) {
@@ -56,6 +57,7 @@ public class PlaylistDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+			
 		}
 		return items;
 	}
