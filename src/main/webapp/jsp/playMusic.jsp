@@ -150,32 +150,7 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    const likeBtn = document.getElementById("likeBtn");
-    const likeForm = document.getElementById("likeForm");
-    const likeCount = document.getElementById("likeCount");
-
-    const playlistBtn = document.getElementById("playlistBtn");
-    const playlistForm = document.getElementById("playlistForm");
-
-    if(likeBtn && likeForm && likeCount){
-        likeBtn.addEventListener("click", async e=>{
-            e.preventDefault();
-            likeBtn.disabled = true;
-            const prevCount = likeCount.textContent;
-            likeCount.textContent = "...";
-            try{
-                const res = await fetch(likeForm.action,{
-                    method:"POST",
-                    headers:{"X-Requested-With":"XMLHttpRequest"},
-                    body:new URLSearchParams(new FormData(likeForm)),
-                    credentials:"same-origin"
-                });
-                const json = await res.json();
-                likeCount.textContent = json?.likes ?? prevCount;
-            }catch(e){likeCount.textContent = prevCount;}
-            finally{likeBtn.disabled=false;}
-        });
-    }
+    
 
     if(playlistBtn && playlistForm){
         playlistBtn.addEventListener("click", async e=>{
