@@ -102,21 +102,6 @@ body.narrow #player-container {
     width: 95%;
     gap: 20px;
 }
-/*/* ▼ 全体を中央に配置するためのラッパー 
-.center-wrapper {
-  display: flex;
-  justify-content: center;   /* 横方向の中央 */
-  /*align-items: center;       /* 縦方向の中央 */
-  /*min-height: calc(100vh - 250px); /* 100vh(画面の高さ)から250px分だけ上のスペースを確保した高さ*/
-/*}*/
-
-
-/* ▼ プレイヤー自身も中央寄せしやすく 
-.player {
-  display: flex;
-  gap: 40px;
-  align-items: center;
-}*/
 
 
 /* ▼ ジャケ写スタイル */
@@ -130,13 +115,6 @@ body.narrow #player-container {
   aspect-ratio: 1 / 1; /* 正方形を維持 */
   background-color: #fff; /* 背景色は白 */
   border-radius: 10px; /* 角を10pxの半径で丸く */
-  
-  /*margin:30px 60px 0 0;/*上 右 下 左のマージンをそれぞれ別に指定する*/
-    /*padding-right: 30px;
-    padding-top: 10px;
-    width: 250px; /* 横幅 */
-    /*height: 265px; /* 高さ */
-  /*border: 1px solid #ddd; /* 薄い灰色の枠線（必要なら） */
 }
 
 /* 狭い画面用 */
@@ -162,6 +140,45 @@ body.narrow #player-container .album-art {
   font-weight: bold; /* 太字に */
 }
 
+/* タイトルの表示枠を固定 */
+.title {
+  max-width: 300px;        /* ← ここポイント */
+  margin: 0 auto;          /* 中央配置（位置は変わらない） */
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+}
+
+/* 動く文字 */
+.title-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+
+/* 右→左に流れる */
+@keyframes title-marquee-rl {
+  0% {
+    transform: translateX(0);  /* 頭文字が表示される */
+  }
+  10% {
+    transform: translateX(0);  /* 少し停止0%～3%で調整 3%部分増やしたら長くなる*/
+  }
+  93% {
+    transform: translateX(calc(-1 * var(--overflow))); /* 右→左へ移動 */
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--overflow)));
+  }
+}
+
+/*長いときのみ*/
+.title-text.marquee {
+  animation-name: title-marquee-rl;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
 /* 狭い画面用 */
 body.narrow #player-container .center-block button {
     width: 45px;
@@ -172,9 +189,41 @@ body.narrow #player-container .center-block button {
 
 /* ▼ アーティスト名スタイル */
 .artist {
+  max-width: 300px;        /* ← ここポイント */
   margin: 3px 0 20px; /* 上6px、下20pxのマージン */
-  font-size: clamp(1rem, 3vw, 1.95rem);/* フォントサイズ (最小値,可変値,最大値)*/
+  overflow: hidden;
+  font-size: clamp(1rem, 3vw, 1.5rem);/* フォントサイズ (最小値,可変値,最大値)*/
   opacity: 0.7; /* 少し透明に */
+  text-align: left;
+}
+
+/* 動く文字 */
+.artist-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* 右→左に流れる */
+@keyframes artist-marquee-rl {
+  0% {
+    transform: translateX(0);  /* 頭文字が表示される */
+  }
+  10% {
+    transform: translateX(0);  /* 少し停止0%～3%で調整 3%部分増やしたら長くなる*/
+  }
+  93% {
+    transform: translateX(calc(-1 * var(--overflow))); /* 右→左へ移動 */
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--overflow)));
+  }
+}
+
+/*長いときのみ*/
+.artist-text.marquee {
+  animation-name: title-marquee-rl;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 }
 
 

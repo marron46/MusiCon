@@ -1,223 +1,138 @@
-// ====== Audio 再生制御 ======
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("play");
-const loopBtn = document.getElementById("loop");
-const progress = document.getElementById("progress");
-const currentLabel = document.getElementById("current");
-const durationLabel = document.getElementById("duration");
-
-// ====== ループ（1曲リピート）切替 ======
-(() => {
-	if (!audio || !loopBtn) return;
-
-	function applyLoopState(enabled) {
-		audio.loop = !!enabled;
-		loopBtn.classList.toggle("toggle-active", !!enabled);
-		loopBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
-	}
-
-	// 初期状態（localStorageが使えない環境でも落ちないように）
-	try {
-		const saved = localStorage.getItem("music_loop") === "true";
-		applyLoopState(saved);
-	} catch (e) {
-		applyLoopState(false);
-	}
-
-	loopBtn.addEventListener("click", () => {
-		const next = !audio.loop;
-		applyLoopState(next);
-		try {
-			localStorage.setItem("music_loop", next ? "true" : "false");
-		} catch (e) {
-			// 保存できなくても動作は継続する
-		}
-	});
-})();
-
-// ▼ 横幅変更対応：ウィンドウ幅に応じて body にクラス付与
-function handleResize() {
-    if (window.innerWidth < 1200) {
-        document.body.classList.add("narrow");
-    } else {
-        document.body.classList.remove("narrow");
-    }
-}
-window.addEventListener("resize", handleResize);
-window.addEventListener("DOMContentLoaded", handleResize);
-/*function handleResize() {
-    if(window.innerWidth < 1200){
-        document.body.classList.add("narrow");
-    } else {
-        document.body.classList.remove("narrow");
-    }
-}
-window.addEventListener("resize", handleResize);
-// 初回読み込み時もチェック
-window.addEventListener("DOMContentLoaded", handleResize);*/
-// 再生/停止
-playBtn.addEventListener("click", () => {
-	if (audio.paused) {
-		audio.play();
-		playBtn.textContent = "⏸";
-	} else {
-		audio.pause();
-		playBtn.textContent = "▶";
-	}
-});
-// 曲の長さ読み込み
-audio.addEventListener("loadedmetadata", () => {
-	progress.max = audio.duration;
-	durationLabel.textContent = formatTime(audio.duration);
-});
-// 再生中に更新
-audio.addEventListener("timeupdate", () => {
-	progress.value = audio.currentTime;
-	currentLabel.textContent = formatTime(audio.currentTime);
-});
-// シーク
-progress.addEventListener("input", () => {
-	audio.currentTime = progress.value;
-});
-function formatTime(t) {
-	const m = Math.floor(t / 60);
-	const s = Math.floor(t % 60).toString().padStart(2, '0');
-	return `${m}:${s}`;
-}
-// 音量バーで変更する関数
-document.addEventListener("DOMContentLoaded", () => {
-	const audio = document.getElementById("audio");
-	const volumeSlider = document.getElementById("volume");
-	const volumeIcon = document.getElementById("volume-icon");
-	// ▼ 前の音量を保存する変数
-	let lastVolume = volumeSlider.value;
-	// ▼ 初期値
-	audio.volume = volumeSlider.value;
-	updateVolumeBar(volumeSlider.value);
-	// ▼ 音量スライダー操作
-	volumeSlider.addEventListener("input", () => {
-		const v = Number(volumeSlider.value);
-		audio.volume = v;
-		// ミュート解除時のために保存
-		if (v > 0) lastVolume = v;
-		localStorage.setItem("music_volume", v);
-		updateIcon(v);
-		updateVolumeBar(v);
-	});
-	
-	// ▼ 保存されている音量を復元
-	const savedVolume = localStorage.getItem("music_volume");
-
-	if (savedVolume !== null) {
-	  const v = Number(savedVolume);
-	  audio.volume = v;
-	  volumeSlider.value = v;
-	  updateIcon(v);
-	  updateVolumeBar(v);
-	} else {
-	  // 初回のみデフォルト
-	  audio.volume = volumeSlider.value;
-	  updateVolumeBar(volumeSlider.value);
-	}
-
-	// ▼ 音量シークバーの色変更関数
-	function updateVolumeBar(value) {
-	  const min = volumeSlider.min || 0;
-	  const max = volumeSlider.max || 1;
-	  const percent = ((value - min) / (max - min)) * 100;
-
-	  volumeSlider.style.background = `
-	    linear-gradient(
-	      to right,
-	      white ${percent}%,
-	      rgba(255,255,255,0.4) ${percent}%
-	    )
-	  `;
-	}
-
-	// ▼ アイコンクリックでミュート / 解除
-	volumeIcon.addEventListener("click", () => {
-		if (audio.volume > 0) {
-			// ミュート
-			lastVolume = audio.volume;  // 元の音量を記憶
-			audio.volume = 0;
-			volumeSlider.value = 0;
-			localStorage.setItem("music_volume", 0);
-			updateVolumeBar(volumeSlider.value);
-			updateIcon(0);
-		} else {
-			// ミュート解除（元の音量に戻す）
-			audio.volume = lastVolume;
-			volumeSlider.value = lastVolume;
-			localStorage.setItem("music_volume", lastVolume);
-			updateVolumeBar(volumeSlider.value);
-			updateIcon(lastVolume);
-		}
-	});
-	// ▼ アイコン更新関数
-	function updateIcon(v) {
-		if (v === 0) {
-			volumeIcon.textContent = "🔇";
-		} else if (v < 0.23) {
-			volumeIcon.textContent = "🔈";
-		} else if (v < 0.47) {
-			volumeIcon.textContent = "🔉";
-		} else {
-			volumeIcon.textContent = "🔊";
-		}
-	}
-});
-
-/* =========================================
-   イコライザー
-========================================= */
-
 window.addEventListener("DOMContentLoaded", () => {
 
-  /* ===============================
-     要素取得
-  =============================== */
-  const audio   = document.getElementById("audio");
+  const audio = document.getElementById("audio");
   const playBtn = document.getElementById("play");
-  const canvas  = document.getElementById("equalizer");
-  const ctx     = canvas.getContext("2d");
+  const loopBtn = document.getElementById("loop");
+  const progress = document.getElementById("progress");
+  const currentLabel = document.getElementById("current");
+  const durationLabel = document.getElementById("duration");
+  const volumeSlider = document.getElementById("volume");
+  const volumeIcon = document.getElementById("volume-icon");
+  const canvas = document.getElementById("equalizer");
 
-  /* ===============================
-     見た目設定（ここ触る）
-  =============================== */
-  const BAR_WIDTH = 12; // バー1本の太さ(px)
-  const GAP       = 8;  // バー同士の隙間(px)
+  /* 再生 / 停止 */
+  playBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      playBtn.textContent = "⏸";
+    } else {
+      audio.pause();
+      playBtn.textContent = "▶";
+    }
+  });
 
-  /* ===============================
-     CanvasサイズをCSSと同期
-     （これをしないとボケる）
-  =============================== */
+  audio.addEventListener("loadedmetadata", () => {
+    progress.max = audio.duration;
+    durationLabel.textContent = formatTime(audio.duration);
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    progress.value = audio.currentTime;
+    currentLabel.textContent = formatTime(audio.currentTime);
+  });
+
+  progress.addEventListener("input", () => {
+    audio.currentTime = progress.value;
+  });
+
+  function formatTime(t) {
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  }
+
+  /* ループ */
+  function applyLoopState(enabled) {
+    audio.loop = enabled;
+    loopBtn.classList.toggle("toggle-active", enabled);
+    loopBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+  }
+
+  try {
+    applyLoopState(localStorage.getItem("music_loop") === "true");
+  } catch {
+    applyLoopState(false);
+  }
+
+  loopBtn.addEventListener("click", () => {
+    const next = !audio.loop;
+    applyLoopState(next);
+    try {
+      localStorage.setItem("music_loop", next);
+    } catch {}
+  });
+
+  /* 音量 */
+  let lastVolume = volumeSlider.value;
+  audio.volume = volumeSlider.value;
+
+  const savedVolume = localStorage.getItem("music_volume");
+  if (savedVolume !== null) {
+    audio.volume = savedVolume;
+    volumeSlider.value = savedVolume;
+  }
+  updateIcon(audio.volume);
+  updateVolumeBar(audio.volume);
+
+  volumeSlider.addEventListener("input", () => {
+    const v = Number(volumeSlider.value);
+    audio.volume = v;
+    if (v > 0) lastVolume = v;
+    localStorage.setItem("music_volume", v);
+    updateIcon(v);
+    updateVolumeBar(v);
+  });
+
+  volumeIcon.addEventListener("click", () => {
+    if (audio.volume > 0) {
+      lastVolume = audio.volume;
+      audio.volume = 0;
+      volumeSlider.value = 0;
+    } else {
+      audio.volume = lastVolume;
+      volumeSlider.value = lastVolume;
+    }
+    localStorage.setItem("music_volume", audio.volume);
+    updateIcon(audio.volume);
+    updateVolumeBar(audio.volume);
+  });
+
+  function updateIcon(v) {
+    if (v === 0) volumeIcon.textContent = "🔇";
+    else if (v < 0.3) volumeIcon.textContent = "🔈";
+    else if (v < 0.6) volumeIcon.textContent = "🔉";
+    else volumeIcon.textContent = "🔊";
+  }
+
+  function updateVolumeBar(value) {
+    const min = Number(volumeSlider.min) || 0;
+    const max = Number(volumeSlider.max) || 1;
+    const percent = ((value - min) / (max - min)) * 100;
+
+    volumeSlider.style.background =
+      `linear-gradient(to right, white ${percent}%, rgba(255,255,255,0.4) ${percent}%)`;
+  }
+
+
+  /* イコライザー */
+  const ctx = canvas.getContext("2d");
+
   function resizeCanvas() {
-    canvas.width  = canvas.offsetWidth;
+    canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
   }
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
 
-  /* ===============================
-     Web Audio API 初期化
-  =============================== */
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   const audioCtx = new AudioContext();
-
-  // 音の解析担当
   const analyser = audioCtx.createAnalyser();
-  analyser.fftSize = 128; // 値を上げるとバーが細かくなる
+  analyser.fftSize = 128;
 
-  // 周波数データ格納用
   const dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-  // MediaElementSource は1回しか作れないのでフラグ管理
   let sourceCreated = false;
+  let isDrawing = false;
 
-  /* ==============================
-  	Web Audio の接続処理 
-   =============================== */
   function setupAudio() {
     if (!sourceCreated) {
       const source = audioCtx.createMediaElementSource(audio);
@@ -227,59 +142,122 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* ===============================
-     描画処理
-  =============================== */
-  let isDrawing = false;
-
   function draw() {
     if (!isDrawing) return;
 
     analyser.getByteFrequencyData(dataArray);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+    ctx.fillStyle = "rgba(255,255,255,0.3)";
 
-    const unit = BAR_WIDTH + GAP;
-    const maxBars = Math.floor(canvas.width / unit);
-    const barCount = Math.min(maxBars, dataArray.length);
-    const totalWidth = barCount * unit - GAP;
-    const offsetX = (canvas.width - totalWidth) / 2;
+    const barWidth = 12;
+    const gap = 8;
+    const unit = barWidth + gap;
+    const count = Math.min(Math.floor(canvas.width / unit), dataArray.length);
+    const offsetX = (canvas.width - (count * unit - gap)) / 2;
 
-    for (let i = 0; i < barCount; i++) {
-      const raw = dataArray[i];
-      const centerBoost = Math.sin((i / (barCount - 1)) * Math.PI);
-      const h = (raw / 255) * canvas.height * (0.3 + centerBoost * 0.9) * 0.9;
+    for (let i = 0; i < count; i++) {
+      const value = dataArray[i];
+      const boost = Math.sin((i / (count - 1)) * Math.PI);
+      const h = (value / 255) * canvas.height * (0.3 + boost);
 
       ctx.beginPath();
       ctx.roundRect(
         offsetX + i * unit,
         canvas.height - h,
-        BAR_WIDTH,
+        barWidth,
         h,
         6
       );
       ctx.fill();
     }
-
     requestAnimationFrame(draw);
   }
 
+  audio.addEventListener("play", () => {
+    audioCtx.resume();
+    setupAudio();
+    isDrawing = true;
+    draw();
+  });
 
-  /* ===============================
-       再生開始時
-    =============================== */
-	
-	audio.addEventListener("play", () => {
-	  audioCtx.resume();
-	  setupAudio();
-	  isDrawing = true;
-	  draw();
-	});
+  audio.addEventListener("pause", () => {
+    isDrawing = false;
+  });
 
-	audio.addEventListener("pause", () => {
-	  isDrawing = false;
-	});
+  /* いいね */
+  const likeBtn = document.getElementById("likeBtn");
+  const likeForm = document.getElementById("likeForm");
+  const likeCount = document.getElementById("likeCount");
 
-	updateVolumeBar(volumeSlider.value);
+  if (likeBtn && likeForm && likeCount) {
+      likeBtn.addEventListener("click", async (e) => {
+          likeBtn.disabled = true;
+          const prevCount = likeCount.textContent;
+          likeCount.textContent = "...";
 
-})();
+          try {
+              const res = await fetch(likeForm.action, {
+                  method: "POST",
+                  headers: { "X-Requested-With": "XMLHttpRequest" },
+                  body: new URLSearchParams(new FormData(likeForm)),
+                  credentials: "same-origin"
+              });
+
+              if (!res.ok) throw new Error("HTTP " + res.status);
+              const json = await res.json();
+              if (!json || json.success !== true) throw new Error("BAD_RESPONSE");
+
+              if (typeof json.likes === "number") {
+                  likeCount.textContent = json.likes;
+              } else {
+                  likeCount.textContent = prevCount;
+              }
+          } catch (err) {
+              likeCount.textContent = prevCount;
+              alert("いいねの更新に失敗しました");
+              console.error(err);
+          } finally {
+              likeBtn.disabled = false;
+          }
+      });
+  }
+
+
+});
+
+
+/* タイトルアニメーション */
+const title = document.querySelector(".title");
+const titleText = document.querySelector(".title-text");
+
+if (title && titleText) {
+  const overflow = titleText.scrollWidth - title.clientWidth;
+
+  if (overflow > 0) {
+    const speed = 70; // 70px/秒（ここを調整すると速さが変わる。数字大きいと速い）
+    const duration = overflow / speed;
+
+    titleText.classList.add("marquee");
+    titleText.style.setProperty("--overflow", `${overflow}px`);
+    titleText.style.animationDuration = `${duration}s`;
+  }
+}
+
+/* アーティスト名アニメーション */
+const artist = document.querySelector(".artist");
+const artistText = document.querySelector(".artist-text");
+
+if (artist && artistText) {
+  const overflow = artistText.scrollWidth - artist.clientWidth;
+
+  if (overflow > 0) {
+    const speed = 70; // 70px/秒（ここを調整すると速さが変わる。数字大きいと速い）
+    const duration = overflow / speed;
+
+    artistText.classList.add("marquee");
+    artistText.style.setProperty("--overflow", `${overflow}px`);
+    artistText.style.animationDuration = `${duration}s`;
+  }
+}
+
+
