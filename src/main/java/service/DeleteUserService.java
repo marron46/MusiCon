@@ -13,8 +13,8 @@ public class DeleteUserService {
 	 * @param user ユーザー情報
 	 * @return 削除成功時はtrue、失敗時はfalse
 	 */
-	public boolean execute(User user) {
+	public boolean execute(User user, String user_pass) {
 		UserDAO dao = new UserDAO();
-		return dao.deleteUser(user);
+		return dao.deleteUser(user, user_pass);
 	}
 }

@@ -30,7 +30,8 @@ public class DeleteUser extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得
 		request.setCharacterEncoding("UTF-8");
-		String user_name = request.getParameter("user_name");
+		HttpSession session = request.getSession();
+		String user_name = (String)session.getAttribute("user_name");
 		String Hr_user_pass = request.getParameter("user_pass");
 
 		if (Hr_user_pass == null || Hr_user_pass.isEmpty()) {
@@ -43,12 +44,11 @@ public class DeleteUser extends HttpServlet {
 		// ユーザー削除処理の実行
 		User user = new User(user_name, user_pass);
 		DeleteUserService service = new DeleteUserService();
-		boolean result = service.execute(user);
+		boolean result = service.execute(user, user_pass);
 
 		// ユーザー削除処理の成否によって処理を分岐
 		if (result) { // ユーザー削除成功時
 			// セッションスコープにユーザーIDを保存
-			HttpSession session = request.getSession();
 			session.setAttribute("user_name", user_name);
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/deleteResult.jsp");

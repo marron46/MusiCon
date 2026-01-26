@@ -93,12 +93,12 @@ public class UserDAO {
 	 * @param user 削除するユーザー情報
 	 * @return 削除成功時はtrue、失敗時はfalse
 	 */
-	public boolean deleteUser(User user) {
+	public boolean deleteUser(User user, String user_pass) {
 		try (Connection conn = DatabaseConnection.getConnection()) {
 			String sql = "UPDATE USERS SET IS_DELETED = 1 WHERE USER_NAME=? AND USER_PASS=?";
 			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
 				pStmt.setString(1, user.getUserName());
-				pStmt.setString(2, user.getUserPass());
+				pStmt.setString(2, user_pass);
 				return pStmt.executeUpdate() > 0;
 			}
 		} catch (SQLException e) {
