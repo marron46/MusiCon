@@ -78,31 +78,20 @@ if (userName == null) {
 			<div class="form-item">
 				<!-- タイトル入力欄（DBのtitleに入る） -->
 				<!--タイトル：-->
-				<input type="text" name="title" placeholder="タイトル（必須）" required>
+				<input type="text" name="title" placeholder="タイトル" required>
 			</div>
 
 			<!-- アーティスト入力欄（DBのartistに入る） -->
 			<!--アーティスト名：-->
 			<div class="form-item">
-				<input type="text" name="artist" placeholder="アーティスト（必須）" required>
-			</div>
-			<!-- 作詞家入力欄（DBのlyricistに入る） -->
-			<!--作詞家：-->
-			<div class="form-item">
-				<input type="text" name="lyricist" placeholder="作詞者（必須）" required>
+				<input type="text" name="artist" placeholder="アーティスト" required>
 			</div>
 
-			<!-- 作曲家入力欄（DBのcomposerに入る） -->
-			<!--作曲家：-->
-			<div class="form-item">
-				<input type="text" name="composer" placeholder="作曲者（必須）" required>
-			</div>
-
-			<!-- 発売年月日入力欄（DBのrelease_ymdに入る） -->
+			<!-- 発売年月日入力欄（DBのrelease_yに入る） -->
 			<!--発売年月日：-->
 			<div class="form-item">
-				<input type="text" name="releaseYMD"
-					placeholder="発売年月日（半角8桁：YYYYMMDD）">
+				<input type="text" name="releaseYear"
+					placeholder="発売年">
 			</div>
 			
 			<!-- ジャンル入力欄（DBのgenreに入る） -->

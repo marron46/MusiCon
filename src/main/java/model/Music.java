@@ -5,9 +5,7 @@ public class Music {//Music情報格納
 	private String title;//タイトル
 	private String genre;//ジャンル
 	private String artist;//アーティスト名
-	private String lyricist;//作詞家
-	private String composer;//作曲家
-	private int releaseYMD;//発売年月日
+	private int releaseY;//発売年月日
 	private int music_time;//再生時間
 	private int likes;//いいね数
 	private String searchText;//検索情報
@@ -17,14 +15,11 @@ public class Music {//Music情報格納
 	public Music() {
 	}
 
-	public Music(String title, String genre, String artist, String lyricist, String composer, int releaseYMD,
-			int music_time) {
+	public Music(String title, String genre, String artist, int releaseY, int music_time) {
 		this.title = title;
 		this.genre = genre;
 		this.artist = artist;
-		this.lyricist = lyricist;
-		this.composer = composer;
-		this.releaseYMD = releaseYMD;
+		this.releaseY = releaseY;
 		this.music_time = music_time;
 
 	}
@@ -86,20 +81,10 @@ public class Music {//Music情報格納
 	}
 	public void setArtist(String artist) { this.artist = artist; }
 
-	public String getLyricist() {
-		return lyricist;
+	public int getReleaseY() {
+		return releaseY;
 	}
-	public void setLyricist(String lyricist) { this.lyricist = lyricist; }
-
-	public String getComposer() {
-		return composer;
-	}
-	public void setComposer(String composer) { this.composer = composer; }
-
-	public int getReleaseYMD() {
-		return releaseYMD;
-	}
-	public void setReleaseYMD(int releaseYMD) { this.releaseYMD = releaseYMD; }
+	public void setReleaseY(int releaseY) { this.releaseY = releaseY; }
 
 	public int getMusicTime() {
 		return music_time;

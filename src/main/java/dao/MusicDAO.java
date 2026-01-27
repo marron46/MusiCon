@@ -105,27 +105,23 @@ public class MusicDAO {
 	/**
 	 * 音楽をデータベースに登録
 	 * @param title タイトル
-	 * @param genre ジャンル
 	 * @param artist アーティスト
-	 * @param lyricist 作詞家
-	 * @param composer 作曲家
 	 * @param releaseYmd 発売年月日
 	 * @param musicTime 再生時間
+	 * @param genre ジャンル
 	 * @param url URL
 	 */
-	public void insert(String title, String genre, String artist, String lyricist, String composer, int releaseYmd,
+	public void insert(String title, String genre, String artist, int releaseY,
 			int musicTime, String url) {
 		try (Connection conn = DatabaseConnection.getConnection()) {
-			String sql = "INSERT INTO musics(title, genre, artist, lyricist, composer, release_ymd, music_time, url) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO musics(title, genre, artist, release_y, music_time, url) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
 				pStmt.setString(1, title);
-				pStmt.setString(2, genre);
-				pStmt.setString(3, artist);
-				pStmt.setString(4, lyricist);
-				pStmt.setString(5, composer);
-				pStmt.setInt(6, releaseYmd);
-				pStmt.setInt(7, musicTime);
-				pStmt.setString(8, url);
+				pStmt.setString(2, artist);
+				pStmt.setInt(3, releaseY);
+				pStmt.setInt(4, musicTime);
+				pStmt.setString(5, genre);
+				pStmt.setString(6, url);
 				pStmt.executeUpdate();
 				System.out.println(sql);
 			}

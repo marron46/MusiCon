@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import jakarta.servlet.jsp.tagext.Tag;
 
 import model.Music;
 import service.ImportMusicService;
@@ -66,18 +67,18 @@ public class ImportMusic extends HttpServlet {
 		// リクエストパラメータを取得
 		// releaseYearをint型に変換 + 残りの宣言
 		request.setCharacterEncoding("UTF-8");
-		String title = request.getParameter("title");
 		String genre = request.getParameter("genre");
-		String artist = request.getParameter("artist");
-		String lyricist = request.getParameter("lyricist");
-		String composer = request.getParameter("composer");
-		String Str_releaseYMD = request.getParameter("releaseYMD");
-		String Str_music_time = request.getParameter("music_time");
 		Part filePart = request.getPart("file"); // アップロードされたファイル
-
-		// int型に変換
-		int releaseYMD = Integer.parseInt(Str_releaseYMD);
-		int music_time = Integer.parseInt(Str_music_time);
+		String strFilePart = filePart.getSubmittedFileName();
+		
+		// ここにメタデータからとるやつをつくるよ
+		File file = new File(strFilePart);
+		
+		AudioFile audioFile = AudioFileIO.read(file);
+		Tag tag = audioFile.getTag();
+		
+		String title = tag.getFirst(FieldKey.TITLE);
+		
 
 		// 保存フォルダ：永続ディレクトリに保存（デプロイの影響を受けないようにユーザーHOME配下に作成）
 		String uploadPath = System.getProperty("user.home") + File.separator + "musicon-music";
@@ -109,7 +110,7 @@ public class ImportMusic extends HttpServlet {
 		String dbFilePath = "/MusicFile?file=" + randomFileName;
 
 		// DAO → DB登録
-		service.addMusic(title, genre, artist, lyricist, composer, releaseYMD, music_time, dbFilePath);
+		service.addMusic(title, genre, artist, releaseY, music_time, dbFilePath);
 
 		// フォワード
 		doGet(request, response);
