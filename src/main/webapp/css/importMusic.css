@@ -60,6 +60,23 @@ input[type="file"]{
 	margin-bottom: 30px; /* 下の余白 */
 }
 
+/* フォーム説明・エラーメッセージ */
+.form-note {
+	color: #555;
+	font-size: 14px;
+	margin-bottom: 16px;
+	text-align: left;
+}
+.error-msg {
+	color: #c00;
+	font-size: 14px;
+	margin-bottom: 16px;
+	padding: 10px;
+	background-color: #ffe0e0;
+	border-radius: 5px;
+	text-align: left;
+}
+
 /* プルダウンの見た目統一 */
 .pull-down select {
 	appearance: none;            /* OS のデフォルト矢印を無効化 */

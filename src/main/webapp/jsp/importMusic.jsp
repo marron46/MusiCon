@@ -72,30 +72,15 @@ if (userName == null) {
 </script>
 	<div class="container">
 		<h1 class="iMusic-title">曲アップロード</h1>
-		<!-- enctype="multipart/form-data" が重要。これを付けないとファイルがサーバーに送れない。 -->
+		<p class="form-note">ファイルとジャンルを選択してください。タイトル・アーティストなどはメタデータから自動取得します。</p>
+		<% if (request.getAttribute("importError") != null) {
+			String err = (String) request.getAttribute("importError");
+			String errEsc = err.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+		%>
+		<p class="error-msg"><%= errEsc %></p>
+		<% } %>
 		<form action="${pageContext.request.contextPath}/ImportMusic"
 			method="post" enctype="multipart/form-data" class="grid">
-			<div class="form-item">
-				<!-- タイトル入力欄（DBのtitleに入る） -->
-				<!--タイトル：-->
-				<input type="text" name="title" placeholder="タイトル" required>
-			</div>
-
-			<!-- アーティスト入力欄（DBのartistに入る） -->
-			<!--アーティスト名：-->
-			<div class="form-item">
-				<input type="text" name="artist" placeholder="アーティスト" required>
-			</div>
-
-			<!-- 発売年月日入力欄（DBのrelease_yに入る） -->
-			<!--発売年月日：-->
-			<div class="form-item">
-				<input type="text" name="releaseYear"
-					placeholder="発売年">
-			</div>
-			
-			<!-- ジャンル入力欄（DBのgenreに入る） -->
-			<!--ジャンル：-->
 			<div class="form-item pull-down">
 				<select name="genre" required>
 					<option class="" disabled selected>ジャンルを選択（必須）</option>
@@ -111,20 +96,11 @@ if (userName == null) {
 					<option value="OTHR">その他</option>
 				</select>
 			</div>
-			
-			<!-- 音楽ファイル選択欄（mp3などの音声ファイル） -->
 			<div class="form-item">
-				<!-- accept="audio/*" は音声ファイルだけ選べるようにする -->
 				<input type="file" name="file" accept="audio/*" required>
 			</div>
-			<!-- 送信ボタン。押すとサーブレットにデータが送られる -->
-			<div class="form-item"
-				style="grid-column: span 2; text-align: center;">
+			<div class="form-item" style="grid-column: span 2; text-align: center;">
 				<input type="submit" value="アップロード" class="submit-btn">
-			</div>
-			<!--26/01/20 再生時間をmetadataで取る作業の途中-->
-			<div class="form-item">
-				<input type="text" name="music_time" placeholder="1234" required>
 			</div>
 		</form>
 	</div>

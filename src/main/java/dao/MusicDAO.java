@@ -114,13 +114,13 @@ public class MusicDAO {
 	public void insert(String title, String genre, String artist, int releaseY,
 			int musicTime, String url) {
 		try (Connection conn = DatabaseConnection.getConnection()) {
-			String sql = "INSERT INTO musics(title, genre, artist, release_y, music_time, url) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO musics(title, genre, artist, release_ymd, music_time, url) VALUES(?, ?, ?, ?, ?, ?)";
 			try (PreparedStatement pStmt = conn.prepareStatement(sql)) {
 				pStmt.setString(1, title);
-				pStmt.setString(2, artist);
-				pStmt.setInt(3, releaseY);
-				pStmt.setInt(4, musicTime);
-				pStmt.setString(5, genre);
+				pStmt.setString(2, genre);
+				pStmt.setString(3, artist);
+				pStmt.setInt(4, releaseY);
+				pStmt.setInt(5, musicTime);
 				pStmt.setString(6, url);
 				pStmt.executeUpdate();
 				System.out.println(sql);

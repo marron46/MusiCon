@@ -44,15 +44,25 @@ if (isPlaylistMode) {
 boolean autoPlay = "true".equals(request.getParameter("autoplay"));
 
 String musicUrl = music.getUrl();
+String jacketUrl = "";
 if (musicUrl != null) {
     if (musicUrl.contains("MusicFile?file=")) {
         if (!musicUrl.startsWith("http") && !musicUrl.startsWith(request.getContextPath())) {
             if (musicUrl.startsWith("/")) musicUrl = request.getContextPath() + musicUrl;
             else musicUrl = request.getContextPath() + "/" + musicUrl;
         }
+        int fileStart = musicUrl.indexOf("file=");
+        if (fileStart >= 0) {
+            String fileParam = musicUrl.substring(fileStart + 5);
+            if (fileParam.contains("&")) fileParam = fileParam.substring(0, fileParam.indexOf("&"));
+            if (!fileParam.isEmpty()) {
+                jacketUrl = request.getContextPath() + "/Jacket?file=" + java.net.URLEncoder.encode(fileParam, "UTF-8");
+            }
+        }
     } else if (musicUrl.contains("/music/")) {
         String fileName = musicUrl.substring(musicUrl.lastIndexOf("/") + 1);
         musicUrl = request.getContextPath() + "/MusicFile?file=" + java.net.URLEncoder.encode(fileName, "UTF-8");
+        jacketUrl = request.getContextPath() + "/Jacket?file=" + java.net.URLEncoder.encode(fileName, "UTF-8");
     } else if (!musicUrl.startsWith("http") && !musicUrl.startsWith("/")) {
         musicUrl = request.getContextPath() + "/" + musicUrl;
     } else if (musicUrl.startsWith("/") && !musicUrl.startsWith(request.getContextPath())) {
@@ -72,8 +82,12 @@ if (musicUrl != null) {
     </a>
 </div>
 
+<% String defaultJacketUrl = request.getContextPath() + "/png/MusiConLogo.png"; %>
 <div id="player-container">
-    <div class="album-art"></div>
+    <div class="album-art">
+        <img src="<%= (jacketUrl != null && !jacketUrl.isEmpty()) ? jacketUrl : defaultJacketUrl %>" alt="ジャケット" class="album-art-img"
+             onerror="this.onerror=null; this.src='<%= defaultJacketUrl %>';">
+    </div>
     <div class="info">
     
 		<!-- タイトル -->
@@ -116,8 +130,7 @@ if (musicUrl != null) {
 
             <form id="playlistForm" action="${pageContext.request.contextPath}/MyPlaylist" method="post">
                 <input type="hidden" name="id" value="<%=music.getId()%>">
-                <button id="playlistBtn" type="button"
-                        style="background-color: <%=isInPlaylist ? "#f7d358" : "#dddddd"%>;">
+                <button id="playlistBtn" type="button" class="<%= isInPlaylist ? "playlist-in" : "playlist-out" %>">
                     <%=isInPlaylist ? "★ プレイリストから外す" : "☆ プレイリストに追加"%>
                 </button>
             </form>
@@ -161,7 +174,7 @@ window.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             playlistBtn.disabled = true;
             const prevText = playlistBtn.textContent;
-            const prevBg = playlistBtn.style.backgroundColor;
+            const prevClass = playlistBtn.classList.contains("playlist-in") ? "playlist-in" : "playlist-out";
             playlistBtn.textContent = "更新中...";
             try{
                 const res = await fetch(playlistForm.action,{
@@ -173,9 +186,10 @@ window.addEventListener("DOMContentLoaded", () => {
                 const json = await res.json();
                 const inPlaylist = !!json?.inPlaylist;
                 playlistBtn.dataset.inPlaylist = inPlaylist;
-                if(inPlaylist){playlistBtn.textContent="★ プレイリストから外す"; playlistBtn.style.backgroundColor="#f7d358";}
-                else {playlistBtn.textContent="☆ プレイリストに追加"; playlistBtn.style.backgroundColor="#dddddd";}
-            }catch(e){playlistBtn.textContent=prevText; playlistBtn.style.backgroundColor=prevBg;}
+                playlistBtn.classList.remove("playlist-in","playlist-out");
+                playlistBtn.classList.add(inPlaylist ? "playlist-in" : "playlist-out");
+                playlistBtn.textContent = inPlaylist ? "★ プレイリストから外す" : "☆ プレイリストに追加";
+            }catch(e){playlistBtn.textContent=prevText; playlistBtn.classList.remove("playlist-in","playlist-out"); playlistBtn.classList.add(prevClass);}
             finally{playlistBtn.disabled=false;}
         });
     }

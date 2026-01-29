@@ -45,6 +45,13 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>${mysql.connector.version}</version>
         </dependency>
+
+        <!-- JAudioTagger: MP3 など音声ファイルのメタデータ読み取り -->
+        <dependency>
+            <groupId>net.jthink</groupId>
+            <artifactId>jaudiotagger</artifactId>
+            <version>2.2.5</version>
+        </dependency>
     </dependencies>
 
     <build>

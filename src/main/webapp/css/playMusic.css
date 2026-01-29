@@ -106,15 +106,31 @@ body.narrow #player-container {
 
 /* ▼ ジャケ写スタイル */
 #player-container .album-art {
-  width: 25%;
+  flex: 0 0 auto;        /* 伸縮させず、コンテンツで伸びない */
+  width: min(25%, 250px);
   max-width: 250px;
   min-width: 150px;
-  height: 25%;
-  max-height: 250px;
-  min-height: 150px;
-  aspect-ratio: 1 / 1; /* 正方形を維持 */
-  background-color: #fff; /* 背景色は白 */
-  border-radius: 10px; /* 角を10pxの半径で丸く */
+  aspect-ratio: 1 / 1;   /* 正方形を維持 */
+  background-color: #fff; /* 背景色は白（ジャケなし時） */
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* MP3埋め込みジャケット画像（親をはみ出さない） */
+#player-container .album-art img,
+#player-container .album-art .album-art-img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
 }
 
 /* 狭い画面用 */
@@ -270,6 +286,10 @@ body.narrow #player-container .center-block button {
 .controls button:hover {
   background: rgba(255, 255, 255, 0.15); /* ホバー時に背景色を少し透明に */
 }
+
+/* プレイリストボタン：登録済み／未登録 */
+#playlistBtn.playlist-in { background-color: #f7d358; }
+#playlistBtn.playlist-out { background-color: #dddddd; }
 
 
 /* ▼ シークバー関連*/
