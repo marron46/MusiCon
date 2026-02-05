@@ -32,7 +32,6 @@ public class ShowRanking extends HttpServlet {
 		ShowRankingService service = new ShowRankingService();
 		// いいねランキングを取得
 		List<Music> ranking = service.getRanking();
-		System.out.println("ランキング出力:" + ranking);
 		// セッションスコープにランキングリストを保存
 		session.setAttribute("ranking", ranking);
 		// フォワード

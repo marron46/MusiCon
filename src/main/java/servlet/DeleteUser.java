@@ -35,7 +35,7 @@ public class DeleteUser extends HttpServlet {
 		String Hr_user_pass = request.getParameter("user_pass");
 
 		if (Hr_user_pass == null || Hr_user_pass.isEmpty()) {
-			System.out.println("値が空です");
+			System.out.println("servlet/DeleteUser｜値が空です");
 			return;
 		}
 		// ハッシュ化
@@ -53,11 +53,9 @@ public class DeleteUser extends HttpServlet {
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/deleteResult.jsp");
 			dispatcher.forward(request, response);
-			System.out.println("でけた！");
 		} else { // ユーザー削除失敗時
 			// リダイレクト
 			response.sendRedirect(request.getContextPath() + "/DeleteUser");
-			System.out.println("できない");
 		}
 	}
 

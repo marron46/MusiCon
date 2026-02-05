@@ -45,13 +45,10 @@ public class Search extends HttpServlet {
 
 		// セッションスコープに曲タイトルを保存
 		session.setAttribute("searchList", result);
-		System.out.println("検索結果" + result);
 		session.setAttribute("searchText", searchText);
-		System.out.println("searchText:"+searchText);
 		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/searchResult.jsp");
 		dispatcher.forward(request, response);
-		System.out.print("でけた！");
 
 	}
 }

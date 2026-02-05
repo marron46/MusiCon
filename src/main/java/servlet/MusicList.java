@@ -20,7 +20,6 @@ public class MusicList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("ミュージックリストPost");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user_name") == null) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
@@ -49,10 +48,9 @@ public class MusicList extends HttpServlet {
 		String maxYearStr = request.getParameter("maxYear");
 		String genre = request.getParameter("genre");
 
-		System.out.println("更新したよminYear"+minYearStr);
-		System.out.println("更新したよmaxYear"+maxYearStr);
-		System.out.println("更新したよgenre"+genre);
-		System.out.println("更新しきったよ");
+		System.out.println("MusicList minYear"+minYearStr);
+		System.out.println("MusicList maxYear"+maxYearStr);
+		System.out.println("MusicList genre  "+genre);
 
 		PlayMusicService service = new PlayMusicService();
 		List<Music> musicList;

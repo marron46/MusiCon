@@ -35,7 +35,6 @@ public class LoginUser extends HttpServlet {
 		String Hr_user_pass = request.getParameter("user_pass");
 
 		if (Hr_user_pass == null || Hr_user_pass.isEmpty()) {
-			System.out.println("値が空です");
 			request.setAttribute("loginError", "パスワードが空です");
 			request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
 			return;
@@ -47,7 +46,6 @@ public class LoginUser extends HttpServlet {
 		User user = new User(user_name, user_pass);
 		LoginUserService service = new LoginUserService();
 		User result = service.execute(user);
-		System.out.println("Servlet result:" + result);
 
 		if (result != null) {
 		    // ログイン成功
@@ -62,7 +60,6 @@ public class LoginUser extends HttpServlet {
 		    
 		    // PlayMusicページへリダイレクト
 		    response.sendRedirect(request.getContextPath() + "/PlayMusic");
-		    System.out.print("ログインでけた！");
 		} else {
 		    // ログイン失敗した場合、エラーメッセージとエラー情報を設定
 		    request.setAttribute("errorMessage", "ユーザー名またはパスワードが違います。");
@@ -73,7 +70,6 @@ public class LoginUser extends HttpServlet {
 		    
 		    // エラー情報をJSPに転送
 		    request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
-		    System.out.print("ログインできない");
 		}
 
 	}

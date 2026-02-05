@@ -65,7 +65,6 @@ public class Music {//Music情報格納
 	public void setId(int id) { this.id = id; }
 
 	public String getTitle() {
-		System.out.println( "タイトルは【"+title+"】でござんす");
 		return title;
 	}
 	public void setTitle(String title) { this.title = title; }
@@ -76,7 +75,6 @@ public class Music {//Music情報格納
 	public void setGenre(String genre) { this.genre = genre; }
 
 	public String getArtist() {
-		System.out.println( "アーティスト名は【"+artist+"】でござんす"); 
 		return artist;
 	}
 	public void setArtist(String artist) { this.artist = artist; }

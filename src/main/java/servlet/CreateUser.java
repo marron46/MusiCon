@@ -35,7 +35,7 @@ public class CreateUser extends HttpServlet {
 		String Hr_user_pass = request.getParameter("user_pass");
 
 		if (Hr_user_pass == null || Hr_user_pass.isEmpty()) {
-			System.out.println("値が空です");
+			System.out.println("servlet/CreateUser｜値が空です");
 			return;
 		}
 		// ハッシュ化
@@ -51,15 +51,12 @@ public class CreateUser extends HttpServlet {
 			// セッションスコープにユーザーIDを保存
 			HttpSession session = request.getSession();
 			session.setAttribute("user_name", user_name);
-			System.out.println(user_name);
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/createResult.jsp");
 			dispatcher.forward(request, response);
-			System.out.println("でけた！");
 		} else { // 新規ユーザー登録失敗時
 			// リダイレクト
 			response.sendRedirect(request.getContextPath() + "/CreateUser");
-			System.out.println("ろぐいんできない");
 		}
 	}
 

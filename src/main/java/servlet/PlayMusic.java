@@ -11,9 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import dao.PlaylistDAO;
 import model.Music;
 import model.User;
-import dao.PlaylistDAO;
 import service.PlayMusicService;
 
 @WebServlet({"/PlayMusic"})
@@ -37,15 +37,11 @@ public class PlayMusic extends HttpServlet {
 		String posStr = request.getParameter("pos");
 		String actionStr = request.getParameter("action"); // next / prev
 
-		System.out.println("idStr: " + idStr + ", urlStr: " + urlStr + ", nextStr: " + nextStr + ", prevStr: " + prevStr
-				+ ", playlistMode: " + playlistModeStr + ", pos: " + posStr + ", action: " + actionStr);
-
 		if (idStr == null && urlStr == null && nextStr == null && prevStr == null
 				&& playlistModeStr == null && posStr == null && actionStr == null) {
 			// ログインチェック
 			HttpSession session = request.getSession();
 			String userName = (String) session.getAttribute("user_name");
-			System.out.println("userName:" + userName);
 			if (userName == null) {
 				response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
 				return;
@@ -54,11 +50,9 @@ public class PlayMusic extends HttpServlet {
 			List<Music> musicList = service.getMusicList();
 			// セッションスコープに保存
 			session.setAttribute("musicList", musicList);
-			System.out.println("DAOからとってきた曲リスト" + musicList);
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/top.jsp");
 			dispatcher.forward(request, response);
-			System.out.println("曲がないのでtopに戻ります");
 
 		} else {
 			// ログインチェック
@@ -72,7 +66,6 @@ public class PlayMusic extends HttpServlet {
 			Music music = null;
 
 			boolean isPlaylistMode = "true".equals(playlistModeStr);
-			System.out.println("isPlaylistMode:" + isPlaylistMode);
 
 			// プレイリスト再生モード
 			if (isPlaylistMode) {
@@ -155,7 +148,6 @@ public class PlayMusic extends HttpServlet {
 			// フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/playMusic.jsp");
 			dispatcher.forward(request, response);
-			System.out.println("曲とばすことはでけた！");
 		}
 	}
 
