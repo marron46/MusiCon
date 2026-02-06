@@ -323,15 +323,15 @@ public class MusicDAO {
 	private List<Music> executeSearch(String sql, Object... params) {
 	    List<Music> list = new ArrayList<>();
 
-	    
 	    try (Connection con = DatabaseConnection.getConnection();
 	         PreparedStatement ps = con.prepareStatement(sql)) {
 
 	        for (int i = 0; i < params.length; i++) {
 	            ps.setObject(i + 1, params[i]);
 	        }
-	        System.out.println(ps);
+	        
 	        ResultSet rs = ps.executeQuery();
+	       
 	        while (rs.next()) {
 	            Music m = new Music();
 	            m.setId(rs.getInt("id"));
@@ -340,11 +340,11 @@ public class MusicDAO {
 	            m.setReleaseY(rs.getInt("release_y"));
 	            m.setGenre(rs.getString("genre"));
 	            list.add(m);
+	            
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-
 	    return list;
 	}
 
