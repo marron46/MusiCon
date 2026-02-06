@@ -19,21 +19,18 @@
   <a href="${pageContext.request.contextPath}//index.jsp" class="top-btn">TOP</a>
   <img src="${pageContext.request.contextPath}/png/MusiConLogo.png"
 		class="icon" width="80" alt="ロゴアイコン">
-    <div class="logo">MUSICON Co.</div>
-    <div class="sub">企業情報</div>
+    <div class="logo">MUSICON Co. 企業情報</div>
   </header>
 
   <!-- hero -->
   <section class="hero">
     <div class="hero-text">
       <h1>
-        Singing people.<br>
-        Singing the future.
+        MUSICONの使命は世界中の<br>
+        音楽を窃取し、世界中の人々が<br>
+        アクセスできて使えるように<br>
+        することです(笑)
       </h1>
-      <p>
-        音楽で未来を創る。<br>
-        音楽で可能性を拓く。
-      </p>
     </div>
     <div class="hero-image">
     <img src="${pageContext.request.contextPath}/png/MusiConRecruit.png"
@@ -43,42 +40,27 @@
   <!-- info grid -->
   <section class="info-grid">
     <div class="card">
-      <div class="label">募集職種</div>
+      <div class="label">人材募集</div>
       <div class="value">
-        ミュージシャン<br>
-        SE / Webデザイナー<br>
-        広報職（広報ツールの作成）
+      	Musiconは私たちと一緒に働いてくれる方を募集しています。<br><br>
+      	<a href="${pageContext.request.contextPath}/jsp/recruit.jsp" class="work-btn">共に働く</a></p>
       </div>
     </div>
 
     <div class="card">
-      <div class="label">募集人数</div>
-      <div class="value">大多数</div>
-    </div>
-
-    <div class="card">
-      <div class="label">応募資格</div>
+      <div class="label">所在地</div>
       <div class="value">
-        2026年3月31日に修了・卒業見込みの<br>
-        高校・中学校の方
-      </div>
+      	東京本社：東京都千代田区千代田1-1<br>
+      	福岡支部：福岡県北九州市小倉南区若園５丁目１−１<br>
+      	南極支部：XHWJ+6VW 昭和基地 Showa Station</div>
+      	
     </div>
 
     <div class="card">
-      <div class="label">形態</div>
-      <div class="value">正職員 / パート・アルバイト</div>
-    </div>
-
-    <div class="card">
-      <div class="label">勤務時間</div>
-      <div class="value">09:15〜10:45（遅刻禁止）</div>
-    </div>
-
-    <div class="card">
-      <div class="label">給与</div>
+      <div class="label">お問い合わせ</div>
       <div class="value">
-        高卒：421,980円<br>
-        中卒：381,980円
+        電話番号：0261-0273-0236<br>
+        インスタ：@MusiconOfficial
       </div>
     </div>
   </section>
