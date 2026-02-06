@@ -48,9 +48,9 @@ public class MusicList extends HttpServlet {
 		String maxYearStr = request.getParameter("maxYear");
 		String genre = request.getParameter("genre");
 
-		System.out.println("MusicList minYear"+minYearStr);
-		System.out.println("MusicList maxYear"+maxYearStr);
-		System.out.println("MusicList genre  "+genre);
+		System.out.println("MusicList minYear:"+minYearStr);
+		System.out.println("MusicList maxYear:"+maxYearStr);
+		System.out.println("MusicList genre  :"+genre);
 
 		PlayMusicService service = new PlayMusicService();
 		List<Music> musicList;

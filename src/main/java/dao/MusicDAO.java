@@ -323,6 +323,7 @@ public class MusicDAO {
 	private List<Music> executeSearch(String sql, Object... params) {
 	    List<Music> list = new ArrayList<>();
 
+	    
 	    try (Connection con = DatabaseConnection.getConnection();
 	         PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -348,12 +349,8 @@ public class MusicDAO {
 	}
 
 	public List<Music> searchByYear(int minYear, int maxYear) {
-	    String sql = """
-	        SELECT * FROM music  
-	       WHERE release_y BETWEEN ? AND ? 
-	        ORDER BY id DESC
-	        
-	    	"""
+	    String sql = 
+	        "SELECT * FROM music WHERE release_y BETWEEN ? AND ? ORDER BY id DESC"
 	    ;
 	    System.out.println(sql);
 
@@ -361,15 +358,11 @@ public class MusicDAO {
 	}
 
 	public List<Music> searchByYearAndGenre(int minYear, int maxYear, String genre) {
-	    String sql =  """
-	        "SELECT * FROM music
-	        WHERE release_y BETWEEN ? AND ?
-	          AND genre = ?
-	        ORDER BY id DESC"
-	        
-	   	"""
+	    String sql =  
+	        "SELECT * FROM music WHERE release_y BETWEEN ? AND ? AND genre = ? ORDER BY id DESC"
 	    ;
-
+	    System.out.println(sql);
+	    
 	    return executeSearch(sql, minYear, maxYear, genre);
 	}
 
