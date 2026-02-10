@@ -67,6 +67,7 @@ if (userName == null) {
 		</ul>
 	</nav>
 
+<div class="layout">
 	<!-- 🔍 左サイドバー -->
 	<div class="sidebar">
 		<form onsubmit="return false;">
@@ -114,12 +115,13 @@ if (userName == null) {
     });
 </script>
 	<div class="container">
-		<div id="musicList">
+		<div id="musicListPart">
 			<!-- 曲一覧があった場所 -->
-			<jsp:include page="/jsp/musicListPart.jsp" />
+			<jsp:include page="jsp/musicListPart.jsp" />
 		</div>
 	</div>
 	
+</div>
 	<script>
 		const rand = function(min, max) {
 			  return Math.random() * ( max - min ) + min;

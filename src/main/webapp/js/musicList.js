@@ -74,7 +74,7 @@ function searchMusic() {
   })
     .then(res => res.text())
     .then(html => {
-      document.getElementById("musicList").innerHTML = html;
+      document.getElementById("musicListPart").innerHTML = html;
     })
     .catch(err => console.error(err));
 }
