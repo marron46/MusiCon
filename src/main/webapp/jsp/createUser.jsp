@@ -7,6 +7,8 @@
 <title>新規登録</title>
 <%-- cssの連携 --%>
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/createUser.css">
 
 </head>

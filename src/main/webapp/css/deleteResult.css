@@ -3,19 +3,12 @@
 /* ページ全体のスタイル */
 body {
 	background-color: #A997C6;
-	/* 背景カラーを薄紫に */
 	min-height: 100vh;
-	/* 画面全体の高さを最低確保 */
 	margin: 0;
-	/* 余白をリセット */
 	font-family: Arial, sans-serif;
-	/* フォント指定 */
 	display: flex;
-	/* 中央寄せのためにflexbox使用 */
 	justify-content: center;
-	/* 水平方向の中央寄せ */
 	align-items: center;
-	/* 垂直方向の中央寄せ */
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	padding: 0;
 	background: #A997C6;
@@ -24,23 +17,18 @@ body {
 /* メインコンテナ */
 .container {
 	background-color: #ffffff;
-	/* 中央ボックスの背景色（白） */
 	padding: 60px 50px 80px;
-	/* 内側余白 */
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	/* ボックスの影 */
 	width: 450px;
-	/* 横幅固定 */
 	margin: 60px auto;
 	text-align: center;
-	/* テキスト中央寄せ */
 	background: rgba(255, 255, 255, 0.35); /* 半透明 */
 	backdrop-filter: blur(22px) saturate(140%);
 	-webkit-backdrop-filter: blur(25px); /* Safari対策 */
 	border-radius: 10px;
 	position: relative;
 	transition: box-shadow 0.3s ease;
-			
+		
 	border: 1px solid rgba(180, 140, 255, 0.5);
 }
 
@@ -56,24 +44,22 @@ body {
 .message {
 	margin-bottom: 30px;
 	font-size: 1.5em;
-	/* 文字サイズ */
 	color: #555555;
-	/* 文字色 */
 	line-height: 1.5;
-	/* 行間 */
 	font-weight: normal;
-	/* 標準の太さ */
 }
+
+/* deleteResult固有: .reverse 位置 */
 .reverse {
-	position: fixed; /* 画面固定位置 */
-	top: 10px; /* 上から10px */
-	left: 10px; /* 左から10px */
+	position: fixed;
+	top: 10px;
+	left: 10px;
 }
 
 .icon {
 	width: 12vw;
-	max-width: 180px;  /*最大の幅 */
-	min-width: 60px;  /*最小の幅 */
+	max-width: 180px;
+	min-width: 60px;
 	height: auto;
 }
 
@@ -106,13 +92,3 @@ body {
 	transform: translateY(0);
 	box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
-
-/* 背景 */
-canvas {
-	position: fixed;
-	inset: 0;
-	z-index: -1;
-	pointer-events: none;
-	filter: blur(20px);
-}
-

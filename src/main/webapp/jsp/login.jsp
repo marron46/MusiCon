@@ -9,6 +9,8 @@
 	href="https://fonts.google.com/share?selection.family=Gamja+Flower"
 	rel="stylesheet">
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/login.css">
 </head>
 <body>

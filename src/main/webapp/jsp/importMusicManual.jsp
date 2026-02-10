@@ -35,7 +35,11 @@ String metadataErrorEsc = metadataError == null ? "" : metadataError.replace("&"
 <meta charset="UTF-8">
 <title>手動で曲情報を入力</title>
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/importMusic.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/miniPlayer.css">
+<meta name="ctx-path" content="${pageContext.request.contextPath}">
 </head>
 <body>
 <canvas id="canvas"></canvas>
@@ -152,5 +156,6 @@ String metadataErrorEsc = metadataError == null ? "" : metadataError.replace("&"
 		}
 		window.requestAnimationFrame(animate);
 	</script>
+<script src="${pageContext.request.contextPath}/js/miniPlayer.js?v=2"></script>
 </body>
 </html>

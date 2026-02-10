@@ -30,7 +30,7 @@ public class MusicList extends HttpServlet {
 	    List<Music> musicList = service.getMusicListByIdOrder();
 
 	    request.setAttribute("musicList", musicList);
-	    request.getRequestDispatcher("/jsp/musicListPart.jsp")
+	    request.getRequestDispatcher("/jsp/musicList.jsp")
 	        .forward(request, response);
 	}
 

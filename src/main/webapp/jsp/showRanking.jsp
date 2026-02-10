@@ -17,7 +17,11 @@ if (userName == null) {
 
 <%-- cssの連携 --%>
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/showRanking.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/miniPlayer.css">
+<meta name="ctx-path" content="${pageContext.request.contextPath}">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
@@ -307,5 +311,6 @@ if (m.getUrl() != null && !m.getUrl().isEmpty()) {
 	    }, 5000);
 	});
 	</script>
+<script src="${pageContext.request.contextPath}/js/miniPlayer.js?v=2"></script>
 </body>
 </html>

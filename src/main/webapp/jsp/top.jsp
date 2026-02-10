@@ -19,7 +19,10 @@ session.setAttribute("musicList", musicList);
 <head>
 <meta charset="UTF-8">
 <title>トップ</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/top.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/miniPlayer.css">
+<meta name="ctx-path" content="${pageContext.request.contextPath}">
 </head>
 <body>
 	<canvas id="canvas"></canvas>
@@ -250,5 +253,6 @@ session.setAttribute("musicList", musicList);
 	});
 	</script>
 
+<script src="${pageContext.request.contextPath}/js/miniPlayer.js?v=2"></script>
 </body>
 </html>

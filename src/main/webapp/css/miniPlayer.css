@@ -1,0 +1,199 @@
+/* =============================================
+   ミニプレイヤー（右下固定）
+   ============================================= */
+
+/* ▼ コンテナ */
+#mini-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 8000;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 340px;
+  max-width: calc(100vw - 40px);
+  padding: 10px 14px;
+
+  background: rgba(30, 15, 50, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+
+  color: #fff;
+  font-family: "Arial", sans-serif;
+
+  /* 出現アニメーション */
+  animation: mini-player-slide-in 0.4s ease-out;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+#mini-player.hiding {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+}
+
+@keyframes mini-player-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ▼ ジャケット画像 */
+#mini-player .mp-jacket {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#mini-player .mp-jacket img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ▼ 曲情報（タイトル + アーティスト） */
+#mini-player .mp-info {
+  flex: 1;
+  min-width: 0;          /* テキスト省略に必要 */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#mini-player .mp-title {
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#mini-player .mp-artist {
+  font-size: 11px;
+  opacity: 0.7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ▼ ボタン群 */
+#mini-player .mp-controls {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#mini-player .mp-btn {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.15s;
+  padding: 0;
+  line-height: 1;
+}
+
+#mini-player .mp-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+#mini-player .mp-btn:active {
+  transform: scale(0.95);
+}
+
+/* 「元に戻る」ボタン（アクセント） */
+#mini-player .mp-btn-return {
+  background: rgba(127, 90, 240, 0.6);
+}
+#mini-player .mp-btn-return:hover {
+  background: rgba(127, 90, 240, 0.85);
+}
+
+/* 閉じるボタン */
+#mini-player .mp-btn-close {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  position: absolute;
+  top: -6px;
+  right: -6px;
+}
+#mini-player .mp-btn-close:hover {
+  background: rgba(255, 80, 80, 0.6);
+}
+
+/* ▼ プログレスバー（下部の細いバー） */
+#mini-player .mp-progress-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 14px;
+  right: 14px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 0 0 14px 14px;
+  overflow: hidden;
+}
+
+#mini-player .mp-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #7f5af0, #a78bfa);
+  border-radius: 3px;
+  transition: width 0.3s linear;
+}
+
+/* ▼ レスポンシブ：小さい画面 */
+@media (max-width: 420px) {
+  #mini-player {
+    width: calc(100vw - 24px);
+    right: 12px;
+    bottom: 12px;
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  #mini-player .mp-jacket {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  #mini-player .mp-title {
+    font-size: 12px;
+  }
+
+  #mini-player .mp-artist {
+    font-size: 10px;
+  }
+
+  #mini-player .mp-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}

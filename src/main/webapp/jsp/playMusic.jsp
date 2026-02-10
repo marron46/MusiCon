@@ -7,8 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>曲の再生</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/playMusic.css">
-<script defer src="${pageContext.request.contextPath}/js/playMusic.js"></script>
+<script defer src="${pageContext.request.contextPath}/js/playMusic.js?v=2"></script>
 </head>
 <body>
 
@@ -31,6 +32,8 @@ if (music == null) {
     }
     return;
 }
+String userName = (String) session.getAttribute("user_name");
+if (userName == null) userName = "";
 
 String nextUrl;
 String prevUrl;
@@ -73,17 +76,61 @@ if (musicUrl != null) {
 
 <div class="reverse">
     <a href="<%=isPlaylistMode ? request.getContextPath() + "/MyPlaylist" : request.getContextPath() + "/PlayMusic"%>">
-        <img src="${pageContext.request.contextPath}/png/MusiConLogo.png" alt="TOPに戻る" class="reverse-img">
-    </a>
-</div>
-<div class="reverseStr">
-    <a href="<%=isPlaylistMode ? request.getContextPath() + "/MyPlaylist" : request.getContextPath() + "/PlayMusic"%>">
-        <%=isPlaylistMode ? "プレイリストへ戻る" : "TOPに戻る"%>
+        <img src="${pageContext.request.contextPath}/png/MusiConLogo.png" alt="ロゴ" class="reverse-img">
     </a>
 </div>
 
-<% String defaultJacketUrl = request.getContextPath() + "/png/MusiConLogo.png"; %>
-<div id="player-container">
+<input type="checkbox" id="menu-check" class="menu-check">
+<label for="menu-check" class="hamburger">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+</label>
+<div class="overlay"></div>
+<nav class="side-menu">
+    <ul class="user-profile">
+        <img src="${pageContext.request.contextPath}/png/musi_usericon.png" class="useri" width="36" alt="ユーザーアイコン">
+        <li><%=userName%>さん</li>
+    </ul>
+    <ul class="menu-list">
+        <li><a href="${pageContext.request.contextPath}/PlayMusic" class="menu">TOP / TOPに戻る</a></li>
+        <li><a href="${pageContext.request.contextPath}/MyPlaylist" class="menu">Playlist / プレイリスト</a></li>
+        <li><a href="${pageContext.request.contextPath}/ShowRanking" class="menu">Ranking / ランキング</a></li>
+        <li><a href="${pageContext.request.contextPath}/jsp/importMusic.jsp" class="menu">Add music / 曲アップロード</a></li>
+        <li><a href="${pageContext.request.contextPath}/MusicList" class="menu">Music list / 楽曲一覧</a></li>
+    </ul>
+    <ul class="menu-bottom">
+        <li><a href="${pageContext.request.contextPath}/Logout" class="menu logout">Log out / ログアウト</a></li>
+        <li><a href="${pageContext.request.contextPath}/jsp/deleteUser.jsp" class="menu delete">Delete account / アカウント削除</a></li>
+    </ul>
+</nav>
+<script>
+document.querySelector(".overlay").addEventListener("click", () => {
+    document.getElementById("menu-check").checked = false;
+});
+</script>
+
+<%
+String defaultJacketUrl = request.getContextPath() + "/png/MusiConLogo.png";
+/* ミニプレイヤー用の戻り先 URL を組み立て */
+String returnUrl;
+if (isPlaylistMode) {
+    returnUrl = request.getContextPath() + "/PlayMusic?playlistMode=true&pos=" + playlistPos;
+} else if (music.getUrl() != null && !music.getUrl().isEmpty()) {
+    returnUrl = request.getContextPath() + "/PlayMusic?url=" + java.net.URLEncoder.encode(music.getUrl(), "UTF-8");
+} else {
+    returnUrl = request.getContextPath() + "/PlayMusic?id=" + music.getId();
+}
+String titleEsc = music.getTitle().replace("&","&amp;").replace("\"","&quot;").replace("<","&lt;").replace(">","&gt;");
+String artistEsc = music.getArtist().replace("&","&amp;").replace("\"","&quot;").replace("<","&lt;").replace(">","&gt;");
+String jacketEsc = ((jacketUrl != null && !jacketUrl.isEmpty()) ? jacketUrl : defaultJacketUrl).replace("&","&amp;").replace("\"","&quot;");
+String returnUrlEsc = returnUrl.replace("&","&amp;").replace("\"","&quot;");
+%>
+<div id="player-container"
+     data-title="<%=titleEsc%>"
+     data-artist="<%=artistEsc%>"
+     data-jacket="<%=jacketEsc%>"
+     data-return-url="<%=returnUrlEsc%>">
     <div class="album-art">
         <img src="<%= (jacketUrl != null && !jacketUrl.isEmpty()) ? jacketUrl : defaultJacketUrl %>" alt="ジャケット" class="album-art-img"
              onerror="this.onerror=null; this.src='<%= defaultJacketUrl %>';">

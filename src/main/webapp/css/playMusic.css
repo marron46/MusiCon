@@ -12,68 +12,43 @@ body {
   padding: 30px; /* 全体に30pxのパディングを追加 */
 }
 
-
-/* ▼ ロゴ関連*/
-/* ロゴと文字全体の位置（左上に固定） */
-.reverse,
-.reverseStr {
-    position: fixed;
-    left: 10px;
-    text-align: center;
-}
-
-/* ロゴ（上側） */
+/* ▼ ロゴ（左上に固定） — common.css の .reverse を上書き */
 .reverse {
+    position: fixed;
     top: 10px;
+    left: 10px;
+    z-index: 1000;
+    margin: 0;
 }
-
-/* ロゴ画像 */
-.reverse-img {
-	width: 12vw;
-	max-width: 150px;  /*最大の幅 */
-	min-width: 60px;  /*最小の幅 */
-	height: auto;
-	margin-top: 20px; /* 上からの余白 */
-	margin-left: 15px; /* 左からの余白 */
-}
-
-
-/* ▼ TOPに戻る（ロゴの下） */
-.reverseStr {
-    top: 140px;  /* ロゴの高さに応じて調整 */
-    width: 150px; /* ロゴ画像の幅に揃えて中央揃えに */
-	font: bold;
-	margin-top: 25px;
-	padding: 5px 12px;
-	margin-left: -10px;
-}
-
-.reverseStr a:hover{
-	background-color: #ededed;
-	color: #000000;
-}
-
-/* リンク文字 */
-.reverseStr a {
-    color: black;
-    text-decoration: none;
-    font-size: 20px;
-	padding: 5px 12px;
-	border: 1px solid black;
-	border-radius: 6px;
-	display: inline-block;
-	background-color: white;
-}
-
 .reverse a:hover {
     opacity: 0.8;
 }
 
-.reverse-img:hover {
-	opacity: 0.8;
-	}
+/* ▼ common.css の canvas（背景用）を打ち消し — イコライザー用 */
+canvas {
+    position: static;
+    inset: auto;
+    z-index: auto;
+    filter: none;
+}
 
-	
+/* ▼ common.css の .marquee（音楽リスト用）を打ち消し */
+.marquee {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+}
+
+/* playMusic固有: サイドメニューの遅延 */
+.side-menu .menu-list li:nth-child(1){ transition-delay: 0.1s; }
+.side-menu .menu-list li:nth-child(2){ transition-delay: 0.2s; }
+.side-menu .menu-list li:nth-child(3){ transition-delay: 0.3s; }
+.side-menu .menu-list li:nth-child(4){ transition-delay: 0.4s; }
+.side-menu .menu-list li:nth-child(5){ transition-delay: 0.5s; }
+.side-menu .menu-bottom li:nth-child(1){ transition-delay: 0.6s; }
+.side-menu .menu-bottom li:nth-child(2){ transition-delay: 0.7s; }
+
 /* ▼ プレイヤーのコンテナ */
 .player {
   margin-top: 30px; /* 上に30pxの余白を追加 */

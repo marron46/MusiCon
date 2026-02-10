@@ -9,6 +9,8 @@
 <title>ユーザー登録結果</title>
 <!-- cssの連携 -->
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/createResult.css">
 </head>
 <body>

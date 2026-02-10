@@ -17,7 +17,11 @@ if (userName == null) {
 
 <%-- cssの連携 --%>
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/musicList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/miniPlayer.css">
+<meta name="ctx-path" content="${pageContext.request.contextPath}">
 </head>
 <body>
 	<canvas id="canvas"></canvas>
@@ -117,7 +121,7 @@ if (userName == null) {
 	<div class="container">
 		<div id="musicListPart">
 			<!-- 曲一覧があった場所 -->
-			<jsp:include page="jsp/musicListPart.jsp" />
+			<jsp:include page="/jsp/musicListPart.jsp" />
 		</div>
 	</div>
 	
@@ -239,5 +243,6 @@ if (userName == null) {
   const contextPath = "${pageContext.request.contextPath}";
 </script>
 	<script src="${pageContext.request.contextPath}/js/musicList.js"></script>
+<script src="${pageContext.request.contextPath}/js/miniPlayer.js?v=2"></script>
 </body>
 </html>

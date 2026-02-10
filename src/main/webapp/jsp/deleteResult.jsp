@@ -8,6 +8,8 @@
 <title>ユーザー削除</title>
 <%-- cssの連携 --%>
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/deleteResult.css">
 </head>
 <body>

@@ -2,13 +2,11 @@
 
 /* ページ全体の基本設定 */
 body {
-	/*background-image: url("../png/backGround.png"); /* ← 画像のパスを指定 */
 	background-size: cover;        /* 画面いっぱいに拡大縮小 */
 	background-position: center;   /* 中央に配置 */
 	background-repeat: no-repeat;  /* 繰り返しなし */
 	min-height: 100vh;  /* 画面全体の高さを確保 */
 	margin: 0;  /* ブラウザのデフォルト余白を削除 */
-	/*font-family: Arial, sans-serif;  /* 使用フォント */
 	display: flex;  /* 中央寄せに使うflexbox */
 	justify-content: center;  /* 水平方向の中央寄せ */
 	align-items: center;  /* 垂直方向の中央寄せ */
@@ -19,7 +17,6 @@ body {
 
 /* 中央の白いフォーム枠 */
 .container {
-	/*background-color: #ffffff;  /* 背景を白に */
 	padding: 40px;  /* 内側余白 */
 	box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* 柔らかい影 */
 	width: 320px;  /* ボックス幅 */
@@ -84,7 +81,7 @@ input[type="password"] {
 	background-color: #A997C6; /* ホバー時の薄い紫 */
 }
 
-/* TOP へ戻るボタン */
+/* TOP へ戻るボタン（createUser固有） */
 .reverse {
 	position: fixed; /* 画面固定位置 */
 	top: 10px; /* 上から10px */
@@ -114,13 +111,4 @@ input[type="password"] {
 	color: black; /* 文字色 */
 	text-decoration: none; /* 下線なし */
 	font-size: 24px; /* 文字サイズ */
-}
-
-/* 背景 */
-canvas {
-	position: fixed;
-	inset: 0;
-	z-index: -1;
-	pointer-events: none;
-	filter: blur(20px);
 }

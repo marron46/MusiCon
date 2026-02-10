@@ -1,5 +1,8 @@
+console.log("[playMusic] ★ スクリプト読み込み完了 ★");
+
 window.addEventListener("DOMContentLoaded", () => {
 
+  console.log("[playMusic] DOMContentLoaded 開始");
   const audio = document.getElementById("audio");
   const playBtn = document.getElementById("play");
   const loopBtn = document.getElementById("loop");
@@ -9,6 +12,86 @@ window.addEventListener("DOMContentLoaded", () => {
   const volumeSlider = document.getElementById("volume");
   const volumeIcon = document.getElementById("volume-icon");
   const canvas = document.getElementById("equalizer");
+
+  /* ── ミニプレイヤー状態管理 ── */
+  const playerContainer = document.getElementById("player-container");
+  console.log("[playMusic] DOMContentLoaded – playerContainer:", !!playerContainer);
+
+  /*  再生ページに到着 → "active" フラグだけ消す
+      （他のキーは復元用に残す） */
+  sessionStorage.removeItem("miniPlayer_active");
+
+  /* ── ミニプレイヤーから戻ってきた場合の復元 ── */
+  try {
+    const resumeFromMini = sessionStorage.getItem("miniPlayer_resumeFromMini") === "true";
+    if (resumeFromMini) {
+      console.log("[playMusic] ミニプレイヤーから復帰");
+      const savedTime = parseFloat(sessionStorage.getItem("miniPlayer_currentTime")) || 0;
+      const wasMiniPlaying = sessionStorage.getItem("miniPlayer_playing") === "true";
+
+      const doSeekAndPlay = function() {
+        if (savedTime > 0 && savedTime < audio.duration) {
+          audio.currentTime = savedTime;
+        }
+        if (wasMiniPlaying) {
+          const p = audio.play();
+          if (p && typeof p.then === "function") {
+            p.then(() => { playBtn.textContent = "⏸"; }).catch(() => {});
+          }
+        }
+      };
+      if (audio.readyState >= 1) {
+        doSeekAndPlay();
+      } else {
+        audio.addEventListener("loadedmetadata", function onMeta() {
+          audio.removeEventListener("loadedmetadata", onMeta);
+          doSeekAndPlay();
+        });
+      }
+      sessionStorage.removeItem("miniPlayer_resumeFromMini");
+    }
+  } catch(e) { console.warn("[playMusic] miniPlayer restore error:", e); }
+
+  /* ── 状態を sessionStorage に書き込むヘルパー ── */
+  function saveMiniState(setActive) {
+    try {
+      const sourceEl = audio.querySelector("source");
+      const src = (sourceEl ? sourceEl.src : "") || audio.currentSrc || audio.src || "";
+      if (!src) {
+        console.warn("[playMusic] saveMiniState: src が空のためスキップ");
+        return;
+      }
+      if (setActive) sessionStorage.setItem("miniPlayer_active", "true");
+      sessionStorage.setItem("miniPlayer_src",         src);
+      sessionStorage.setItem("miniPlayer_title",       (playerContainer && playerContainer.dataset.title)     || "");
+      sessionStorage.setItem("miniPlayer_artist",      (playerContainer && playerContainer.dataset.artist)    || "");
+      sessionStorage.setItem("miniPlayer_jacket",      (playerContainer && playerContainer.dataset.jacket)    || "");
+      sessionStorage.setItem("miniPlayer_currentTime", String(audio.currentTime));
+      sessionStorage.setItem("miniPlayer_playing",     audio.paused ? "false" : "true");
+      sessionStorage.setItem("miniPlayer_returnUrl",   (playerContainer && playerContainer.dataset.returnUrl) || location.href);
+      console.log("[playMusic] saveMiniState OK – active:", setActive, "src:", src.substring(0,60), "playing:", !audio.paused);
+    } catch(e) { console.warn("[playMusic] saveMiniState error:", e); }
+  }
+
+  /* ── 再生開始 / 停止時：全データ保存 ── */
+  audio.addEventListener("play",  () => { console.log("[playMusic] play event"); saveMiniState(true); });
+  audio.addEventListener("pause", () => { console.log("[playMusic] pause event"); saveMiniState(true); });
+
+  /* ── 再生中：currentTime を定期保存（約250msごとに発火） ── */
+  audio.addEventListener("timeupdate", () => {
+    try {
+      sessionStorage.setItem("miniPlayer_currentTime", String(audio.currentTime));
+      sessionStorage.setItem("miniPlayer_playing",     audio.paused ? "false" : "true");
+    } catch(e) {}
+  });
+
+  /* ── ページ離脱時：最終保存（beforeunload + pagehide 両方） ── */
+  function onLeave() {
+    console.log("[playMusic] onLeave (beforeunload/pagehide)");
+    saveMiniState(true);
+  }
+  window.addEventListener("beforeunload", onLeave);
+  window.addEventListener("pagehide",     onLeave);
 
   /* 再生 / 停止 */
   playBtn.addEventListener("click", () => {

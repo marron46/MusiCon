@@ -143,11 +143,3 @@ body {
     font-size: 36px;
   }
 }
-
-canvas {
-	position: fixed;
-	inset: 0;
-	z-index: -1;
-	pointer-events: none;
-	filter: blur(20px);
-}

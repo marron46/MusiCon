@@ -15,7 +15,11 @@ if (userName == null) {
 <title>曲のアップロード</title>
 <%-- cssの連携 --%>
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/common.css">
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/importMusic.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/miniPlayer.css">
+<meta name="ctx-path" content="${pageContext.request.contextPath}">
 </head>
 <body>
 <canvas id="canvas"></canvas>
@@ -217,5 +221,6 @@ if (userName == null) {
 			}
 
 			window.requestAnimationFrame(changeCanvas);</script>
+<script src="${pageContext.request.contextPath}/js/miniPlayer.js?v=2"></script>
 </body>
 </html>
