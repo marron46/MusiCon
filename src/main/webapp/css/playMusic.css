@@ -288,8 +288,8 @@ body.narrow #player-container .center-block button {
 }
 
 /* プレイリストボタン：登録済み／未登録 */
-#playlistBtn.playlist-in { background-color: #f7d358; }
-#playlistBtn.playlist-out { background-color: #dddddd; }
+.like-btn.playlist-in { background-color: #f7d358; }
+.like-btn.playlist-out { background-color: #dddddd; }
 
 
 /* ▼ シークバー関連*/

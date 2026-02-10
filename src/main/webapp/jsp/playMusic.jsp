@@ -123,17 +123,21 @@ if (musicUrl != null) {
                 <input type="range" id="volume" min="0" max="0.7" step="0.02" value="0.7">
             </div>
 
-            <form id="likeForm" action="${pageContext.request.contextPath}/LikeMusic" method="post">
-                <input type="hidden" name="id" value="<%=music.getId()%>">
-                <button id="likeBtn" type="button">いいね！ (<span id="likeCount"><%=music.getLikes()%></span>)</button>
-            </form>
+            <div class="like-bookmark-box">
+                <form id="likeForm" action="${pageContext.request.contextPath}/LikeMusic" method="post">
+                    <input type="hidden" name="id" value="<%=music.getId()%>">
+                    <button id="likeBtn" type="button" class="like-btn">
+                        いいね！ (<span id="likeCount"><%=music.getLikes()%></span>)
+                    </button>
+                </form>
 
-            <form id="playlistForm" action="${pageContext.request.contextPath}/MyPlaylist" method="post">
-                <input type="hidden" name="id" value="<%=music.getId()%>">
-                <button id="playlistBtn" type="button" class="<%= isInPlaylist ? "playlist-in" : "playlist-out" %>">
-                    <%=isInPlaylist ? "★ プレイリストから外す" : "☆ プレイリストに追加"%>
-                </button>
-            </form>
+                <form id="playlistForm" action="${pageContext.request.contextPath}/MyPlaylist" method="post">
+                    <input type="hidden" name="id" value="<%=music.getId()%>">
+                    <button id="playlistBtn" type="button" class="like-btn <%= isInPlaylist ? "playlist-in" : "playlist-out" %>">
+                        <%=isInPlaylist ? "★ プレイリストから外す" : "☆ プレイリストに追加"%>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
