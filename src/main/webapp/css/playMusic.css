@@ -12,68 +12,191 @@ body {
   padding: 30px; /* 全体に30pxのパディングを追加 */
 }
 
-
-/* ▼ ロゴ関連*/
-/* ロゴと文字全体の位置（左上に固定） */
-.reverse,
-.reverseStr {
-    position: fixed;
-    left: 10px;
-    text-align: center;
-}
-
-/* ロゴ（上側） */
+/* ▼ ロゴ（左上に固定） */
 .reverse {
+    position: fixed;
     top: 10px;
+    left: 10px;
+    z-index: 1000;
 }
-
-/* ロゴ画像 */
 .reverse-img {
-	width: 12vw;
-	max-width: 150px;  /*最大の幅 */
-	min-width: 60px;  /*最小の幅 */
-	height: auto;
-	margin-top: 20px; /* 上からの余白 */
-	margin-left: 15px; /* 左からの余白 */
+    width: 12vw;
+    max-width: 150px;
+    min-width: 60px;
+    height: auto;
+    margin-top: 20px;
+    margin-left: 15px;
 }
-
-
-/* ▼ TOPに戻る（ロゴの下） */
-.reverseStr {
-    top: 140px;  /* ロゴの高さに応じて調整 */
-    width: 150px; /* ロゴ画像の幅に揃えて中央揃えに */
-	font: bold;
-	margin-top: 25px;
-	padding: 5px 12px;
-	margin-left: -10px;
-}
-
-.reverseStr a:hover{
-	background-color: #ededed;
-	color: #000000;
-}
-
-/* リンク文字 */
-.reverseStr a {
-    color: black;
-    text-decoration: none;
-    font-size: 20px;
-	padding: 5px 12px;
-	border: 1px solid black;
-	border-radius: 6px;
-	display: inline-block;
-	background-color: white;
-}
-
 .reverse a:hover {
     opacity: 0.8;
 }
-
 .reverse-img:hover {
-	opacity: 0.8;
-	}
+    opacity: 0.8;
+}
 
-	
+/* ▼ ハンバーガーメニュー */
+.menu-check {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.hamburger {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	width: 80px;
+	height: 60px;
+	padding: 0;
+	background: rgba(255,255,255,0.75);
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: transform .2s, background .2s, box-shadow .2s;
+	z-index: 1001;
+	border-radius: 20px;
+}
+
+.hamburger:hover {
+	transform: scale(1.08);
+	background: rgba(255,255,255,1);
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.hamburger .line {
+	width: 50px;
+	height: 6px;
+	background: #333;
+	border-radius: 3px;
+	margin: 6px 0;
+	transition: 0.3s;
+}
+
+#menu-check:checked ~ .hamburger .line:nth-child(1) {
+	transform: translateY(18px) rotate(45deg);
+}
+#menu-check:checked ~ .hamburger .line:nth-child(2) {
+	opacity: 0;
+}
+#menu-check:checked ~ .hamburger .line:nth-child(3) {
+	transform: translateY(-18px) rotate(-45deg);
+}
+
+.side-menu {
+	position: fixed;
+	top: 0;
+	right: -100%;
+	width: 300px;
+	height: 100%;
+	overflow: hidden;
+	background: #ffffff;
+	transition: 0.4s;
+	padding-top: 80px;
+	z-index: 1000;
+	font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+	display: flex;
+	flex-direction: column;
+}
+
+.user-profile {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: -50px;
+	margin-left: -100px;
+}
+.user-profile .useri {
+	display: flex;
+	width: 36px;
+}
+
+.menu-list, .menu-bottom {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	margin-right: 10px;
+}
+
+.menu-bottom {
+	margin-top: auto;
+	margin-bottom: 70px;
+}
+
+#menu-check:checked ~ .side-menu {
+	right: 0;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.3s;
+	z-index: 900;
+}
+#menu-check:checked ~ .overlay {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.side-menu ul {
+	list-style: none;
+	padding: 0;
+}
+
+.side-menu li {
+	list-style: none;
+	color: #000000;
+}
+
+.side-menu a.logout {
+	color: #FF0000;
+}
+
+.side-menu a.delete {
+	color: #BA0000;
+	font-weight: bold;
+}
+
+.side-menu li a {
+	display: flex;
+	background: #ffffff;
+	color: #000000;
+	padding: 12px 15px;
+	margin: 10px 0;
+	width: 100%;
+	height: 50px;
+	font-size: 14px;
+	font-weight: bold;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+.side-menu li a:hover {
+	background: rgb(128, 128, 128);
+}
+
+#menu-check:checked ~ .side-menu ul li {
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.side-menu .menu-list li:nth-child(1){ transition-delay: 0.1s; }
+.side-menu .menu-list li:nth-child(2){ transition-delay: 0.2s; }
+.side-menu .menu-list li:nth-child(3){ transition-delay: 0.3s; }
+.side-menu .menu-list li:nth-child(4){ transition-delay: 0.4s; }
+.side-menu .menu-list li:nth-child(5){ transition-delay: 0.5s; }
+.side-menu .menu-bottom li:nth-child(1){ transition-delay: 0.6s; }
+.side-menu .menu-bottom li:nth-child(2){ transition-delay: 0.7s; }
+
 /* ▼ プレイヤーのコンテナ */
 .player {
   margin-top: 30px; /* 上に30pxの余白を追加 */

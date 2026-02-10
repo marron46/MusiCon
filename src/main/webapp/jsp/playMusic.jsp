@@ -31,6 +31,8 @@ if (music == null) {
     }
     return;
 }
+String userName = (String) session.getAttribute("user_name");
+if (userName == null) userName = "";
 
 String nextUrl;
 String prevUrl;
@@ -73,14 +75,39 @@ if (musicUrl != null) {
 
 <div class="reverse">
     <a href="<%=isPlaylistMode ? request.getContextPath() + "/MyPlaylist" : request.getContextPath() + "/PlayMusic"%>">
-        <img src="${pageContext.request.contextPath}/png/MusiConLogo.png" alt="TOPに戻る" class="reverse-img">
+        <img src="${pageContext.request.contextPath}/png/MusiConLogo.png" alt="ロゴ" class="reverse-img">
     </a>
 </div>
-<div class="reverseStr">
-    <a href="<%=isPlaylistMode ? request.getContextPath() + "/MyPlaylist" : request.getContextPath() + "/PlayMusic"%>">
-        <%=isPlaylistMode ? "プレイリストへ戻る" : "TOPに戻る"%>
-    </a>
-</div>
+
+<input type="checkbox" id="menu-check" class="menu-check">
+<label for="menu-check" class="hamburger">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+</label>
+<div class="overlay"></div>
+<nav class="side-menu">
+    <ul class="user-profile">
+        <img src="${pageContext.request.contextPath}/png/musi_usericon.png" class="useri" width="36" alt="ユーザーアイコン">
+        <li><%=userName%>さん</li>
+    </ul>
+    <ul class="menu-list">
+        <li><a href="${pageContext.request.contextPath}/PlayMusic" class="menu">TOP / TOPに戻る</a></li>
+        <li><a href="${pageContext.request.contextPath}/MyPlaylist" class="menu">Playlist / プレイリスト</a></li>
+        <li><a href="${pageContext.request.contextPath}/ShowRanking" class="menu">Ranking / ランキング</a></li>
+        <li><a href="${pageContext.request.contextPath}/jsp/importMusic.jsp" class="menu">Add music / 曲アップロード</a></li>
+        <li><a href="${pageContext.request.contextPath}/MusicList" class="menu">Music list / 楽曲一覧</a></li>
+    </ul>
+    <ul class="menu-bottom">
+        <li><a href="${pageContext.request.contextPath}/Logout" class="menu logout">Log out / ログアウト</a></li>
+        <li><a href="${pageContext.request.contextPath}/jsp/deleteUser.jsp" class="menu delete">Delete account / アカウント削除</a></li>
+    </ul>
+</nav>
+<script>
+document.querySelector(".overlay").addEventListener("click", () => {
+    document.getElementById("menu-check").checked = false;
+});
+</script>
 
 <% String defaultJacketUrl = request.getContextPath() + "/png/MusiConLogo.png"; %>
 <div id="player-container">
